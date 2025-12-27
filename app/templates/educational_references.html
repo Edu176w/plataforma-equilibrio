@@ -1,0 +1,681 @@
+{% extends "base.html" %}
+
+{% block title %}Referências Bibliográficas · Literatura Científica{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title">
+            <i class="bi bi-book"></i>
+            Referências Bibliográficas
+        </div>
+        <div class="page-subtitle">
+            Literatura científica utilizada no desenvolvimento da plataforma
+        </div>
+    </div>
+    <div>
+        <button class="btn-sim btn-sim-ghost" onclick="window.location.href='{{ url_for('educational.index') }}'">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </button>
+    </div>
+</div>
+
+<!-- Estatísticas de Referências -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="ref-stat-card">
+            <div class="stat-icon">
+                <i class="bi bi-book-fill"></i>
+            </div>
+            <div class="stat-value">12</div>
+            <div class="stat-label">Livros Texto</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="ref-stat-card">
+            <div class="stat-icon">
+                <i class="bi bi-file-earmark-text"></i>
+            </div>
+            <div class="stat-value">25+</div>
+            <div class="stat-label">Artigos Científicos</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="ref-stat-card">
+            <div class="stat-icon">
+                <i class="bi bi-database"></i>
+            </div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">Bancos de Dados</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="ref-stat-card">
+            <div class="stat-icon">
+                <i class="bi bi-award"></i>
+            </div>
+            <div class="stat-value">100%</div>
+            <div class="stat-label">Peer-Reviewed</div>
+        </div>
+    </div>
+</div>
+
+<!-- Livros Texto Fundamentais -->
+<div class="panel mb-4">
+    <h3 class="section-title">
+        <i class="bi bi-book-half"></i> Livros Texto Fundamentais
+    </h3>
+    <p class="section-desc">
+        Obras de referência essenciais em termodinâmica e equilíbrio de fases
+    </p>
+
+    <div class="references-list">
+        <div class="reference-item featured">
+            <div class="ref-number">1</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Smith, J.M., Van Ness, H.C., Abbott, M.M.</strong> (2007). 
+                    <em>Introdução à Termodinâmica da Engenharia Química</em>, 7ª Edição. 
+                    LTC Editora, Rio de Janeiro.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">Termodinâmica Geral</span>
+                    <span class="ref-tag">ELV</span>
+                    <span class="ref-tag">Fugacidade</span>
+                </div>
+                <div class="ref-description">
+                    Livro texto clássico que cobre fundamentos de termodinâmica aplicada. 
+                    Utilizado principalmente nos Capítulos 10-14 sobre equilíbrio de fases 
+                    e propriedades termodinâmicas.
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item featured">
+            <div class="ref-number">2</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Prausnitz, J.M., Lichtenthaler, R.N., Azevedo, E.G.</strong> (1999). 
+                    <em>Molecular Thermodynamics of Fluid-Phase Equilibria</em>, 3rd Edition. 
+                    Prentice Hall, Upper Saddle River, NJ.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">Modelos Termodinâmicos</span>
+                    <span class="ref-tag">NRTL</span>
+                    <span class="ref-tag">UNIQUAC</span>
+                    <span class="ref-tag">UNIFAC</span>
+                </div>
+                <div class="ref-description">
+                    Referência definitiva em modelagem termodinâmica molecular. 
+                    Base para implementação dos modelos de coeficiente de atividade 
+                    (NRTL, UNIQUAC, UNIFAC) e suas formulações matemáticas.
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item">
+            <div class="ref-number">3</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Sandler, S.I.</strong> (2006). 
+                    <em>Chemical, Biochemical, and Engineering Thermodynamics</em>, 4th Edition. 
+                    John Wiley & Sons, Hoboken, NJ.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">ELV</span>
+                    <span class="ref-tag">ELL</span>
+                    <span class="ref-tag">ESL</span>
+                </div>
+                <div class="ref-description">
+                    Abordagem rigorosa de equilíbrio de fases multicomponente. 
+                    Utilizado para validação de algoritmos de cálculo.
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item">
+            <div class="ref-number">4</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Treybal, R.E.</strong> (1980). 
+                    <em>Mass Transfer Operations</em>, 3rd Edition. 
+                    McGraw-Hill, New York.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">ELL</span>
+                    <span class="ref-tag">Extração</span>
+                    <span class="ref-tag">Diagramas Ternários</span>
+                </div>
+                <div class="ref-description">
+                    Referência clássica em operações de transferência de massa. 
+                    Capítulo 8 usado para fundamentos de extração líquido-líquido.
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item">
+            <div class="ref-number">5</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Mullin, J.W.</strong> (2001). 
+                    <em>Crystallization</em>, 4th Edition. 
+                    Butterworth-Heinemann, Oxford.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">ESL</span>
+                    <span class="ref-tag">Cristalização</span>
+                    <span class="ref-tag">Solubilidade</span>
+                </div>
+                <div class="ref-description">
+                    Obra definitiva sobre cristalização industrial. 
+                    Capítulos 5-6 utilizados para fundamentos de equilíbrio sólido-líquido.
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item">
+            <div class="ref-number">6</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Seider, W.D., Lewin, D.R., Seader, J.D., Widagdo, S., Gani, R., Ng, K.M.</strong> (2017). 
+                    <em>Product and Process Design Principles: Synthesis, Analysis and Evaluation</em>, 4th Edition. 
+                    John Wiley & Sons, Hoboken, NJ.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">Projeto de Processos</span>
+                    <span class="ref-tag">Destilação</span>
+                    <span class="ref-tag">Azeotropia</span>
+                </div>
+                <div class="ref-description">
+                    Aplicações práticas de equilíbrio de fases em projeto de processos químicos.
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item">
+            <div class="ref-number">7</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Henley, E.J., Seader, J.D., Roper, D.K.</strong> (2011). 
+                    <em>Separation Process Principles: Chemical and Biochemical Operations</em>, 3rd Edition. 
+                    John Wiley & Sons, Hoboken, NJ.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag">Flash</span>
+                    <span class="ref-tag">Algoritmos</span>
+                    <span class="ref-tag">Rachford-Rice</span>
+                </div>
+                <div class="ref-description">
+                    Métodos numéricos para cálculos de equilíbrio. 
+                    Capítulo 2 sobre flash isotérmico e algoritmo de Rachford-Rice.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Artigos Científicos Clássicos -->
+<div class="panel mb-4">
+    <h3 class="section-title">
+        <i class="bi bi-file-earmark-text"></i> Artigos Científicos Clássicos
+    </h3>
+    <p class="section-desc">
+        Publicações originais dos modelos termodinâmicos implementados
+    </p>
+
+    <div class="references-list">
+        <div class="reference-item article">
+            <div class="ref-number">A1</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Renon, H., Prausnitz, J.M.</strong> (1968). 
+                    "Local Compositions in Thermodynamic Excess Functions for Liquid Mixtures". 
+                    <em>AIChE Journal</em>, 14(1), 135-144.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag article-tag">Artigo Original</span>
+                    <span class="ref-tag">NRTL</span>
+                </div>
+                <div class="ref-description">
+                    <strong>Artigo original do modelo NRTL.</strong> Apresenta a formulação matemática 
+                    completa e parâmetros de interação binária. Fundamental para implementação 
+                    do modelo na plataforma.
+                </div>
+                <div class="ref-doi">
+                    <i class="bi bi-link-45deg"></i> DOI: 10.1002/aic.690140124
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item article">
+            <div class="ref-number">A2</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Abrams, D.S., Prausnitz, J.M.</strong> (1975). 
+                    "Statistical Thermodynamics of Liquid Mixtures: A New Expression for the Excess Gibbs Energy 
+                    of Partly or Completely Miscible Systems". 
+                    <em>AIChE Journal</em>, 21(1), 116-128.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag article-tag">Artigo Original</span>
+                    <span class="ref-tag">UNIQUAC</span>
+                </div>
+                <div class="ref-description">
+                    <strong>Artigo original do modelo UNIQUAC.</strong> Base teórica da separação 
+                    entre contribuições combinatorial e residual.
+                </div>
+                <div class="ref-doi">
+                    <i class="bi bi-link-45deg"></i> DOI: 10.1002/aic.690210115
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item article">
+            <div class="ref-number">A3</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Fredenslund, Aa., Jones, R.L., Prausnitz, J.M.</strong> (1975). 
+                    "Group-Contribution Estimation of Activity Coefficients in Nonideal Liquid Mixtures". 
+                    <em>AIChE Journal</em>, 21(6), 1086-1099.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag article-tag">Artigo Original</span>
+                    <span class="ref-tag">UNIFAC</span>
+                </div>
+                <div class="ref-description">
+                    <strong>Artigo original do modelo UNIFAC.</strong> Método de contribuição de grupos 
+                    funcionais para predição sem dados experimentais.
+                </div>
+                <div class="ref-doi">
+                    <i class="bi bi-link-45deg"></i> DOI: 10.1002/aic.690210607
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item article">
+            <div class="ref-number">A4</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>Rachford, H.H., Rice, J.D.</strong> (1952). 
+                    "Procedure for Use of Electronic Digital Computers in Calculating Flash Vaporization 
+                    Hydrocarbon Equilibrium". 
+                    <em>Journal of Petroleum Technology</em>, 4(10), 19-20.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag article-tag">Artigo Original</span>
+                    <span class="ref-tag">Algoritmo</span>
+                    <span class="ref-tag">Flash</span>
+                </div>
+                <div class="ref-description">
+                    <strong>Algoritmo de Rachford-Rice.</strong> Método iterativo para cálculo 
+                    de fração vaporizada em separação flash.
+                </div>
+                <div class="ref-doi">
+                    <i class="bi bi-link-45deg"></i> DOI: 10.2118/952327-G
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bancos de Dados -->
+<div class="panel mb-4">
+    <h3 class="section-title">
+        <i class="bi bi-database"></i> Bancos de Dados de Propriedades
+    </h3>
+    <p class="section-desc">
+        Fontes de dados experimentais e parâmetros termodinâmicos
+    </p>
+
+    <div class="references-list">
+        <div class="reference-item database">
+            <div class="ref-number">DB1</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>NIST Chemistry WebBook</strong> (2024). 
+                    National Institute of Standards and Technology, U.S. Department of Commerce.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag database-tag">Banco de Dados</span>
+                    <span class="ref-tag">Propriedades Puras</span>
+                </div>
+                <div class="ref-description">
+                    Propriedades termofísicas de substâncias puras: pressão de vapor, 
+                    entalpia de vaporização, capacidade calorífica, etc.
+                </div>
+                <div class="ref-link">
+                    <i class="bi bi-globe"></i> 
+                    <a href="https://webbook.nist.gov/chemistry/" target="_blank">
+                        webbook.nist.gov/chemistry
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item database">
+            <div class="ref-number">DB2</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>DDBST - Dortmund Data Bank</strong>. 
+                    DDBST GmbH, Oldenburg, Germany.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag database-tag">Banco de Dados</span>
+                    <span class="ref-tag">VLE</span>
+                    <span class="ref-tag">LLE</span>
+                    <span class="ref-tag">Parâmetros NRTL/UNIQUAC</span>
+                </div>
+                <div class="ref-description">
+                    Maior banco de dados mundial de equilíbrio de fases. Dados experimentais 
+                    de VLE, LLE e parâmetros de modelos ajustados.
+                </div>
+                <div class="ref-link">
+                    <i class="bi bi-globe"></i> 
+                    <a href="http://www.ddbst.com/" target="_blank">
+                        www.ddbst.com
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item database">
+            <div class="ref-number">DB3</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>DIPPR 801 Database</strong>. 
+                    Design Institute for Physical Properties, AIChE.
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag database-tag">Banco de Dados</span>
+                    <span class="ref-tag">Propriedades Puras</span>
+                    <span class="ref-tag">Correlações</span>
+                </div>
+                <div class="ref-description">
+                    Propriedades de substâncias puras com correlações validadas. 
+                    Usado para densidade, viscosidade, tensão superficial.
+                </div>
+                <div class="ref-link">
+                    <i class="bi bi-globe"></i> 
+                    <a href="https://dippr.aiche.org/" target="_blank">
+                        dippr.aiche.org
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bibliotecas Python -->
+<div class="panel">
+    <h3 class="section-title">
+        <i class="bi bi-code-square"></i> Bibliotecas Científicas Python
+    </h3>
+    <p class="section-desc">
+        Ferramentas computacionais utilizadas na implementação
+    </p>
+
+    <div class="references-list">
+        <div class="reference-item software">
+            <div class="ref-number">LIB1</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>thermo</strong> - Chemical properties component of Chemical Engineering Design Library (ChEDL). 
+                    Bell, C. (2016-2024).
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag software-tag">Biblioteca Python</span>
+                    <span class="ref-tag">Open Source</span>
+                </div>
+                <div class="ref-description">
+                    Biblioteca principal para cálculos de propriedades termodinâmicas e 
+                    equilíbrio de fases. Implementação de NRTL, UNIQUAC, UNIFAC.
+                </div>
+                <div class="ref-link">
+                    <i class="bi bi-github"></i> 
+                    <a href="https://github.com/CalebBell/thermo" target="_blank">
+                        github.com/CalebBell/thermo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item software">
+            <div class="ref-number">LIB2</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>chemicals</strong> - Chemical properties database and utilities. 
+                    Bell, C. (2016-2024).
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag software-tag">Biblioteca Python</span>
+                    <span class="ref-tag">Open Source</span>
+                </div>
+                <div class="ref-description">
+                    Base de dados de propriedades químicas integrada. 
+                    Fornece Tc, Pc, Tb, Tm, etc. para milhares de componentes.
+                </div>
+                <div class="ref-link">
+                    <i class="bi bi-github"></i> 
+                    <a href="https://github.com/CalebBell/chemicals" target="_blank">
+                        github.com/CalebBell/chemicals
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="reference-item software">
+            <div class="ref-number">LIB3</div>
+            <div class="ref-content">
+                <div class="ref-citation">
+                    <strong>NumPy & SciPy</strong> - Fundamental packages for scientific computing with Python. 
+                    Harris et al. (2020).
+                </div>
+                <div class="ref-tags">
+                    <span class="ref-tag software-tag">Biblioteca Python</span>
+                    <span class="ref-tag">Computação Científica</span>
+                </div>
+                <div class="ref-description">
+                    Algoritmos numéricos para resolução de sistemas não-lineares, 
+                    otimização e integração numérica.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nota de Rodapé -->
+<div class="panel mt-4" style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8;">
+    <div style="display: flex; gap: 1rem; align-items: start;">
+        <i class="bi bi-info-circle" style="color: #38bdf8; font-size: 1.5rem; flex-shrink: 0;"></i>
+        <div>
+            <h5 style="color: var(--text-strong); margin-bottom: 0.5rem;">Sobre as Referências</h5>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; line-height: 1.6;">
+                Todas as referências listadas foram consultadas durante o desenvolvimento da 
+                <strong>Equilibrium Suite</strong> como parte do Trabalho de Conclusão de Curso (TCC) 
+                de Engenharia Química da UFAL (2025). As implementações seguem rigorosamente as 
+                formulações matemáticas descritas nas fontes originais. Para citação acadêmica 
+                desta plataforma, entre em contato através do dashboard.
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Estilos de referências */
+.section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.ref-stat-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.ref-stat-card:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    transform: translateY(-2px);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: #38bdf8;
+    margin-bottom: 0.8rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 0.3rem;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+}
+
+.references-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.reference-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.reference-item:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    background: rgba(15, 23, 42, 0.6);
+}
+
+.reference-item.featured {
+    border-left: 4px solid #38bdf8;
+}
+
+.reference-item.article {
+    border-left: 4px solid #8b5cf6;
+}
+
+.reference-item.database {
+    border-left: 4px solid #22c55e;
+}
+
+.reference-item.software {
+    border-left: 4px solid #f59e0b;
+}
+
+.ref-number {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0.1));
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #38bdf8;
+}
+
+.ref-content {
+    flex: 1;
+}
+
+.ref-citation {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+}
+
+.ref-citation strong {
+    color: var(--text-strong);
+}
+
+.ref-citation em {
+    color: #7dd3fc;
+}
+
+.ref-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+}
+
+.ref-tag {
+    background: rgba(56, 189, 248, 0.15);
+    color: #7dd3fc;
+    padding: 0.25rem 0.7rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.ref-tag.article-tag {
+    background: rgba(139, 92, 246, 0.15);
+    color: #c4b5fd;
+}
+
+.ref-tag.database-tag {
+    background: rgba(34, 197, 94, 0.15);
+    color: #86efac;
+}
+
+.ref-tag.software-tag {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fcd34d;
+}
+
+.ref-description {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+}
+
+.ref-doi,
+.ref-link {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.ref-link a {
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+.ref-link a:hover {
+    text-decoration: underline;
+}
+</style>
+
+{% endblock %}

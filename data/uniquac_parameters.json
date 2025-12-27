@@ -1,0 +1,28 @@
+{
+  "binary_pairs": [
+    {
+      "component1": "Água",
+      "component2": "Etanol",
+      "a12": -137.54,
+      "a21": 199.05,
+      "temperature_unit": "K",
+      "reference": "DECHEMA"
+    },
+    {
+      "component1": "Água",
+      "component2": "Acetona",
+      "a12": -125.30,
+      "a21": 342.40,
+      "temperature_unit": "K",
+      "reference": "DECHEMA"
+    },
+    {
+      "component1": "Etanol",
+      "component2": "Benzeno",
+      "a12": 218.40,
+      "a21": -32.66,
+      "temperature_unit": "K",
+      "reference": "DECHEMA"
+    }
+  ]
+}

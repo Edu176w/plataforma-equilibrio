@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar - PhaseFlow{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon">
+                <i class="bi bi-person-plus"></i>
+            </div>
+            <h2>Criar Conta</h2>
+            <p class="text-muted-soft">Junte-se à PhaseFlow</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('auth.register') }}" class="auth-form">
+            <div class="form-group mb-3">
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="username" 
+                       name="username" 
+                       placeholder="Escolha um nome de usuário"
+                       required 
+                       autofocus>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" 
+                       class="form-control" 
+                       id="email" 
+                       name="email" 
+                       placeholder="seu@email.com"
+                       required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" 
+                       class="form-control" 
+                       id="password" 
+                       name="password" 
+                       placeholder="Mínimo 6 caracteres"
+                       required 
+                       minlength="6">
+                <small class="text-muted-soft">Mínimo 6 caracteres</small>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="password_confirm" class="form-label">Confirmar Senha</label>
+                <input type="password" 
+                       class="form-control" 
+                       id="password_confirm" 
+                       name="password_confirm" 
+                       placeholder="Digite a senha novamente"
+                       required>
+            </div>
+
+            <button type="submit" class="btn-sim btn-sim-components w-100 mb-3">
+                <i class="bi bi-person-plus"></i> Registrar
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p class="text-muted-soft mb-0">
+                Já tem uma conta? 
+                <a href="{{ url_for('auth.login') }}" class="auth-link">Fazer login</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

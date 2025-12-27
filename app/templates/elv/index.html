@@ -1,0 +1,326 @@
+﻿{% extends "base.html" %}
+
+{% block title %}ELV - Equilíbrio Líquido-Vapor{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="hero-section">
+    <h1 class="hero-title">
+        <i class="bi bi-droplet-fill"></i> ELV - Equilíbrio Líquido-Vapor
+    </h1>
+    <p class="hero-subtitle">
+        Cálculos profissionais de equilíbrio usando Peng-Robinson e modelos de atividade
+    </p>
+</div>
+
+<!-- Formulário -->
+<div class="form-section">
+    <h3 class="mb-4">
+        <i class="bi bi-calculator"></i> Configurar Cálculo
+    </h3>
+    
+    <form id="elvForm">
+        <!-- Tipo de Cálculo -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Tipo de Cálculo</label>
+                <select class="form-select form-select-custom" id="calculationType">
+                    <option value="bubble">Ponto de Bolha (P)</option>
+                    <option value="dew">Ponto de Orvalho (T)</option>
+                    <option value="flash">Flash Isotérmico</option>
+                    <option value="pxy">Diagrama P-xy</option>
+                    <option value="txy">Diagrama T-xy</option>
+                </select>
+            </div>
+            
+            <div class="col-md-6">
+                <label class="form-label">Modelo Termodinâmico</label>
+                <select class="form-select form-select-custom" id="model">
+                    <option value="PR">Peng-Robinson (Recomendado)</option>
+                    <option value="NRTL">NRTL</option>
+                    <option value="UNIQUAC">UNIQUAC</option>
+                    <option value="ideal">Ideal (Lei de Raoult)</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Componentes -->
+        <div class="mb-3">
+            <label class="form-label">Componente 1</label>
+            <input type="text" class="form-control form-control-custom" id="component1" 
+                   value="Water" placeholder="Ex: Water, Ethanol, Benzene">
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Componente 2</label>
+            <input type="text" class="form-control form-control-custom" id="component2" 
+                   value="Ethanol" placeholder="Ex: Water, Ethanol, Benzene">
+        </div>
+        
+        <!-- Composição -->
+        <div class="row mb-3" id="compositionSection">
+            <div class="col-md-6">
+                <label class="form-label">Fração Molar 1 (x₁)</label>
+                <input type="number" class="form-control form-control-custom" id="x1" 
+                       value="0.5" step="0.01" min="0" max="1">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Fração Molar 2 (x₂)</label>
+                <input type="number" class="form-control form-control-custom" id="x2" 
+                       value="0.5" step="0.01" min="0" max="1" readonly>
+            </div>
+        </div>
+        
+        <!-- Condições -->
+        <div class="row mb-3">
+            <div class="col-md-6" id="temperatureSection">
+                <label class="form-label">Temperatura (K)</label>
+                <input type="number" class="form-control form-control-custom" id="temperature" 
+                       value="353.15" step="0.01">
+            </div>
+            <div class="col-md-6" id="pressureSection" style="display: none;">
+                <label class="form-label">Pressão (Pa)</label>
+                <input type="number" class="form-control form-control-custom" id="pressure" 
+                       value="101325" step="1">
+            </div>
+        </div>
+        
+        <!-- Botões -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary-custom btn-custom">
+                <i class="bi bi-play-fill"></i> Calcular
+            </button>
+            <button type="button" class="btn btn-outline-custom btn-custom ms-2" onclick="resetForm()">
+                <i class="bi bi-arrow-clockwise"></i> Limpar
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Resultados -->
+<div id="resultsSection" style="display: none;">
+    <div class="results-section">
+        <h3 class="mb-4">
+            <i class="bi bi-clipboard-data"></i> Resultados
+        </h3>
+        <div id="resultsContent"></div>
+    </div>
+    
+    <!-- Gráfico -->
+    <div class="plot-container">
+        <h3 class="mb-4">
+            <i class="bi bi-graph-up"></i> Visualização
+        </h3>
+        <div id="plotDiv"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Auto-ajustar x2
+document.getElementById('x1').addEventListener('input', function() {
+    const x1 = parseFloat(this.value) || 0;
+    document.getElementById('x2').value = (1 - x1).toFixed(2);
+});
+
+// Mostrar/ocultar campos conforme tipo de cálculo
+document.getElementById('calculationType').addEventListener('change', function() {
+    const type = this.value;
+    const tempSection = document.getElementById('temperatureSection');
+    const pressSection = document.getElementById('pressureSection');
+    const compSection = document.getElementById('compositionSection');
+    
+    if (type === 'pxy') {
+        tempSection.style.display = 'block';
+        pressSection.style.display = 'none';
+        compSection.style.display = 'none';
+    } else if (type === 'txy') {
+        tempSection.style.display = 'none';
+        pressSection.style.display = 'block';
+        compSection.style.display = 'none';
+    } else if (type === 'flash') {
+        tempSection.style.display = 'block';
+        pressSection.style.display = 'block';
+        compSection.style.display = 'block';
+    } else {
+        tempSection.style.display = 'block';
+        pressSection.style.display = 'none';
+        compSection.style.display = 'block';
+    }
+});
+
+// Submit do formulário
+document.getElementById('elvForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    loadingOverlay.style.display = 'flex';
+    
+    const type = document.getElementById('calculationType').value;
+    const model = document.getElementById('model').value;
+    const comp1 = document.getElementById('component1').value;
+    const comp2 = document.getElementById('component2').value;
+    
+    let endpoint, data;
+    
+    if (type === 'bubble') {
+        endpoint = '/elv/bubble-point-pro';
+        data = {
+            components: [comp1, comp2],
+            x: [parseFloat(document.getElementById('x1').value), 
+                parseFloat(document.getElementById('x2').value)],
+            temperature: parseFloat(document.getElementById('temperature').value),
+            model: model
+        };
+    } else if (type === 'flash') {
+        endpoint = '/elv/flash-pro';
+        data = {
+            components: [comp1, comp2],
+            z: [parseFloat(document.getElementById('x1').value), 
+                parseFloat(document.getElementById('x2').value)],
+            temperature: parseFloat(document.getElementById('temperature').value),
+            pressure: parseFloat(document.getElementById('pressure').value),
+            model: model
+        };
+    } else if (type === 'pxy') {
+        endpoint = '/elv/pxy-diagram-pro';
+        data = {
+            components: [comp1, comp2],
+            temperature: parseFloat(document.getElementById('temperature').value),
+            model: model,
+            n_points: 30
+        };
+    }
+    
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            displayResults(result.result, type);
+        } else {
+            alert('Erro: ' + result.error);
+        }
+    } catch (error) {
+        alert('Erro na requisição: ' + error);
+    } finally {
+        loadingOverlay.style.display = 'none';
+    }
+});
+
+function displayResults(result, type) {
+    const resultsSection = document.getElementById('resultsSection');
+    const resultsContent = document.getElementById('resultsContent');
+    
+    resultsSection.style.display = 'block';
+    
+    if (type === 'bubble') {
+        resultsContent.innerHTML = 
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="result-item">
+                        <div class="result-label">Pressão</div>
+                        <div class="result-value"> kPa</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="result-item">
+                        <div class="result-label">y₁ (vapor)</div>
+                        <div class="result-value"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="result-item">
+                        <div class="result-label">y₂ (vapor)</div>
+                        <div class="result-value"></div>
+                    </div>
+                </div>
+            </div>
+        ;
+    } else if (type === 'flash') {
+        resultsContent.innerHTML = 
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="result-item">
+                        <div class="result-label">Fração Vapor (β)</div>
+                        <div class="result-value"></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="result-item">
+                        <div class="result-label">x₁ (líquido)</div>
+                        <div class="result-value"></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="result-item">
+                        <div class="result-label">y₁ (vapor)</div>
+                        <div class="result-value"></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="result-item">
+                        <div class="result-label">Fase</div>
+                        <div class="result-value"></div>
+                    </div>
+                </div>
+            </div>
+        ;
+    } else if (type === 'pxy') {
+        resultsContent.innerHTML = 
+            <div class="alert alert-info-custom">
+                <i class="bi bi-info-circle"></i> 
+                Diagrama P-xy gerado com  pontos
+            </div>
+        ;
+        
+        plotPxyDiagram(result);
+    }
+    
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function plotPxyDiagram(result) {
+    const trace1 = {
+        x: result.x,
+        y: result.P_bubble.map(p => p / 1000),
+        mode: 'lines+markers',
+        name: 'Líquido',
+        line: { color: '#2563eb', width: 3 }
+    };
+    
+    const trace2 = {
+        x: result.y,
+        y: result.P_bubble.map(p => p / 1000),
+        mode: 'lines+markers',
+        name: 'Vapor',
+        line: { color: '#7c3aed', width: 3 }
+    };
+    
+    const layout = {
+        title: Diagrama P-xy:  - ,
+        xaxis: { title: x₁, y₁ () },
+        yaxis: { title: 'Pressão (kPa)' },
+        hovermode: 'closest'
+    };
+    
+    Plotly.newPlot('plotDiv', [trace1, trace2], layout);
+}
+
+function resetForm() {
+    document.getElementById('elvForm').reset();
+    document.getElementById('x1').value = '0.5';
+    document.getElementById('x2').value = '0.5';
+    document.getElementById('resultsSection').style.display = 'none';
+}
+</script>
+{% endblock %}

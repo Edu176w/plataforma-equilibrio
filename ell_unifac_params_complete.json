@@ -1,0 +1,1549 @@
+{
+  "group_params": {
+    "1": {
+      "subgroup_id": 1,
+      "subgroup_name": "<CH3>",
+      "main_group_id": 1,
+      "R": 0.9011,
+      "Q": 0.848
+    },
+    "2": {
+      "subgroup_id": 2,
+      "subgroup_name": "<CH2>",
+      "main_group_id": 1,
+      "R": 0.6744,
+      "Q": 0.54
+    },
+    "3": {
+      "subgroup_id": 3,
+      "subgroup_name": "<CH>",
+      "main_group_id": 1,
+      "R": 0.4469,
+      "Q": 0.228
+    },
+    "4": {
+      "subgroup_id": 4,
+      "subgroup_name": "<C>",
+      "main_group_id": 1,
+      "R": 0.2195,
+      "Q": 0.0
+    },
+    "5": {
+      "subgroup_id": 5,
+      "subgroup_name": "<CH2=CH>",
+      "main_group_id": 2,
+      "R": 1.3454,
+      "Q": 1.176
+    },
+    "6": {
+      "subgroup_id": 6,
+      "subgroup_name": "<CH=CH>",
+      "main_group_id": 2,
+      "R": 1.1167,
+      "Q": 0.867
+    },
+    "7": {
+      "subgroup_id": 7,
+      "subgroup_name": "<CH2=C>",
+      "main_group_id": 2,
+      "R": 1.1173,
+      "Q": 0.988
+    },
+    "8": {
+      "subgroup_id": 8,
+      "subgroup_name": "<CH=C>",
+      "main_group_id": 2,
+      "R": 0.8886,
+      "Q": 0.676
+    },
+    "9": {
+      "subgroup_id": 9,
+      "subgroup_name": "<ACH>",
+      "main_group_id": 3,
+      "R": 0.5313,
+      "Q": 0.4
+    },
+    "10": {
+      "subgroup_id": 10,
+      "subgroup_name": "<AC>",
+      "main_group_id": 3,
+      "R": 0.3652,
+      "Q": 0.12
+    },
+    "11": {
+      "subgroup_id": 11,
+      "subgroup_name": "<ACCH3>",
+      "main_group_id": 4,
+      "R": 1.2663,
+      "Q": 0.968
+    },
+    "12": {
+      "subgroup_id": 12,
+      "subgroup_name": "<ACCH2>",
+      "main_group_id": 4,
+      "R": 1.0396,
+      "Q": 0.66
+    },
+    "13": {
+      "subgroup_id": 13,
+      "subgroup_name": "<ACCH>",
+      "main_group_id": 4,
+      "R": 0.8121,
+      "Q": 0.348
+    },
+    "14": {
+      "subgroup_id": 14,
+      "subgroup_name": "<OH>",
+      "main_group_id": 5,
+      "R": 1.0,
+      "Q": 1.2
+    },
+    "15": {
+      "subgroup_id": 15,
+      "subgroup_name": "<CH3OH>",
+      "main_group_id": 6,
+      "R": 1.4311,
+      "Q": 1.432
+    },
+    "16": {
+      "subgroup_id": 16,
+      "subgroup_name": "<H2O>",
+      "main_group_id": 7,
+      "R": 0.92,
+      "Q": 1.4
+    },
+    "17": {
+      "subgroup_id": 17,
+      "subgroup_name": "<ACOH>",
+      "main_group_id": 8,
+      "R": 0.8952,
+      "Q": 0.68
+    },
+    "18": {
+      "subgroup_id": 18,
+      "subgroup_name": "<CH3CO>",
+      "main_group_id": 9,
+      "R": 1.6724,
+      "Q": 1.488
+    },
+    "19": {
+      "subgroup_id": 19,
+      "subgroup_name": "<CH2CO>",
+      "main_group_id": 9,
+      "R": 1.4457,
+      "Q": 1.18
+    },
+    "20": {
+      "subgroup_id": 20,
+      "subgroup_name": "<CHO>",
+      "main_group_id": 10,
+      "R": 0.998,
+      "Q": 0.948
+    },
+    "21": {
+      "subgroup_id": 21,
+      "subgroup_name": "<CH3COO>",
+      "main_group_id": 11,
+      "R": 1.9031,
+      "Q": 1.728
+    },
+    "22": {
+      "subgroup_id": 22,
+      "subgroup_name": "<CH2COO>",
+      "main_group_id": 11,
+      "R": 1.6764,
+      "Q": 1.42
+    },
+    "23": {
+      "subgroup_id": 23,
+      "subgroup_name": "<HCOO>",
+      "main_group_id": 12,
+      "R": 1.242,
+      "Q": 1.188
+    },
+    "24": {
+      "subgroup_id": 24,
+      "subgroup_name": "<CH3O>",
+      "main_group_id": 13,
+      "R": 1.145,
+      "Q": 1.088
+    },
+    "25": {
+      "subgroup_id": 25,
+      "subgroup_name": "<CH2O>",
+      "main_group_id": 13,
+      "R": 0.9183,
+      "Q": 0.78
+    },
+    "26": {
+      "subgroup_id": 26,
+      "subgroup_name": "<CHO>",
+      "main_group_id": 13,
+      "R": 0.6908,
+      "Q": 0.468
+    },
+    "27": {
+      "subgroup_id": 27,
+      "subgroup_name": "<THF>",
+      "main_group_id": 13,
+      "R": 0.9183,
+      "Q": 1.1
+    },
+    "28": {
+      "subgroup_id": 28,
+      "subgroup_name": "<CH3NH2>",
+      "main_group_id": 14,
+      "R": 1.5959,
+      "Q": 1.544
+    },
+    "29": {
+      "subgroup_id": 29,
+      "subgroup_name": "<CH2NH2>",
+      "main_group_id": 14,
+      "R": 1.3692,
+      "Q": 1.236
+    },
+    "30": {
+      "subgroup_id": 30,
+      "subgroup_name": "<CHNH2>",
+      "main_group_id": 14,
+      "R": 1.1417,
+      "Q": 0.924
+    },
+    "31": {
+      "subgroup_id": 31,
+      "subgroup_name": "<CH3NH>",
+      "main_group_id": 15,
+      "R": 1.4337,
+      "Q": 1.244
+    },
+    "32": {
+      "subgroup_id": 32,
+      "subgroup_name": "<CH2NH>",
+      "main_group_id": 15,
+      "R": 1.207,
+      "Q": 0.936
+    },
+    "33": {
+      "subgroup_id": 33,
+      "subgroup_name": "<CHNH>",
+      "main_group_id": 15,
+      "R": 0.9795,
+      "Q": 0.624
+    },
+    "34": {
+      "subgroup_id": 34,
+      "subgroup_name": "<CH3N>",
+      "main_group_id": 16,
+      "R": 1.1865,
+      "Q": 0.94
+    },
+    "35": {
+      "subgroup_id": 35,
+      "subgroup_name": "<CH2N>",
+      "main_group_id": 16,
+      "R": 0.9597,
+      "Q": 0.632
+    },
+    "36": {
+      "subgroup_id": 36,
+      "subgroup_name": "<ACNH2>",
+      "main_group_id": 17,
+      "R": 1.06,
+      "Q": 0.816
+    },
+    "37": {
+      "subgroup_id": 37,
+      "subgroup_name": "<C5H5N>",
+      "main_group_id": 18,
+      "R": 2.9993,
+      "Q": 2.113
+    },
+    "38": {
+      "subgroup_id": 38,
+      "subgroup_name": "<C5H4N>",
+      "main_group_id": 18,
+      "R": 2.8332,
+      "Q": 1.833
+    },
+    "39": {
+      "subgroup_id": 39,
+      "subgroup_name": "<C5H3N>",
+      "main_group_id": 18,
+      "R": 2.667,
+      "Q": 1.553
+    },
+    "40": {
+      "subgroup_id": 40,
+      "subgroup_name": "<CH3CN>",
+      "main_group_id": 19,
+      "R": 1.8701,
+      "Q": 1.724
+    },
+    "41": {
+      "subgroup_id": 41,
+      "subgroup_name": "<CH2CN>",
+      "main_group_id": 19,
+      "R": 1.6434,
+      "Q": 1.416
+    },
+    "42": {
+      "subgroup_id": 42,
+      "subgroup_name": "<COOH>",
+      "main_group_id": 20,
+      "R": 1.3013,
+      "Q": 1.224
+    },
+    "43": {
+      "subgroup_id": 43,
+      "subgroup_name": "<HCOOH>",
+      "main_group_id": 20,
+      "R": 1.528,
+      "Q": 1.532
+    },
+    "44": {
+      "subgroup_id": 44,
+      "subgroup_name": "<CH2CL>",
+      "main_group_id": 21,
+      "R": 1.4654,
+      "Q": 1.264
+    },
+    "45": {
+      "subgroup_id": 45,
+      "subgroup_name": "<CHCL>",
+      "main_group_id": 21,
+      "R": 1.238,
+      "Q": 0.952
+    },
+    "46": {
+      "subgroup_id": 46,
+      "subgroup_name": "<CCL>",
+      "main_group_id": 21,
+      "R": 1.0106,
+      "Q": 0.724
+    },
+    "47": {
+      "subgroup_id": 47,
+      "subgroup_name": "<CH2CL2>",
+      "main_group_id": 22,
+      "R": 2.2564,
+      "Q": 1.988
+    },
+    "48": {
+      "subgroup_id": 48,
+      "subgroup_name": "<CHCL2>",
+      "main_group_id": 22,
+      "R": 2.0606,
+      "Q": 1.684
+    },
+    "49": {
+      "subgroup_id": 49,
+      "subgroup_name": "<CCL2>",
+      "main_group_id": 22,
+      "R": 1.8016,
+      "Q": 1.448
+    },
+    "50": {
+      "subgroup_id": 50,
+      "subgroup_name": "<CHCL3>",
+      "main_group_id": 23,
+      "R": 2.87,
+      "Q": 2.41
+    },
+    "51": {
+      "subgroup_id": 51,
+      "subgroup_name": "<CCL3>",
+      "main_group_id": 23,
+      "R": 2.6401,
+      "Q": 2.184
+    },
+    "52": {
+      "subgroup_id": 52,
+      "subgroup_name": "<CCL4>",
+      "main_group_id": 24,
+      "R": 3.39,
+      "Q": 2.91
+    },
+    "53": {
+      "subgroup_id": 53,
+      "subgroup_name": "<ACCL>",
+      "main_group_id": 25,
+      "R": 1.1562,
+      "Q": 0.844
+    },
+    "54": {
+      "subgroup_id": 54,
+      "subgroup_name": "<CH3NO2>",
+      "main_group_id": 26,
+      "R": 2.0086,
+      "Q": 1.868
+    },
+    "55": {
+      "subgroup_id": 55,
+      "subgroup_name": "<CH2NO2>",
+      "main_group_id": 26,
+      "R": 1.7818,
+      "Q": 1.56
+    },
+    "56": {
+      "subgroup_id": 56,
+      "subgroup_name": "<CHNO2>",
+      "main_group_id": 26,
+      "R": 1.5544,
+      "Q": 1.248
+    },
+    "57": {
+      "subgroup_id": 57,
+      "subgroup_name": "<ACNO2>",
+      "main_group_id": 27,
+      "R": 1.4199,
+      "Q": 1.104
+    },
+    "58": {
+      "subgroup_id": 58,
+      "subgroup_name": "<CS2>",
+      "main_group_id": 28,
+      "R": 2.057,
+      "Q": 1.65
+    },
+    "59": {
+      "subgroup_id": 59,
+      "subgroup_name": "<CH3SH>",
+      "main_group_id": 29,
+      "R": 1.877,
+      "Q": 1.676
+    },
+    "60": {
+      "subgroup_id": 60,
+      "subgroup_name": "<CH2SH>",
+      "main_group_id": 29,
+      "R": 1.651,
+      "Q": 1.368
+    },
+    "61": {
+      "subgroup_id": 61,
+      "subgroup_name": "<FURFURAL>",
+      "main_group_id": 30,
+      "R": 3.168,
+      "Q": 2.484
+    },
+    "62": {
+      "subgroup_id": 62,
+      "subgroup_name": "<DOH>",
+      "main_group_id": 31,
+      "R": 2.4088,
+      "Q": 2.248
+    },
+    "63": {
+      "subgroup_id": 63,
+      "subgroup_name": "<I>",
+      "main_group_id": 32,
+      "R": 1.264,
+      "Q": 0.992
+    },
+    "64": {
+      "subgroup_id": 64,
+      "subgroup_name": "<BR>",
+      "main_group_id": 33,
+      "R": 0.9492,
+      "Q": 0.832
+    },
+    "65": {
+      "subgroup_id": 65,
+      "subgroup_name": "<CH=-C>",
+      "main_group_id": 34,
+      "R": 1.292,
+      "Q": 1.088
+    },
+    "66": {
+      "subgroup_id": 66,
+      "subgroup_name": "<C=-C>",
+      "main_group_id": 34,
+      "R": 1.0613,
+      "Q": 0.784
+    },
+    "67": {
+      "subgroup_id": 67,
+      "subgroup_name": "<DMSO>",
+      "main_group_id": 35,
+      "R": 2.8266,
+      "Q": 2.472
+    },
+    "68": {
+      "subgroup_id": 68,
+      "subgroup_name": "<ACRY>",
+      "main_group_id": 36,
+      "R": 2.3144,
+      "Q": 2.052
+    },
+    "69": {
+      "subgroup_id": 69,
+      "subgroup_name": "<CL-(C=C)>",
+      "main_group_id": 37,
+      "R": 0.791,
+      "Q": 0.724
+    },
+    "70": {
+      "subgroup_id": 70,
+      "subgroup_name": "<C=C>",
+      "main_group_id": 2,
+      "R": 0.6605,
+      "Q": 0.485
+    },
+    "71": {
+      "subgroup_id": 71,
+      "subgroup_name": "<ACF>",
+      "main_group_id": 38,
+      "R": 0.6948,
+      "Q": 0.524
+    },
+    "72": {
+      "subgroup_id": 72,
+      "subgroup_name": "<DMF>",
+      "main_group_id": 39,
+      "R": 3.0856,
+      "Q": 2.736
+    },
+    "73": {
+      "subgroup_id": 73,
+      "subgroup_name": "<HCON(CH2)2>",
+      "main_group_id": 39,
+      "R": 2.6322,
+      "Q": 2.12
+    },
+    "74": {
+      "subgroup_id": 74,
+      "subgroup_name": "<CF3>",
+      "main_group_id": 40,
+      "R": 1.406,
+      "Q": 1.38
+    },
+    "75": {
+      "subgroup_id": 75,
+      "subgroup_name": "<CF2>",
+      "main_group_id": 40,
+      "R": 1.0105,
+      "Q": 0.92
+    },
+    "76": {
+      "subgroup_id": 76,
+      "subgroup_name": "<CF>",
+      "main_group_id": 40,
+      "R": 0.615,
+      "Q": 0.46
+    },
+    "77": {
+      "subgroup_id": 77,
+      "subgroup_name": "<COO>",
+      "main_group_id": 41,
+      "R": 1.38,
+      "Q": 1.2
+    },
+    "78": {
+      "subgroup_id": 78,
+      "subgroup_name": "<SIH3>",
+      "main_group_id": 42,
+      "R": 1.6035,
+      "Q": 1.2632
+    },
+    "79": {
+      "subgroup_id": 79,
+      "subgroup_name": "<SIH2>",
+      "main_group_id": 42,
+      "R": 1.4443,
+      "Q": 1.0063
+    },
+    "80": {
+      "subgroup_id": 80,
+      "subgroup_name": "<SIH>",
+      "main_group_id": 42,
+      "R": 1.2853,
+      "Q": 0.7494
+    },
+    "81": {
+      "subgroup_id": 81,
+      "subgroup_name": "<SI>",
+      "main_group_id": 42,
+      "R": 1.047,
+      "Q": 0.4099
+    },
+    "82": {
+      "subgroup_id": 82,
+      "subgroup_name": "<SIH2O>",
+      "main_group_id": 43,
+      "R": 1.4838,
+      "Q": 1.0621
+    },
+    "83": {
+      "subgroup_id": 83,
+      "subgroup_name": "<SIHO>",
+      "main_group_id": 43,
+      "R": 1.303,
+      "Q": 0.7639
+    },
+    "84": {
+      "subgroup_id": 84,
+      "subgroup_name": "<SIO>",
+      "main_group_id": 43,
+      "R": 1.1044,
+      "Q": 0.4657
+    },
+    "85": {
+      "subgroup_id": 85,
+      "subgroup_name": "<NMP>",
+      "main_group_id": 44,
+      "R": 3.981,
+      "Q": 3.2
+    },
+    "86": {
+      "subgroup_id": 86,
+      "subgroup_name": "<CCL3F>",
+      "main_group_id": 45,
+      "R": 3.0356,
+      "Q": 2.644
+    },
+    "87": {
+      "subgroup_id": 87,
+      "subgroup_name": "<CCL2F>",
+      "main_group_id": 45,
+      "R": 2.2287,
+      "Q": 1.916
+    },
+    "88": {
+      "subgroup_id": 88,
+      "subgroup_name": "<HCCL2F>",
+      "main_group_id": 45,
+      "R": 2.406,
+      "Q": 2.116
+    },
+    "89": {
+      "subgroup_id": 89,
+      "subgroup_name": "<HCCLF>",
+      "main_group_id": 45,
+      "R": 1.6493,
+      "Q": 1.416
+    },
+    "90": {
+      "subgroup_id": 90,
+      "subgroup_name": "<CCLF2>",
+      "main_group_id": 45,
+      "R": 1.8174,
+      "Q": 1.648
+    },
+    "91": {
+      "subgroup_id": 91,
+      "subgroup_name": "<HCCLF2>",
+      "main_group_id": 45,
+      "R": 1.967,
+      "Q": 1.828
+    },
+    "92": {
+      "subgroup_id": 92,
+      "subgroup_name": "<CCLF3>",
+      "main_group_id": 45,
+      "R": 2.1721,
+      "Q": 2.1
+    },
+    "93": {
+      "subgroup_id": 93,
+      "subgroup_name": "<CCL2F2>",
+      "main_group_id": 45,
+      "R": 2.6243,
+      "Q": 2.376
+    },
+    "94": {
+      "subgroup_id": 94,
+      "subgroup_name": "<AMH2>",
+      "main_group_id": 46,
+      "R": 1.4515,
+      "Q": 1.248
+    },
+    "95": {
+      "subgroup_id": 95,
+      "subgroup_name": "<AMHCH3>",
+      "main_group_id": 46,
+      "R": 2.1905,
+      "Q": 1.796
+    },
+    "96": {
+      "subgroup_id": 96,
+      "subgroup_name": "<AMHCH2>",
+      "main_group_id": 46,
+      "R": 1.9637,
+      "Q": 1.488
+    },
+    "97": {
+      "subgroup_id": 97,
+      "subgroup_name": "<AM(CH3)2>",
+      "main_group_id": 46,
+      "R": 2.8589,
+      "Q": 2.428
+    },
+    "98": {
+      "subgroup_id": 98,
+      "subgroup_name": "<AMCH3CH2>",
+      "main_group_id": 46,
+      "R": 2.6322,
+      "Q": 2.12
+    },
+    "99": {
+      "subgroup_id": 99,
+      "subgroup_name": "<AM(CH2)2>",
+      "main_group_id": 46,
+      "R": 2.4054,
+      "Q": 1.812
+    },
+    "100": {
+      "subgroup_id": 100,
+      "subgroup_name": "<C2H5O2>",
+      "main_group_id": 47,
+      "R": 2.1226,
+      "Q": 1.904
+    },
+    "101": {
+      "subgroup_id": 101,
+      "subgroup_name": "<C2H4O2>",
+      "main_group_id": 47,
+      "R": 1.8952,
+      "Q": 1.592
+    },
+    "102": {
+      "subgroup_id": 102,
+      "subgroup_name": "<CH3S>",
+      "main_group_id": 48,
+      "R": 1.613,
+      "Q": 1.368
+    },
+    "103": {
+      "subgroup_id": 103,
+      "subgroup_name": "<CH2S>",
+      "main_group_id": 48,
+      "R": 1.3863,
+      "Q": 1.06
+    },
+    "104": {
+      "subgroup_id": 104,
+      "subgroup_name": "<CHS>",
+      "main_group_id": 48,
+      "R": 1.1589,
+      "Q": 0.748
+    },
+    "105": {
+      "subgroup_id": 105,
+      "subgroup_name": "<MORPH>",
+      "main_group_id": 49,
+      "R": 3.474,
+      "Q": 2.796
+    },
+    "106": {
+      "subgroup_id": 106,
+      "subgroup_name": "<C4H4S>",
+      "main_group_id": 50,
+      "R": 2.8569,
+      "Q": 2.14
+    },
+    "107": {
+      "subgroup_id": 107,
+      "subgroup_name": "<C4H3S>",
+      "main_group_id": 50,
+      "R": 2.6908,
+      "Q": 1.86
+    },
+    "108": {
+      "subgroup_id": 108,
+      "subgroup_name": "<C4H2S>",
+      "main_group_id": 50,
+      "R": 2.5247,
+      "Q": 1.58
+    },
+    "109": {
+      "subgroup_id": 109,
+      "subgroup_name": "<NCO>",
+      "main_group_id": 51,
+      "R": 1.0567,
+      "Q": 0.732
+    },
+    "118": {
+      "subgroup_id": 118,
+      "subgroup_name": "<(CH2)2SU>",
+      "main_group_id": 55,
+      "R": 2.6869,
+      "Q": 2.12
+    },
+    "119": {
+      "subgroup_id": 119,
+      "subgroup_name": "<CH2CHSU>",
+      "main_group_id": 55,
+      "R": 2.4595,
+      "Q": 1.808
+    },
+    "178": {
+      "subgroup_id": 178,
+      "subgroup_name": "<IMIDAZOL>",
+      "main_group_id": 84,
+      "R": 2.026,
+      "Q": 0.868
+    },
+    "179": {
+      "subgroup_id": 179,
+      "subgroup_name": "<BTI>",
+      "main_group_id": 85,
+      "R": 5.774,
+      "Q": 4.932
+    }
+  },
+  "main_groups": {
+    "1": {
+      "group_id": 1,
+      "group_name": "CH2",
+      "subgroup_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "2": {
+      "group_id": 2,
+      "group_name": "C=C",
+      "subgroup_ids": [
+        5,
+        6,
+        7,
+        8,
+        70
+      ]
+    },
+    "3": {
+      "group_id": 3,
+      "group_name": "ACH",
+      "subgroup_ids": [
+        9,
+        10
+      ]
+    },
+    "4": {
+      "group_id": 4,
+      "group_name": "ACCH2",
+      "subgroup_ids": [
+        11,
+        12,
+        13
+      ]
+    },
+    "5": {
+      "group_id": 5,
+      "group_name": "OH",
+      "subgroup_ids": [
+        14
+      ]
+    },
+    "6": {
+      "group_id": 6,
+      "group_name": "CH3OH",
+      "subgroup_ids": [
+        15
+      ]
+    },
+    "7": {
+      "group_id": 7,
+      "group_name": "H2O",
+      "subgroup_ids": [
+        16
+      ]
+    },
+    "8": {
+      "group_id": 8,
+      "group_name": "ACOH",
+      "subgroup_ids": [
+        17
+      ]
+    },
+    "9": {
+      "group_id": 9,
+      "group_name": "CH2CO",
+      "subgroup_ids": [
+        18,
+        19
+      ]
+    },
+    "10": {
+      "group_id": 10,
+      "group_name": "CHO",
+      "subgroup_ids": [
+        20
+      ]
+    },
+    "11": {
+      "group_id": 11,
+      "group_name": "CCOO",
+      "subgroup_ids": [
+        21,
+        22
+      ]
+    },
+    "12": {
+      "group_id": 12,
+      "group_name": "HCOO",
+      "subgroup_ids": [
+        23
+      ]
+    },
+    "13": {
+      "group_id": 13,
+      "group_name": "CH2O",
+      "subgroup_ids": [
+        24,
+        25,
+        26,
+        27
+      ]
+    },
+    "14": {
+      "group_id": 14,
+      "group_name": "CNH2",
+      "subgroup_ids": [
+        28,
+        29,
+        30
+      ]
+    },
+    "15": {
+      "group_id": 15,
+      "group_name": "CNH",
+      "subgroup_ids": [
+        31,
+        32,
+        33
+      ]
+    },
+    "16": {
+      "group_id": 16,
+      "group_name": "(C)3N",
+      "subgroup_ids": [
+        34,
+        35
+      ]
+    },
+    "17": {
+      "group_id": 17,
+      "group_name": "ACNH2",
+      "subgroup_ids": [
+        36
+      ]
+    },
+    "18": {
+      "group_id": 18,
+      "group_name": "PYRIDINE",
+      "subgroup_ids": [
+        37,
+        38,
+        39
+      ]
+    },
+    "19": {
+      "group_id": 19,
+      "group_name": "CCN",
+      "subgroup_ids": [
+        40,
+        41
+      ]
+    },
+    "20": {
+      "group_id": 20,
+      "group_name": "COOH",
+      "subgroup_ids": [
+        42,
+        43
+      ]
+    },
+    "21": {
+      "group_id": 21,
+      "group_name": "CCL",
+      "subgroup_ids": [
+        44,
+        45,
+        46
+      ]
+    },
+    "22": {
+      "group_id": 22,
+      "group_name": "CCL2",
+      "subgroup_ids": [
+        47,
+        48,
+        49
+      ]
+    },
+    "23": {
+      "group_id": 23,
+      "group_name": "CCL3",
+      "subgroup_ids": [
+        50,
+        51
+      ]
+    },
+    "24": {
+      "group_id": 24,
+      "group_name": "CCL4",
+      "subgroup_ids": [
+        52
+      ]
+    },
+    "25": {
+      "group_id": 25,
+      "group_name": "ACCL",
+      "subgroup_ids": [
+        53
+      ]
+    },
+    "26": {
+      "group_id": 26,
+      "group_name": "CNO2",
+      "subgroup_ids": [
+        54,
+        55,
+        56
+      ]
+    },
+    "27": {
+      "group_id": 27,
+      "group_name": "ACNO2",
+      "subgroup_ids": [
+        57
+      ]
+    },
+    "28": {
+      "group_id": 28,
+      "group_name": "CS2",
+      "subgroup_ids": [
+        58
+      ]
+    },
+    "29": {
+      "group_id": 29,
+      "group_name": "CH3SH",
+      "subgroup_ids": [
+        59,
+        60
+      ]
+    },
+    "30": {
+      "group_id": 30,
+      "group_name": "FURFURAL",
+      "subgroup_ids": [
+        61
+      ]
+    },
+    "31": {
+      "group_id": 31,
+      "group_name": "DOH",
+      "subgroup_ids": [
+        62
+      ]
+    },
+    "32": {
+      "group_id": 32,
+      "group_name": "I",
+      "subgroup_ids": [
+        63
+      ]
+    },
+    "33": {
+      "group_id": 33,
+      "group_name": "BR",
+      "subgroup_ids": [
+        64
+      ]
+    },
+    "34": {
+      "group_id": 34,
+      "group_name": "C=-C",
+      "subgroup_ids": [
+        65,
+        66
+      ]
+    },
+    "35": {
+      "group_id": 35,
+      "group_name": "DMSO",
+      "subgroup_ids": [
+        67
+      ]
+    },
+    "36": {
+      "group_id": 36,
+      "group_name": "ACRY",
+      "subgroup_ids": [
+        68
+      ]
+    },
+    "37": {
+      "group_id": 37,
+      "group_name": "CLCC",
+      "subgroup_ids": [
+        69
+      ]
+    },
+    "38": {
+      "group_id": 38,
+      "group_name": "ACF",
+      "subgroup_ids": [
+        71
+      ]
+    },
+    "39": {
+      "group_id": 39,
+      "group_name": "DMF",
+      "subgroup_ids": [
+        72,
+        73
+      ]
+    },
+    "40": {
+      "group_id": 40,
+      "group_name": "CF2",
+      "subgroup_ids": [
+        74,
+        75,
+        76
+      ]
+    },
+    "41": {
+      "group_id": 41,
+      "group_name": "COO",
+      "subgroup_ids": [
+        77
+      ]
+    },
+    "42": {
+      "group_id": 42,
+      "group_name": "SIH2",
+      "subgroup_ids": [
+        78,
+        79,
+        80,
+        81
+      ]
+    },
+    "43": {
+      "group_id": 43,
+      "group_name": "SIO",
+      "subgroup_ids": [
+        82,
+        83,
+        84
+      ]
+    },
+    "44": {
+      "group_id": 44,
+      "group_name": "NMP",
+      "subgroup_ids": [
+        85
+      ]
+    },
+    "45": {
+      "group_id": 45,
+      "group_name": "CCLF",
+      "subgroup_ids": [
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93
+      ]
+    },
+    "46": {
+      "group_id": 46,
+      "group_name": "CON(AM)",
+      "subgroup_ids": [
+        94,
+        95,
+        96,
+        97,
+        98,
+        99
+      ]
+    },
+    "47": {
+      "group_id": 47,
+      "group_name": "OCCOH",
+      "subgroup_ids": [
+        100,
+        101
+      ]
+    },
+    "48": {
+      "group_id": 48,
+      "group_name": "CH2S",
+      "subgroup_ids": [
+        102,
+        103,
+        104
+      ]
+    },
+    "49": {
+      "group_id": 49,
+      "group_name": "MORPH",
+      "subgroup_ids": [
+        105
+      ]
+    },
+    "50": {
+      "group_id": 50,
+      "group_name": "THIOPHEN",
+      "subgroup_ids": [
+        106,
+        107,
+        108
+      ]
+    },
+    "51": {
+      "group_id": 51,
+      "group_name": "NCO",
+      "subgroup_ids": [
+        109
+      ]
+    },
+    "55": {
+      "group_id": 55,
+      "group_name": "SULFONES",
+      "subgroup_ids": [
+        118,
+        119
+      ]
+    },
+    "84": {
+      "group_id": 84,
+      "group_name": "IMIDAZOL",
+      "subgroup_ids": [
+        178
+      ]
+    },
+    "85": {
+      "group_id": 85,
+      "group_name": "BTI",
+      "subgroup_ids": [
+        179
+      ]
+    }
+  },
+  "group_interactions": {},
+  "component_groups": {
+    "7732-18-5": {
+      "cas": "7732-18-5",
+      "name": "water",
+      "groups": {
+        "16": 1
+      }
+    },
+    "67-56-1": {
+      "cas": "67-56-1",
+      "name": "methanol",
+      "groups": {
+        "15": 1
+      }
+    },
+    "64-17-5": {
+      "cas": "64-17-5",
+      "name": "ethanol",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "14": 1
+      }
+    },
+    "67-63-0": {
+      "cas": "67-63-0",
+      "name": "isopropanol",
+      "groups": {
+        "1": 2,
+        "3": 1,
+        "14": 1
+      }
+    },
+    "71-23-8": {
+      "cas": "71-23-8",
+      "name": "1-propanol",
+      "groups": {
+        "1": 1,
+        "2": 2,
+        "14": 1
+      }
+    },
+    "71-36-3": {
+      "cas": "71-36-3",
+      "name": "1-butanol",
+      "groups": {
+        "1": 1,
+        "2": 3,
+        "14": 1
+      }
+    },
+    "78-83-1": {
+      "cas": "78-83-1",
+      "name": "2-methyl-1-propanol",
+      "groups": {
+        "1": 2,
+        "2": 1,
+        "3": 1,
+        "14": 1
+      }
+    },
+    "75-65-0": {
+      "cas": "75-65-0",
+      "name": "tert-butanol",
+      "groups": {
+        "1": 3,
+        "4": 1,
+        "14": 1
+      }
+    },
+    "71-41-0": {
+      "cas": "71-41-0",
+      "name": "1-pentanol",
+      "groups": {
+        "1": 1,
+        "2": 4,
+        "14": 1
+      }
+    },
+    "78-93-3": {
+      "cas": "78-93-3",
+      "name": "2-butanone",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "18": 1
+      }
+    },
+    "67-64-1": {
+      "cas": "67-64-1",
+      "name": "acetone",
+      "groups": {
+        "1": 1,
+        "18": 1
+      }
+    },
+    "96-22-0": {
+      "cas": "96-22-0",
+      "name": "3-pentanone",
+      "groups": {
+        "1": 2,
+        "2": 1,
+        "19": 1
+      }
+    },
+    "141-78-6": {
+      "cas": "141-78-6",
+      "name": "ethyl acetate",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "21": 1
+      }
+    },
+    "79-20-9": {
+      "cas": "79-20-9",
+      "name": "methyl acetate",
+      "groups": {
+        "1": 1,
+        "21": 1
+      }
+    },
+    "109-60-4": {
+      "cas": "109-60-4",
+      "name": "propyl acetate",
+      "groups": {
+        "1": 1,
+        "2": 2,
+        "21": 1
+      }
+    },
+    "123-86-4": {
+      "cas": "123-86-4",
+      "name": "butyl acetate",
+      "groups": {
+        "1": 1,
+        "2": 3,
+        "21": 1
+      }
+    },
+    "64-19-7": {
+      "cas": "64-19-7",
+      "name": "acetic acid",
+      "groups": {
+        "1": 1,
+        "42": 1
+      }
+    },
+    "79-09-4": {
+      "cas": "79-09-4",
+      "name": "propionic acid",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "42": 1
+      }
+    },
+    "107-92-6": {
+      "cas": "107-92-6",
+      "name": "butyric acid",
+      "groups": {
+        "1": 1,
+        "2": 2,
+        "42": 1
+      }
+    },
+    "110-54-3": {
+      "cas": "110-54-3",
+      "name": "hexane",
+      "groups": {
+        "1": 2,
+        "2": 4
+      }
+    },
+    "109-66-0": {
+      "cas": "109-66-0",
+      "name": "pentane",
+      "groups": {
+        "1": 2,
+        "2": 3
+      }
+    },
+    "106-97-8": {
+      "cas": "106-97-8",
+      "name": "butane",
+      "groups": {
+        "1": 2,
+        "2": 2
+      }
+    },
+    "74-98-6": {
+      "cas": "74-98-6",
+      "name": "propane",
+      "groups": {
+        "1": 2,
+        "2": 1
+      }
+    },
+    "71-43-2": {
+      "cas": "71-43-2",
+      "name": "benzene",
+      "groups": {
+        "9": 6
+      }
+    },
+    "108-88-3": {
+      "cas": "108-88-3",
+      "name": "toluene",
+      "groups": {
+        "9": 5,
+        "11": 1
+      }
+    },
+    "100-41-4": {
+      "cas": "100-41-4",
+      "name": "ethylbenzene",
+      "groups": {
+        "1": 1,
+        "9": 5,
+        "12": 1
+      }
+    },
+    "108-38-3": {
+      "cas": "108-38-3",
+      "name": "m-xylene",
+      "groups": {
+        "9": 4,
+        "11": 2
+      }
+    },
+    "67-66-3": {
+      "cas": "67-66-3",
+      "name": "chloroform",
+      "groups": {
+        "50": 1
+      }
+    },
+    "56-23-5": {
+      "cas": "56-23-5",
+      "name": "carbon tetrachloride",
+      "groups": {
+        "52": 1
+      }
+    },
+    "75-09-2": {
+      "cas": "75-09-2",
+      "name": "dichloromethane",
+      "groups": {
+        "47": 1
+      }
+    },
+    "107-06-2": {
+      "cas": "107-06-2",
+      "name": "1,2-dichloroethane",
+      "groups": {
+        "44": 2
+      }
+    },
+    "109-99-9": {
+      "cas": "109-99-9",
+      "name": "tetrahydrofuran",
+      "groups": {
+        "2": 3,
+        "27": 1
+      }
+    },
+    "60-29-7": {
+      "cas": "60-29-7",
+      "name": "diethyl ether",
+      "groups": {
+        "1": 2,
+        "2": 1,
+        "25": 1
+      }
+    },
+    "123-91-1": {
+      "cas": "123-91-1",
+      "name": "1,4-dioxane",
+      "groups": {
+        "2": 2,
+        "27": 2
+      }
+    },
+    "67-68-5": {
+      "cas": "67-68-5",
+      "name": "dimethyl sulfoxide",
+      "groups": {
+        "67": 1
+      }
+    },
+    "75-05-8": {
+      "cas": "75-05-8",
+      "name": "acetonitrile",
+      "groups": {
+        "40": 1
+      }
+    },
+    "110-82-7": {
+      "cas": "110-82-7",
+      "name": "cyclohexane",
+      "groups": {
+        "2": 6
+      }
+    },
+    "108-94-1": {
+      "cas": "108-94-1",
+      "name": "cyclohexanone",
+      "groups": {
+        "2": 4,
+        "19": 1
+      }
+    }
+  },
+  "note": "Use thermo.unifac.UNIFAC class for calculations. For missing components, use Chemical(cas).UNIFAC_groups"
+}

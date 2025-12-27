@@ -1,0 +1,1150 @@
+{% extends "base.html" %}
+
+{% block title %}Casos de Estudo · Sistemas Validados{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title">
+            <i class="bi bi-bar-chart-line"></i>
+            Casos de Estudo Validados
+        </div>
+        <div class="page-subtitle">
+            Sistemas clássicos com dados experimentais da literatura
+        </div>
+    </div>
+    <div>
+        <button class="btn-sim btn-sim-ghost" onclick="window.location.href='{{ url_for('educational.index') }}'">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </button>
+    </div>
+</div>
+
+<!-- Filtros de categoria -->
+<div class="panel mb-3">
+    <div class="case-filters">
+        <button class="filter-btn active" data-category="all">
+            <i class="bi bi-grid-3x3-gap"></i> Todos
+        </button>
+        <button class="filter-btn" data-category="elv">
+            <i class="bi bi-droplet-fill"></i> ELV
+        </button>
+        <button class="filter-btn" data-category="ell">
+            <i class="bi bi-water"></i> ELL
+        </button>
+        <button class="filter-btn" data-category="esl">
+            <i class="bi bi-snow2"></i> ESL
+        </button>
+    </div>
+</div>
+
+<!-- Casos ELV -->
+<div class="case-category" data-category="elv">
+    <h3 class="category-title">
+        <i class="bi bi-droplet-fill"></i> Equilíbrio Líquido-Vapor
+    </h3>
+
+    <div class="row g-3">
+        <!-- Caso 1: Etanol-Água -->
+        <div class="col-lg-6">
+            <div class="case-card">
+                <div class="case-header">
+                    <div>
+                        <h4 class="case-title">Etanol-Água</h4>
+                        <div class="case-badges">
+                            <span class="badge badge-difficulty medium">Dificuldade Média</span>
+                            <span class="badge badge-type azeotrope">Azeotrópico</span>
+                        </div>
+                    </div>
+                    <div class="case-icon elv-icon">
+                        <i class="bi bi-droplet-half"></i>
+                    </div>
+                </div>
+
+                <div class="case-description">
+                    <p>
+                        Sistema clássico de <strong>azeotropia de mínimo</strong>. Fundamental para 
+                        indústria de bioetanol e destilação de bebidas alcoólicas.
+                    </p>
+                </div>
+
+                <div class="case-properties">
+                    <div class="property-item">
+                        <span class="property-label">Azeótropo:</span>
+                        <span class="property-value">95.6% etanol (1 atm, 78.2°C)</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Modelo recomendado:</span>
+                        <span class="property-value">NRTL, UNIQUAC</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Referência:</span>
+                        <span class="property-value">Gmehling & Onken (1977)</span>
+                    </div>
+                </div>
+
+                <div class="case-data-points">
+                    <i class="bi bi-database"></i>
+                    <span>28 pontos experimentais (VLE-IG v1.2)</span>
+                </div>
+
+                <div class="case-actions">
+                    <button class="btn-sim btn-sim-primary btn-sm" onclick="window.educationalJS.loadCase('ethanol-water')">
+                        <i class="bi bi-play-circle"></i> Simular no ELV
+                    </button>
+                    <button class="btn-sim btn-sim-ghost btn-sm" onclick="window.educationalJS.viewCaseDetails('ethanol-water')">
+                        <i class="bi bi-info-circle"></i> Ver detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caso 2: Benzeno-Tolueno -->
+        <div class="col-lg-6">
+            <div class="case-card">
+                <div class="case-header">
+                    <div>
+                        <h4 class="case-title">Benzeno-Tolueno</h4>
+                        <div class="case-badges">
+                            <span class="badge badge-difficulty easy">Fácil</span>
+                            <span class="badge badge-type ideal">Quase Ideal</span>
+                        </div>
+                    </div>
+                    <div class="case-icon elv-icon">
+                        <i class="bi bi-droplet-half"></i>
+                    </div>
+                </div>
+
+                <div class="case-description">
+                    <p>
+                        Sistema <strong>ideal</strong> clássico. Excelente para aprendizado de conceitos 
+                        fundamentais de destilação sem complexidades de não-idealidade.
+                    </p>
+                </div>
+
+                <div class="case-properties">
+                    <div class="property-item">
+                        <span class="property-label">Comportamento:</span>
+                        <span class="property-value">Lei de Raoult (γ ≈ 1)</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Modelo recomendado:</span>
+                        <span class="property-value">Ideal</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Referência:</span>
+                        <span class="property-value">Smith et al. (2007)</span>
+                    </div>
+                </div>
+
+                <div class="case-data-points">
+                    <i class="bi bi-database"></i>
+                    <span>15 pontos experimentais validados</span>
+                </div>
+
+                <div class="case-actions">
+                    <button class="btn-sim btn-sim-primary btn-sm" onclick="window.educationalJS.loadCase('benzene-toluene')">
+                        <i class="bi bi-play-circle"></i> Simular no ELV
+                    </button>
+                    <button class="btn-sim btn-sim-ghost btn-sm" onclick="window.educationalJS.viewCaseDetails('benzene-toluene')">
+                        <i class="bi bi-info-circle"></i> Ver detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caso 3: Acetona-Água -->
+        <div class="col-lg-6">
+            <div class="case-card">
+                <div class="case-header">
+                    <div>
+                        <h4 class="case-title">Acetona-Água</h4>
+                        <div class="case-badges">
+                            <span class="badge badge-difficulty hard">Avançado</span>
+                            <span class="badge badge-type nonideal">Não-Ideal</span>
+                        </div>
+                    </div>
+                    <div class="case-icon elv-icon">
+                        <i class="bi bi-droplet-half"></i>
+                    </div>
+                </div>
+
+                <div class="case-description">
+                    <p>
+                        Sistema com <strong>desvio positivo significativo</strong> da Lei de Raoult. 
+                        Importante em processos de purificação de acetona.
+                    </p>
+                </div>
+
+                <div class="case-properties">
+                    <div class="property-item">
+                        <span class="property-label">γ máximo:</span>
+                        <span class="property-value">~2.5 (acetona diluída em água)</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Modelo recomendado:</span>
+                        <span class="property-value">NRTL, UNIQUAC</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Referência:</span>
+                        <span class="property-value">Othmer et al. (1952)</span>
+                    </div>
+                </div>
+
+                <div class="case-data-points">
+                    <i class="bi bi-database"></i>
+                    <span>22 pontos experimentais (VLE-IG)</span>
+                </div>
+
+                <div class="case-actions">
+                    <button class="btn-sim btn-sim-primary btn-sm" onclick="window.educationalJS.loadCase('acetone-water')">
+                        <i class="bi bi-play-circle"></i> Simular no ELV
+                    </button>
+                    <button class="btn-sim btn-sim-ghost btn-sm" onclick="window.educationalJS.viewCaseDetails('acetone-water')">
+                        <i class="bi bi-info-circle"></i> Ver detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caso 4: Metanol-Benzeno -->
+        <div class="col-lg-6">
+            <div class="case-card">
+                <div class="case-header">
+                    <div>
+                        <h4 class="case-title">Metanol-Benzeno</h4>
+                        <div class="case-badges">
+                            <span class="badge badge-difficulty medium">Dificuldade Média</span>
+                            <span class="badge badge-type azeotrope">Azeotrópico</span>
+                        </div>
+                    </div>
+                    <div class="case-icon elv-icon">
+                        <i class="bi bi-droplet-half"></i>
+                    </div>
+                </div>
+
+                <div class="case-description">
+                    <p>
+                        Azeótropo devido a <strong>diferença de polaridade</strong> entre componentes. 
+                        Usado para ensinar separação azeotrópica.
+                    </p>
+                </div>
+
+                <div class="case-properties">
+                    <div class="property-item">
+                        <span class="property-label">Azeótropo:</span>
+                        <span class="property-value">39.5% metanol (1 atm, 58.3°C)</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Modelo recomendado:</span>
+                        <span class="property-value">NRTL</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Referência:</span>
+                        <span class="property-value">Ocon & Rebolleda (1959)</span>
+                    </div>
+                </div>
+
+                <div class="case-data-points">
+                    <i class="bi bi-database"></i>
+                    <span>18 pontos experimentais validados</span>
+                </div>
+
+                <div class="case-actions">
+                    <button class="btn-sim btn-sim-primary btn-sm" onclick="window.educationalJS.loadCase('methanol-benzene')">
+                        <i class="bi bi-play-circle"></i> Simular no ELV
+                    </button>
+                    <button class="btn-sim btn-sim-ghost btn-sm" onclick="window.educationalJS.viewCaseDetails('methanol-benzene')">
+                        <i class="bi bi-info-circle"></i> Ver detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Casos ELL -->
+<div class="case-category" data-category="ell">
+    <h3 class="category-title">
+        <i class="bi bi-water"></i> Equilíbrio Líquido-Líquido
+    </h3>
+
+    <div class="row g-3">
+        <!-- Caso 5: Água-1-Butanol-Acetona -->
+        <div class="col-lg-6">
+            <div class="case-card">
+                <div class="case-header">
+                    <div>
+                        <h4 class="case-title">Água-1-Butanol-Acetona</h4>
+                        <div class="case-badges">
+                            <span class="badge badge-difficulty hard">Avançado</span>
+                            <span class="badge badge-type ternary">Ternário</span>
+                        </div>
+                    </div>
+                    <div class="case-icon ell-icon">
+                        <i class="bi bi-water"></i>
+                    </div>
+                </div>
+
+                <div class="case-description">
+                    <p>
+                        Sistema ternário clássico de <strong>extração líquido-líquido</strong>. 
+                        Água e 1-butanol são parcialmente miscíveis; acetona atua como soluto.
+                    </p>
+                </div>
+
+                <div class="case-properties">
+                    <div class="property-item">
+                        <span class="property-label">Tipo:</span>
+                        <span class="property-value">Tipo I (um par parcialmente miscível)</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Modelo recomendado:</span>
+                        <span class="property-value">NRTL</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Referência:</span>
+                        <span class="property-value">Treybal (1980)</span>
+                    </div>
+                </div>
+
+                <div class="case-data-points">
+                    <i class="bi bi-database"></i>
+                    <span>7 tie-lines experimentais (25°C)</span>
+                </div>
+
+                <div class="case-actions">
+                    <button class="btn-sim btn-sim-ell btn-sm" onclick="window.educationalJS.loadCase('water-butanol-acetone')">
+                        <i class="bi bi-play-circle"></i> Simular no ELL
+                    </button>
+                    <button class="btn-sim btn-sim-ghost btn-sm" onclick="window.educationalJS.viewCaseDetails('water-butanol-acetone')">
+                        <i class="bi bi-info-circle"></i> Ver detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caso 6: Água-Clorofórmio-Ácido Acético -->
+        <div class="col-lg-6">
+            <div class="case-card">
+                <div class="case-header">
+                    <div>
+                        <h4 class="case-title">Água-Clorofórmio-Ácido Acético</h4>
+                        <div class="case-badges">
+                            <span class="badge badge-difficulty medium">Dificuldade Média</span>
+                            <span class="badge badge-type ternary">Ternário</span>
+                        </div>
+                    </div>
+                    <div class="case-icon ell-icon">
+                        <i class="bi bi-water"></i>
+                    </div>
+                </div>
+
+                <div class="case-description">
+                    <p>
+                        Extração de <strong>ácido acético</strong> de soluções aquosas usando clorofórmio. 
+                        Caso clássico de purificação por extração.
+                    </p>
+                </div>
+
+                <div class="case-properties">
+                    <div class="property-item">
+                        <span class="property-label">Seletividade:</span>
+                        <span class="property-value">Alta (CHCl₃ extrai ácido acético)</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Modelo recomendado:</span>
+                        <span class="property-value">UNIQUAC</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Referência:</span>
+                        <span class="property-value">Hand (1930)</span>
+                    </div>
+                </div>
+
+                <div class="case-data-points">
+                    <i class="bi bi-database"></i>
+                    <span>6 tie-lines experimentais (25°C)</span>
+                </div>
+
+                <div class="case-actions">
+                    <button class="btn-sim btn-sim-ell btn-sm" onclick="window.educationalJS.loadCase('water-chloroform-aceticacid')">
+                        <i class="bi bi-play-circle"></i> Simular no ELL
+                    </button>
+                    <button class="btn-sim btn-sim-ghost btn-sm" onclick="window.educationalJS.viewCaseDetails('water-chloroform-aceticacid')">
+                        <i class="bi bi-info-circle"></i> Ver detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caso 7: Água-Tolueno-Anilina -->
+        <div class="col-lg-6">
+            <div class="case-card">
+                <div class="case-header">
+                    <div>
+                        <h4 class="case-title">Água-Tolueno-Anilina</h4>
+                        <div class="case-badges">
+                            <span class="badge badge-difficulty medium">Dificuldade Média</span>
+                            <span class="badge badge-type ternary">Ternário</span>
+                        </div>
+                    </div>
+                    <div class="case-icon ell-icon">
+                        <i class="bi bi-water"></i>
+                    </div>
+                </div>
+
+                <div class="case-description">
+                    <p>
+                        Sistema com <strong>distribuição equilibrada</strong> de anilina entre fases aquosa 
+                        e orgânica. Usado em processos de separação de aminas.
+                    </p>
+                </div>
+
+                <div class="case-properties">
+                    <div class="property-item">
+                        <span class="property-label">Tipo:</span>
+                        <span class="property-value">Tipo I (água-tolueno imiscíveis)</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Modelo recomendado:</span>
+                        <span class="property-value">NRTL</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Referência:</span>
+                        <span class="property-value">Brancker et al. (1940)</span>
+                    </div>
+                </div>
+
+                <div class="case-data-points">
+                    <i class="bi bi-database"></i>
+                    <span>5 tie-lines experimentais (25°C)</span>
+                </div>
+
+                <div class="case-actions">
+                    <button class="btn-sim btn-sim-ell btn-sm" onclick="window.educationalJS.loadCase('water-toluene-aniline')">
+                        <i class="bi bi-play-circle"></i> Simular no ELL
+                    </button>
+                    <button class="btn-sim btn-sim-ghost btn-sm" onclick="window.educationalJS.viewCaseDetails('water-toluene-aniline')">
+                        <i class="bi bi-info-circle"></i> Ver detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Casos ESL -->
+<div class="case-category" data-category="esl">
+    <h3 class="category-title">
+        <i class="bi bi-snow2"></i> Equilíbrio Sólido-Líquido
+    </h3>
+
+    <div class="row g-3">
+        <!-- Caso 8: Naftaleno-Benzeno -->
+        <div class="col-lg-6">
+            <div class="case-card">
+                <div class="case-header">
+                    <div>
+                        <h4 class="case-title">Naftaleno-Benzeno</h4>
+                        <div class="case-badges">
+                            <span class="badge badge-difficulty easy">Fácil</span>
+                            <span class="badge badge-type eutectic">Eutético Simples</span>
+                        </div>
+                    </div>
+                    <div class="case-icon esl-icon">
+                        <i class="bi bi-snow"></i>
+                    </div>
+                </div>
+
+                <div class="case-description">
+                    <p>
+                        Sistema <strong>eutético simples</strong> ideal para aprendizado. 
+                        Usado para demonstrar cristalização fracionada de hidrocarbonetos aromáticos.
+                    </p>
+                </div>
+
+                <div class="case-properties">
+                    <div class="property-item">
+                        <span class="property-label">Eutético:</span>
+                        <span class="property-value">-3.5°C (19% naftaleno)</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Modelo recomendado:</span>
+                        <span class="property-value">Ideal</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Referência:</span>
+                        <span class="property-value">Prausnitz et al. (1999)</span>
+                    </div>
+                </div>
+
+                <div class="case-data-points">
+                    <i class="bi bi-database"></i>
+                    <span>12 pontos de solubilidade validados</span>
+                </div>
+
+                <div class="case-actions">
+                    <button class="btn-sim btn-sim-esl btn-sm" onclick="window.educationalJS.loadCase('naphthalene-benzene')">
+                        <i class="bi bi-play-circle"></i> Simular no ESL
+                    </button>
+                    <button class="btn-sim btn-sim-ghost btn-sm" onclick="window.educationalJS.viewCaseDetails('naphthalene-benzene')">
+                        <i class="bi bi-info-circle"></i> Ver detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- Caso 10: Fenol-Água -->
+        <div class="col-lg-6">
+            <div class="case-card">
+                <div class="case-header">
+                    <div>
+                        <h4 class="case-title">Fenol-Água</h4>
+                        <div class="case-badges">
+                            <span class="badge badge-difficulty hard">Avançado</span>
+                            <span class="badge badge-type nonideal">Não-Ideal</span>
+                        </div>
+                    </div>
+                    <div class="case-icon esl-icon">
+                        <i class="bi bi-snow"></i>
+                    </div>
+                </div>
+
+                <div class="case-description">
+                    <p>
+                        Sistema com <strong>solubilidade mútua significativa</strong> e comportamento 
+                        não-ideal forte. Importante em processos de purificação de fenol.
+                    </p>
+                </div>
+
+                <div class="case-properties">
+                    <div class="property-item">
+                        <span class="property-label">Eutético:</span>
+                        <span class="property-value">-3.8°C (~15% fenol)</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Modelo recomendado:</span>
+                        <span class="property-value">NRTL com correções</span>
+                    </div>
+                    <div class="property-item">
+                        <span class="property-label">Referência:</span>
+                        <span class="property-value">Sandler (2006)</span>
+                    </div>
+                </div>
+
+                <div class="case-data-points">
+                    <i class="bi bi-database"></i>
+                    <span>15 pontos de solubilidade validados</span>
+                </div>
+
+                <div class="case-actions">
+                    <button class="btn-sim btn-sim-esl btn-sm" onclick="window.educationalJS.loadCase('phenol-water')">
+                        <i class="bi bi-play-circle"></i> Simular no ESL
+                    </button>
+                    <button class="btn-sim btn-sim-ghost btn-sm" onclick="window.educationalJS.viewCaseDetails('phenol-water')">
+                        <i class="bi bi-info-circle"></i> Ver detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nota informativa -->
+<div class="panel mt-4">
+    <div class="info-section">
+        <i class="bi bi-info-circle info-icon"></i>
+        <div>
+            <h5>Sobre os Casos de Estudo</h5>
+            <p>
+                Todos os sistemas apresentados foram validados com <strong>dados experimentais</strong> 
+                publicados em literatura científica reconhecida. Os parâmetros de modelos termodinâmicos 
+                (NRTL, UNIQUAC) foram ajustados para minimizar desvio entre predições e dados experimentais.
+            </p>
+            <p class="mb-0">
+                Ao clicar em "Simular", você será redirecionado ao módulo correspondente (ELV, ELL ou ESL) 
+                com os componentes e condições pré-carregados.
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+/* ========================================================================
+   ESTILOS DA PÁGINA DE CASOS
+   ======================================================================== */
+
+.case-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.2rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.7);
+    color: var(--text-strong);
+}
+
+.case-category {
+    margin-bottom: 2.5rem;
+}
+
+.category-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.case-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 12px;
+    padding: 1.3rem;
+    transition: all 0.2s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.case-card:hover {
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.15);
+    transform: translateY(-2px);
+}
+
+.case-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.case-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 0.5rem;
+}
+
+.case-badges {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-difficulty.easy {
+    background: rgba(34, 197, 94, 0.2);
+    color: #86efac;
+}
+
+.badge-difficulty.medium {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fcd34d;
+}
+
+.badge-difficulty.hard {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+.badge-type.ideal {
+    background: rgba(56, 189, 248, 0.2);
+    color: #7dd3fc;
+}
+
+.badge-type.azeotrope {
+    background: rgba(168, 85, 247, 0.2);
+    color: #c4b5fd;
+}
+
+.badge-type.nonideal {
+    background: rgba(249, 115, 22, 0.2);
+    color: #fdba74;
+}
+
+.badge-type.ternary {
+    background: rgba(139, 92, 246, 0.2);
+    color: #c4b5fd;
+}
+
+.badge-type.eutectic {
+    background: rgba(6, 182, 212, 0.2);
+    color: #67e8f9;
+}
+
+.case-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.elv-icon {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(37, 99, 235, 0.1));
+    color: #60a5fa;
+}
+
+.ell-icon {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(249, 115, 22, 0.1));
+    color: #fb923c;
+}
+
+.esl-icon {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.1));
+    color: #22d3ee;
+}
+
+.case-description {
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.case-description p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.case-properties {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 8px;
+    padding: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.property-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.property-item:last-child {
+    border-bottom: none;
+}
+
+.property-label {
+    color: var(--text-soft);
+    font-weight: 500;
+}
+
+.property-value {
+    color: var(--text-main);
+    text-align: right;
+}
+
+.case-data-points {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    background: rgba(34, 197, 94, 0.08);
+    border-radius: 6px;
+    font-size: 0.82rem;
+    color: #86efac;
+    margin-bottom: 1rem;
+}
+
+.case-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.btn-sm {
+    font-size: 0.82rem;
+    padding: 0.45rem 1rem;
+}
+
+.info-section {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(56, 189, 248, 0.08);
+    border-left: 3px solid #38bdf8;
+    border-radius: 8px;
+}
+
+.info-icon {
+    color: #38bdf8;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.info-section h5 {
+    font-size: 1rem;
+    color: var(--text-strong);
+    margin-bottom: 0.5rem;
+}
+
+.info-section p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* ========================================================================
+   CSS DO MODAL DE DETALHES
+   ======================================================================== */
+
+.case-detail-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.case-detail-modal {
+    background: var(--bg-card);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 16px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-30px) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.case-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(56, 189, 248, 0.05));
+}
+
+.case-modal-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.case-modal-badges {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.btn-close-modal:hover {
+    color: var(--text-strong);
+}
+
+.case-modal-body {
+    padding: 1.5rem;
+}
+
+.case-section {
+    margin-bottom: 1.5rem;
+}
+
+.case-section:last-child {
+    margin-bottom: 0;
+}
+
+.case-section h5 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.case-section p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.objectives-list,
+.applications-list,
+.references-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.objectives-list li,
+.applications-list li,
+.references-list li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    color: var(--text-muted);
+    position: relative;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.objectives-list li:last-child,
+.applications-list li:last-child,
+.references-list li:last-child {
+    border-bottom: none;
+}
+
+.objectives-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.applications-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #38bdf8;
+}
+
+.references-list li::before {
+    content: '📚';
+    position: absolute;
+    left: 0;
+}
+
+.conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.8rem;
+}
+
+.condition-item {
+    background: rgba(15, 23, 42, 0.5);
+    padding: 0.8rem;
+    border-radius: 8px;
+    border-left: 3px solid #38bdf8;
+}
+
+.condition-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+}
+
+.condition-value {
+    display: block;
+    font-size: 1rem;
+    color: var(--text-strong);
+    font-weight: 500;
+}
+
+.parameters-box {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.parameters-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+}
+
+.parameters-list li {
+    padding: 0.4rem 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.parameters-list code {
+    background: rgba(56, 189, 248, 0.15);
+    color: #7dd3fc;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+}
+
+.case-modal-footer {
+    padding: 1.2rem 1.5rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    background: rgba(15, 23, 42, 0.3);
+}
+
+.btn-modal {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.btn-modal.btn-primary {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+}
+
+.btn-modal.btn-primary:hover {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.btn-modal.btn-secondary {
+    background: rgba(148, 163, 184, 0.2);
+    color: var(--text-main);
+}
+
+.btn-modal.btn-secondary:hover {
+    background: rgba(148, 163, 184, 0.3);
+}
+
+/* Scrollbar personalizado para o modal */
+.case-detail-modal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.case-detail-modal::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 10px;
+}
+
+.case-detail-modal::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.5);
+    border-radius: 10px;
+}
+
+.case-detail-modal::-webkit-scrollbar-thumb:hover {
+    background: rgba(56, 189, 248, 0.7);
+}
+
+/* Animações de entrada/saída */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+}
+</style>
+
+<script src="{{ url_for('static', filename='js/educational.js') }}"></script>
+
+<script>
+// Filtros de categoria
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const category = this.dataset.category;
+        
+        // Atualiza botões ativos
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Mostra/oculta categorias
+        document.querySelectorAll('.case-category').forEach(cat => {
+            if (category === 'all' || cat.dataset.category === category) {
+                cat.style.display = 'block';
+            } else {
+                cat.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Login - PhaseFlow{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-icon">
+                <i class="bi bi-box-arrow-in-right"></i>
+            </div>
+            <h2>Login</h2>
+            <p class="text-muted-soft">Acesse sua conta PhaseFlow</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
+            <div class="form-group mb-3">
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="username" 
+                       name="username" 
+                       placeholder="Digite seu usuário"
+                       required 
+                       autofocus>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" 
+                       class="form-control" 
+                       id="password" 
+                       name="password" 
+                       placeholder="Digite sua senha"
+                       required>
+            </div>
+
+            <div class="form-check mb-4">
+                <input type="checkbox" 
+                       class="form-check-input" 
+                       id="remember" 
+                       name="remember">
+                <label class="form-check-label text-muted-soft" for="remember">
+                    Lembrar-me
+                </label>
+            </div>
+
+            <button type="submit" class="btn-sim btn-sim-primary w-100 mb-3">
+                <i class="bi bi-box-arrow-in-right"></i> Entrar
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p class="text-muted-soft mb-0">
+                Não tem uma conta? 
+                <a href="{{ url_for('auth.register') }}" class="auth-link">Criar conta</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

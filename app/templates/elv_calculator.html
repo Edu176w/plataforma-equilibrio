@@ -1,0 +1,1004 @@
+﻿{% extends "base.html" %}
+
+{% block title %}ELV · Equilíbrio Líquido‑Vapor{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ==================== ESTILOS GERAIS - EXPORTAÇÃO, COMPARAÇÃO E RESULTADOS ==================== */
+
+/* Botões de ação do diagrama */
+.diagram-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.diagram-actions .btn-diagram {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid rgba(148,163,184,0.3);
+    background: rgba(30,41,59,0.5);
+    color: #e5e7eb;
+    cursor: pointer;
+}
+
+.diagram-actions .btn-diagram:hover {
+    background: rgba(56,189,248,0.2);
+    border-color: #38bdf8;
+    transform: translateY(-1px);
+}
+
+.diagram-actions .btn-diagram i {
+    margin-right: 6px;
+}
+
+/* Modal de comparação */
+.compare-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.compare-modal-content {
+    background: #1e293b;
+    border-radius: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid rgba(148,163,184,0.2);
+}
+
+.model-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.model-checkbox-card {
+    background: rgba(30,41,59,0.5);
+    border: 2px solid rgba(148,163,184,0.3);
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.model-checkbox-card:hover {
+    border-color: #38bdf8;
+    background: rgba(56,189,248,0.1);
+}
+
+.model-checkbox-card input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.model-checkbox-card label {
+    cursor: pointer;
+    font-weight: 500;
+    color: #e5e7eb;
+}
+
+.comparison-chart-container {
+    display: none;
+    margin-top: 20px;
+}
+
+.comparison-chart-wrapper {
+    background: rgba(30,41,59,0.5);
+    border: 1px solid rgba(148,163,184,0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+/* Spinner */
+.spinner-border-custom {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+    border: 0.25em solid rgba(56,189,248,0.3);
+    border-right-color: #38bdf8;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
+
+/* Botões de exportação */
+.export-buttons-container {
+    display: none;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(148,163,184,0.2);
+}
+
+.btn-export {
+    background: rgba(34,197,94,0.2);
+    border: 1px solid #22c55e;
+    color: #22c55e;
+}
+
+.btn-export:hover {
+    background: rgba(34,197,94,0.3);
+    transform: translateY(-2px);
+}
+
+.btn-compare {
+    background: rgba(249,115,22,0.2);
+    border: 1px solid #f97316;
+    color: #f97316;
+}
+
+.btn-compare:hover {
+    background: rgba(249,115,22,0.3);
+    transform: translateY(-2px);
+}
+
+/* ==================== ESTILOS PARA RESULTADOS PONTUAIS ==================== */
+
+.results-card {
+    background: rgba(15,23,42,0.9);
+    border-radius: 16px;
+    border: 1px solid rgba(148,163,184,0.4);
+    padding: 20px 24px;
+}
+
+.section-title-sm {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9ca3af;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(148,163,184,0.2);
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 8px;
+    background: rgba(30,41,59,0.4);
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.result-item:hover {
+    background: rgba(56,189,248,0.1);
+}
+
+.result-item .label {
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.result-item .value {
+    color: #38bdf8;
+    font-weight: 600;
+    font-family: "Courier New", monospace;
+}
+
+/* Banner de caso de estudo */
+.case-study-banner {
+    background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(168,85,247,0.08));
+    border: 2px solid rgba(168,85,247,0.4);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    animation: slideInDown 0.4s ease;
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.case-study-icon {
+    font-size: 2rem;
+    color: #c4b5fd;
+    flex-shrink: 0;
+}
+
+.case-study-content {
+    flex: 1;
+}
+
+.case-study-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e9d5ff;
+    margin-bottom: 0.3rem;
+}
+
+.case-study-description {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    margin: 0;
+}
+
+.case-study-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-case-action {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-case-details {
+    background: rgba(168,85,247,0.2);
+    color: #c4b5fd;
+    border: 1px solid rgba(168,85,247,0.4);
+}
+
+.btn-case-details:hover {
+    background: rgba(168,85,247,0.3);
+    transform: translateY(-1px);
+}
+
+.btn-case-clear {
+    background: rgba(148,163,184,0.2);
+    color: #94a3b8;
+    border: 1px solid rgba(148,163,184,0.3);
+}
+
+.btn-case-clear:hover {
+    background: rgba(148,163,184,0.3);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .diagram-actions {
+        flex-direction: column;
+    }
+    .diagram-actions .btn-diagram {
+        width: 100%;
+    }
+    .model-selection {
+        grid-template-columns: 1fr;
+    }
+    .results-card .row {
+        flex-direction: column;
+    }
+    .case-study-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .case-study-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    .btn-case-action {
+        width: 100%;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title">
+            <i class="bi bi-droplet-fill"></i>
+            Módulo ELV · Líquido‑Vapor
+        </div>
+        <div class="page-subtitle">
+            Cálculos de ponto de bolha, orvalho, flash bifásico e geração de diagramas P‑x‑y / T‑x‑y com modelos ideal e não‑ideais.
+        </div>
+    </div>
+    <div>
+        <span class="page-badge">
+            <i class="bi bi-cpu"></i> Termodinâmica γ‑φ (ELV)
+        </span>
+    </div>
+</div>
+
+<!-- Banner de Caso de Estudo (se carregado via preset) -->
+{% if preset %}
+<div class="case-study-banner" id="case-study-banner">
+    <div class="case-study-icon">
+        <i class="bi bi-book-half"></i>
+    </div>
+    <div class="case-study-content">
+        <div class="case-study-title">
+            📚 Caso de Estudo: {{ preset.title }}
+        </div>
+        <p class="case-study-description">
+            Sistema pré-configurado com parâmetros validados. Modelo: <strong>{{ preset.model }}</strong>
+        </p>
+    </div>
+    <div class="case-study-actions">
+        <button class="btn-case-action btn-case-details" onclick="viewPresetDetails()">
+            <i class="bi bi-info-circle"></i> Ver Detalhes
+        </button>
+        <button class="btn-case-action btn-case-clear" onclick="clearPreset()">
+            <i class="bi bi-x-circle"></i> Limpar Preset
+        </button>
+    </div>
+</div>
+{% endif %}
+
+<div class="row g-3">
+    <!-- Painel de configuração -->
+    <div class="col-lg-5">
+        <div class="calc-panel">
+            <div class="panel-header">
+                <div class="panel-title">Configuração do cálculo</div>
+            </div>
+
+            <!-- Componentes selecionados -->
+            <div class="mb-3">
+                <label class="form-label">Componentes selecionados</label>
+                <div id="selectedComponentsTags">
+                    <button class="add-component-btn" type="button" onclick="showComponentModal()">
+                        <i class="bi bi-plus-circle"></i> Adicionar componente
+                    </button>
+                </div>
+                <div class="text-muted-soft mt-1">
+                    <span id="componentCount">0</span> componente(s) selecionado(s) · máximo 4.
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Tipo de cálculo</label>
+                    <select class="form-select" id="calcType" onchange="updateFields()">
+                        <option value="bubble">Ponto de bolha (P)</option>
+                        <option value="bubble_t">Ponto de bolha (T)</option>
+                        <option value="dew">Ponto de orvalho (P)</option>
+                        <option value="dew_t">Ponto de orvalho (T)</option>
+                        <option value="flash">Flash </option>
+                        <option value="pxy" disabled>Diagrama P‑x‑y (2 componentes)</option>
+                        <option value="txy" disabled>Diagrama T‑x‑y (2 componentes)</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Modelo termodinâmico</label>
+                    <select class="form-select" id="model">
+                        <option value="Ideal">Ideal (Lei de Raoult)</option>
+                        <option value="NRTL">NRTL</option>
+                        <option value="UNIQUAC">UNIQUAC</option>
+                        <option value="UNIFAC">UNIFAC (grupos)</option>
+                    </select>
+                    <div class="text-muted-soft mt-1" style="font-size: 0.78rem;">
+                        A lista de componentes é filtrada automaticamente para cada modelo.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Campos dinâmicos: T, P, composição -->
+            <div id="dynamicFields">
+                <!-- preenchido via JavaScript -->
+            </div>
+
+            <div class="d-flex gap-2 mt-2">
+                <button type="button" class="btn-sim btn-sim-primary" onclick="calculate()">
+                    <i class="bi bi-play-fill"></i> Calcular
+                </button>
+                <button type="button" class="btn-sim btn-sim-ghost" onclick="clearForm()">
+                    <i class="bi bi-arrow-clockwise"></i> Limpar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Painel de resultados / gráficos -->
+    <div class="col-lg-7">
+        <div id="results">
+            <div class="panel h-100 d-flex flex-column justify-content-center align-items-center">
+                <div class="text-muted-soft mb-2">
+                    <i class="bi bi-graph-up"></i> Nenhum resultado ainda.
+                </div>
+                <div class="text-muted-soft" style="font-size: 0.85rem;">
+                    Configure o cálculo à esquerda e clique em <strong>Calcular</strong> para visualizar resultados numéricos ou diagramas.
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCO DE RECOMENDAÇÕES DA IA -->
+        <div id="ai-recommendation" class="mt-3"></div>
+
+        <!-- Botões de exportação / download / comparação para DIAGRAMAS -->
+        <div class="export-buttons-container" id="export-buttons">
+            <div class="diagram-actions">
+                <button type="button" class="btn-diagram btn-export" id="export-csv-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar dados numéricos em CSV">
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Exportar CSV
+                </button>
+
+                <button type="button" class="btn-diagram btn-export" id="export-pdf-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar relatório em PDF">
+                    <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
+                </button>
+
+                <button type="button" class="btn-diagram" id="download-img-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Baixar a imagem do diagrama (PNG)">
+                    <i class="bi bi-image"></i> Baixar imagem
+                </button>
+
+                <button type="button" class="btn-diagram btn-compare" onclick="showCompareModal()"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Comparar múltiplos modelos no mesmo gráfico">
+                    <i class="bi bi-bar-chart-line"></i> Comparar Modelos
+                </button>
+            </div>
+        </div>
+
+        <!-- Botões de exportação / comparação para RESULTADOS PONTUAIS -->
+        <div class="export-buttons-container" id="export-buttons-points">
+            <div class="diagram-actions">
+                <button type="button" class="btn-diagram btn-export" id="export-csv-points-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar resultados em CSV">
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Exportar CSV
+                </button>
+
+                <button type="button" class="btn-diagram btn-export" id="export-pdf-points-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar resultados em PDF">
+                    <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
+                </button>
+
+                <button type="button" class="btn-diagram btn-compare" onclick="showComparePointModal()"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Comparar com outros modelos">
+                    <i class="bi bi-bar-chart-line"></i> Comparar Modelos
+                </button>
+            </div>
+        </div>
+
+        <!-- Container do diagrama de comparação -->
+        <div class="comparison-chart-container" id="comparison-diagram-container">
+            <div class="comparison-chart-wrapper">
+                <h5 class="mb-3">
+                    <i class="bi bi-bar-chart-line"></i> Comparação de Modelos Termodinâmicos
+                </h5>
+
+                <div class="spinner-border-custom" id="comparison-spinner"></div>
+
+                <div style="position:relative; height:500px; width:100%;">
+                    <canvas id="comparison-diagram"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de comparação de modelos (diagramas e pontos) -->
+<div id="compareModal" class="compare-modal" onclick="closeCompareModal()">
+    <div class="compare-modal-content" onclick="event.stopPropagation()">
+        <div class="panel-header mb-3">
+            <div class="panel-title">
+                <i class="bi bi-bar-chart-line"></i> Comparar Modelos Termodinâmicos
+            </div>
+        </div>
+
+        <p class="text-muted-soft mb-3">
+            Selecione os modelos que deseja comparar. Os cálculos serão executados em paralelo.
+        </p>
+
+        <div class="model-selection">
+            <div class="model-checkbox-card">
+                <input type="checkbox" class="model-compare-checkbox" value="Ideal" id="model-ideal" checked>
+                <label for="model-ideal">Ideal (Raoult)</label>
+            </div>
+
+            <div class="model-checkbox-card">
+                <input type="checkbox" class="model-compare-checkbox" value="NRTL" id="model-nrtl">
+                <label for="model-nrtl">NRTL</label>
+            </div>
+
+            <div class="model-checkbox-card">
+                <input type="checkbox" class="model-compare-checkbox" value="UNIQUAC" id="model-uniquac">
+                <label for="model-uniquac">UNIQUAC</label>
+            </div>
+
+            <div class="model-checkbox-card">
+                <input type="checkbox" class="model-compare-checkbox" value="UNIFAC" id="model-unifac">
+                <label for="model-unifac">UNIFAC</label>
+            </div>
+        </div>
+
+        <div class="alert alert-info mt-3"
+             style="background: rgba(56,189,248,0.1); border: 1px solid #38bdf8; color: #e5e7eb;">
+            <i class="bi bi-info-circle"></i>
+            <strong>Dica:</strong> selecione pelo menos 2 modelos. Modelos sem parâmetros para o sistema serão ignorados.
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="button" class="btn-sim btn-sim-ghost" onclick="closeCompareModal()">
+                Cancelar
+            </button>
+            <button type="button" class="btn-sim btn-sim-primary" id="compare-models-btn">
+                <i class="bi bi-play-fill"></i> Comparar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de seleção de componentes -->
+<div id="componentModal" class="modal-backdrop-custom" onclick="closeComponentModal()">
+    <div class="modal-content-custom" onclick="event.stopPropagation()">
+        <div class="panel-header mb-3">
+            <div class="panel-title">Selecionar componente</div>
+        </div>
+
+        <input type="text"
+               class="form-control mb-3"
+               id="componentSearch"
+               placeholder="Buscar por nome, fórmula ou CAS..."
+               autocomplete="off"
+               oninput="renderComponentList(this.value)">
+
+        <div id="componentList"
+             style="max-height: 420px; overflow-y: auto; border-radius: 12px; border: 1px solid rgba(148,163,184,0.4);">
+            <!-- preenchido via JavaScript -->
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+            <button type="button" class="btn-sim btn-sim-ghost" onclick="closeComponentModal()">
+                Fechar
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/elv.js') }}"></script>
+
+<script>
+// ==================== CARREGAMENTO DE PRESET DE CASO DE ESTUDO ====================
+
+{% if preset %}
+// Dados do preset passados do backend
+const PRESET_DATA = {
+    id: '{{ preset.get("id", "") }}',
+    title: '{{ preset.title }}',
+    components: {{ preset.components | tojson }},
+    model: '{{ preset.model }}',
+    calcType: '{{ preset.calc_type }}',
+    pressure: {{ preset.pressure }},
+    pressureUnit: '{{ preset.pressure_unit }}',
+    temperature: {{ preset.get('temperature', 80) }},
+    temperatureUnit: '{{ preset.get('temperature_unit', 'C') }}',
+    composition: {{ preset.composition }}
+};
+
+console.log('🎯 [PRESET] Caso de estudo carregado:', PRESET_DATA.title);
+console.log('💡 [PRESET] Componentes sugeridos:', PRESET_DATA.components.join(', '));
+
+// Aguardar DOM carregar
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        loadPresetConfiguration(PRESET_DATA);
+    }, 500);
+});
+
+/**
+ * Carrega configuração do preset (SEM componentes)
+ */
+function loadPresetConfiguration(preset) {
+    console.log('📥 [PRESET] Aplicando configuração do caso de estudo...');
+    
+    // 1. Selecionar modelo
+    const modelSelect = document.getElementById('model');
+    if (modelSelect) {
+        modelSelect.value = preset.model;
+        console.log('✅ [PRESET] Modelo:', preset.model);
+    }
+    
+    // 2. Selecionar tipo de cálculo
+    const calcTypeSelect = document.getElementById('calcType');
+    if (calcTypeSelect) {
+        calcTypeSelect.value = preset.calcType;
+        console.log('✅ [PRESET] Tipo de cálculo:', preset.calcType);
+        
+        // Trigger change event para atualizar campos
+        const event = new Event('change', { bubbles: true });
+        calcTypeSelect.dispatchEvent(event);
+    }
+    
+    // 3. Atualizar campos dinâmicos
+    if (typeof updateFields === 'function') {
+        updateFields();
+        console.log('✅ [PRESET] Campos dinâmicos atualizados');
+    }
+    
+    // 4. Preencher valores específicos
+    setTimeout(function() {
+        if (preset.calcType === 'txy') {
+            const pressureInput = document.getElementById('pressure');
+            if (pressureInput && preset.pressure) {
+                pressureInput.value = preset.pressure;
+                console.log('✅ [PRESET] Pressão:', preset.pressure, preset.pressureUnit);
+            }
+            
+            const pressureUnitSelect = document.getElementById('pressUnit');
+            if (pressureUnitSelect && preset.pressureUnit) {
+                pressureUnitSelect.value = preset.pressureUnit;
+            }
+        } else if (preset.calcType === 'pxy') {
+            const temperatureInput = document.getElementById('temperature');
+            if (temperatureInput && preset.temperature) {
+                temperatureInput.value = preset.temperature;
+                console.log('✅ [PRESET] Temperatura:', preset.temperature, preset.temperatureUnit);
+            }
+            
+            const temperatureUnitSelect = document.getElementById('tempUnit');
+            if (temperatureUnitSelect && preset.temperatureUnit) {
+                temperatureUnitSelect.value = preset.temperatureUnit;
+            }
+        }
+        
+        console.log('🎉 [PRESET] Configuração aplicada com sucesso!');
+        console.log('💡 [PRESET] Agora adicione os componentes:', preset.components.join(', '));
+        
+        // Mostrar notificação amigável
+        showPresetNotification(preset);
+        
+        // Scroll para o formulário
+        const configPanel = document.querySelector('.calc-panel');
+        if (configPanel) {
+            configPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 300);
+}
+
+/**
+ * Mostra notificação informativa sobre o preset
+ */
+function showPresetNotification(preset) {
+    const notification = document.createElement('div');
+    notification.className = 'alert alert-info alert-dismissible fade show position-fixed';
+    notification.style.cssText = `
+        top: 80px;
+        right: 20px;
+        z-index: 9999;
+        max-width: 400px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        animation: slideInRight 0.3s ease;
+    `;
+    
+    notification.innerHTML = `
+        <div class="d-flex align-items-start">
+            <i class="bi bi-lightbulb text-warning me-2" style="font-size: 1.2rem;"></i>
+            <div>
+                <strong>💡 Sugestão do Caso de Estudo</strong><br>
+                <small>Adicione os componentes: <strong>${preset.components.join(' + ')}</strong></small>
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remover após 8 segundos
+    setTimeout(() => {
+        notification.remove();
+    }, 8000);
+}
+
+/**
+ * Mostra detalhes do preset em modal
+ */
+function viewPresetDetails() {
+    const presetId = PRESET_DATA.id;
+    
+    if (!presetId) {
+        console.error('[PRESET] ID do preset não encontrado');
+        return;
+    }
+    
+    console.log('[PRESET] Abrindo detalhes para:', presetId);
+    
+    // Verificar se educational.js está carregado
+    if (window.educationalJS && typeof window.educationalJS.viewCaseDetails === 'function') {
+        window.educationalJS.viewCaseDetails(presetId);
+    } else {
+        console.warn('[PRESET] educational.js não carregado, usando modal simples');
+        showSimplePresetModal(PRESET_DATA);
+    }
+}
+
+/**
+ * Modal simples de fallback
+ */
+function showSimplePresetModal(preset) {
+    const existing = document.getElementById('simple-preset-modal');
+    if (existing) existing.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'simple-preset-modal';
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: #1e293b;
+            border: 1px solid rgba(148,163,184,0.3);
+            border-radius: 16px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        ">
+            <button onclick="document.getElementById('simple-preset-modal').remove()" 
+                    style="
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        background: transparent;
+                        border: none;
+                        color: #94a3b8;
+                        font-size: 24px;
+                        cursor: pointer;
+                        padding: 5px;
+                    ">×</button>
+            
+            <h3 style="color: #e5e7eb; margin-bottom: 10px;">
+                <i class="bi bi-book"></i> ${preset.title}
+            </h3>
+            
+            <div style="margin-bottom: 20px;">
+                <span style="background: rgba(139,92,246,0.2); color: #c4b5fd; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem;">
+                    ELV - Diagrama ${preset.calcType.toUpperCase()}
+                </span>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h5 style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 10px;">
+                    📋 Componentes Sugeridos
+                </h5>
+                <p style="color: #94a3b8;">${preset.components.join(' + ')}</p>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h5 style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 10px;">
+                    ⚙️ Modelo Termodinâmico
+                </h5>
+                <p style="color: #94a3b8;"><strong>${preset.model}</strong></p>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h5 style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 10px;">
+                    🔧 Configuração
+                </h5>
+                <p style="color: #94a3b8;">
+                    <strong>Tipo:</strong> ${preset.calcType.toUpperCase()}<br>
+                    ${preset.calcType === 'txy' ? `<strong>Pressão:</strong> ${preset.pressure} ${preset.pressureUnit}` : `<strong>Temperatura:</strong> ${preset.temperature} ${preset.temperatureUnit}`}
+                </p>
+            </div>
+            
+            <div style="text-align: right;">
+                <button onclick="document.getElementById('simple-preset-modal').remove()" 
+                        style="
+                            background: rgba(56,189,248,0.2);
+                            border: 1px solid #38bdf8;
+                            color: #38bdf8;
+                            padding: 10px 20px;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                        ">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+}
+
+/**
+ * Limpa o preset e recarrega a página
+ */
+function clearPreset() {
+    console.log('🗑️ [PRESET] Limpando preset...');
+    
+    const banner = document.getElementById('case-study-banner');
+    if (banner) {
+        banner.style.animation = 'slideOutUp 0.3s ease';
+        setTimeout(() => {
+            banner.remove();
+        }, 300);
+    }
+    
+    setTimeout(() => {
+        window.location.href = '/elv/calculator';
+    }, 400);
+}
+
+// Animações CSS
+const styleEl = document.createElement('style');
+styleEl.textContent = `
+    @keyframes slideOutUp {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(styleEl);
+
+{% else %}
+console.log('ℹ️ [PRESET] Nenhum preset carregado');
+{% endif %}
+
+// ==================== MODAIS DE COMPARAÇÃO ====================
+
+function showCompareModal() {
+    document.getElementById('compareModal').style.display = 'block';
+}
+
+function closeCompareModal() {
+    document.getElementById('compareModal').style.display = 'none';
+}
+
+// Para resultados pontuais, reutiliza o mesmo modal
+function showComparePointModal() {
+    showCompareModal();
+}
+
+// Fechar modal ao clicar ESC
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closeCompareModal();
+        closeComponentModal();
+    }
+});
+
+// Download da imagem do diagrama
+document.getElementById('download-img-btn')?.addEventListener('click', function () {
+    const canvas = document.getElementById('diagramChart');
+    if (!canvas) {
+        alert('Nenhum diagrama para baixar.');
+        return;
+    }
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    const calcType = window.lastDiagramType || document.getElementById('calcType').value || 'diagram';
+    link.download = `${calcType.toUpperCase()}_diagram.png`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+});
+
+// ==================== FUNÇÕES DE NOTIFICAÇÃO ====================
+
+/**
+ * Mostra notificação toast
+ */
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification-toast notification-${type}`;
+    notification.textContent = message;
+    
+    const bgColor = type === 'success' ? '#22c55e' : 
+                    type === 'error' ? '#ef4444' : 
+                    '#38bdf8';
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        padding: 12px 20px;
+        background: ${bgColor};
+        color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease;
+        font-weight: 500;
+        max-width: 400px;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+</script>
+
+<!-- Carregar educational.js se disponível -->
+<script src="{{ url_for('static', filename='js/educational.js') }}" async></script>
+
+<!-- Carregar tutorial engine se houver parâmetro tutorial -->
+<script src="{{ url_for('static', filename='js/tutorial-engine.js') }}"></script>
+
+<script>
+// Verificar se há tutorial ativo
+const urlParams = new URLSearchParams(window.location.search);
+const tutorialId = urlParams.get('tutorial');
+
+if (tutorialId) {
+    console.log('🎓 [TUTORIAL] Tutorial detectado:', tutorialId);
+    
+    // Aguardar página carregar completamente
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            startTutorial(tutorialId);
+        }, 1000);
+    });
+}
+</script>
+
+{% endblock %}

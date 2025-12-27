@@ -1,0 +1,395 @@
+{% extends "base.html" %}
+
+{% block title %}Componentes · Equilibrium Suite{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+    <!-- Cabeçalho -->
+    <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="page-title">
+                    <i class="bi bi-database"></i> Banco de Dados de Componentes
+                </h1>
+                <p class="text-muted-soft">
+                    Biblioteca completa com propriedades termodinâmicas validadas
+                </p>
+            </div>
+            <div>
+                <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.9rem; padding: 0.5rem 1rem;">
+                    <i class="bi bi-check-circle"></i> VERSÃO TCC
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards de Estatísticas -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="panel text-center">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #38bdf8;" id="totalComponents">0</div>
+                <div class="text-muted-soft mt-2">Total de Componentes</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel text-center">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #22c55e;" id="filteredComponents">0</div>
+                <div class="text-muted-soft mt-2">Filtrados</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel text-center">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #f97316;" id="selectedCount">0</div>
+                <div class="text-muted-soft mt-2">Selecionados</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel text-center">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #a855f7;">30+</div>
+                <div class="text-muted-soft mt-2">Propriedades</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Painel de Busca e Filtros -->
+    <div class="panel mb-4">
+        <div class="panel-header mb-3">
+            <div class="panel-title">
+                <i class="bi bi-funnel"></i> Busca e Filtros
+            </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-8">
+                <label class="form-label">Buscar componente</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" 
+                           class="form-control" 
+                           id="searchInput"
+                           placeholder="Buscar por nome, fórmula, CAS...">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">&nbsp;</label>
+                <button class="btn-sim btn-sim-secondary w-100" onclick="exportToCSV()">
+                    <i class="bi bi-download"></i> Exportar CSV
+                </button>
+            </div>
+        </div>
+
+        <!-- Chips de Filtro -->
+        <div>
+            <label class="form-label">Filtros rápidos</label>
+            <div class="d-flex gap-2 flex-wrap" id="filterChips">
+                <button class="chip active" data-filter="all">
+                    <i class="bi bi-grid-fill"></i> Todos
+                </button>
+                <button class="chip" data-filter="common">
+                    <i class="bi bi-star-fill"></i> Mais Comuns
+                </button>
+                <button class="chip" data-filter="organic">
+                    <i class="bi bi-tree-fill"></i> Orgânicos
+                </button>
+                <button class="chip" data-filter="polar">
+                    <i class="bi bi-magnet"></i> Polares
+                </button>
+                <button class="chip" data-filter="aromatic">
+                    <i class="bi bi-hexagon-fill"></i> Aromáticos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabela de Componentes -->
+    <div class="panel">
+        <div class="panel-header mb-3">
+            <div class="panel-title">
+                <i class="bi bi-table"></i> Lista de Componentes
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 30px;"><input type="checkbox" class="form-check-input" id="selectAll"></th>
+                        <th>NOME</th>
+                        <th>FÓRMULA</th>
+                        <th>CAS</th>
+                        <th>MW (G/MOL)</th>
+                        <th>TB (K)</th>
+                        <th>TC (K)</th>
+                        <th>AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody id="componentsTableBody">
+                    <tr>
+                        <td colspan="8" class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Carregando...</span>
+                            </div>
+                            <div class="text-muted-soft mt-2">Carregando...</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Paginação -->
+        <div class="d-flex justify-content-center mt-4">
+            <div id="pagination" class="d-flex gap-2"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Painel de Seleção Flutuante -->
+<div id="selectionPanel" class="selection-panel">
+    <h6 class="mb-3">
+        <i class="bi bi-check-circle-fill" style="color: #22c55e;"></i> Componentes Selecionados
+    </h6>
+    <div id="selectedList" class="mb-3"></div>
+    
+    <div class="d-grid gap-2">
+        <button class="btn-sim btn-sim-primary" onclick="showModuleSelection()">
+            <i class="bi bi-arrow-right-circle"></i> Usar em Módulo
+        </button>
+        <button class="btn-sim btn-sim-secondary" onclick="clearSelection()">
+            <i class="bi bi-x-circle"></i> Limpar Seleção
+        </button>
+    </div>
+</div>
+
+<!-- Modal de Seleção de Módulo -->
+<div id="moduleModal" class="modal-overlay">
+    <div class="panel" style="max-width: 500px; margin: auto;">
+        <div class="panel-header mb-3">
+            <div class="panel-title">
+                <i class="bi bi-arrow-right-circle"></i> Escolha o Módulo
+            </div>
+        </div>
+
+        <p class="text-muted-soft mb-4" id="moduleMessage"></p>
+        
+        <div class="d-grid gap-2">
+            <button class="btn-sim btn-sim-primary" onclick="goToModule('elv')">
+                <i class="bi bi-droplet-fill"></i> ELV · Líquido-Vapor
+            </button>
+            <button class="btn-sim btn-sim-ell" onclick="goToModule('ell')">
+                <i class="bi bi-diagram-3"></i> ELL · Líquido-Líquido
+            </button>
+            <button class="btn-sim btn-sim-esl" onclick="goToModule('esl')">
+                <i class="bi bi-snow2"></i> ESL · Sólido-Líquido
+            </button>
+            
+            <button class="btn-sim btn-sim-secondary mt-2" onclick="closeModuleModal()">
+                <i class="bi bi-x"></i> Cancelar
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Chips de Filtro */
+.chip {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(148, 163, 184, 0.1);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    color: #e5e7eb;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.chip:hover {
+    background: rgba(148, 163, 184, 0.2);
+    border-color: rgba(148, 163, 184, 0.4);
+}
+
+.chip.active {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+.chip i {
+    margin-right: 0.3rem;
+}
+
+/* Painel de Seleção Flutuante */
+.selection-panel {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    min-width: 320px;
+    z-index: 1000;
+    display: none;
+    animation: slideUp 0.3s ease;
+}
+
+.selection-panel.show {
+    display: block;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.selected-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem;
+    background: rgba(148, 163, 184, 0.1);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.selected-item-name {
+    font-size: 0.9rem;
+    color: #e5e7eb;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    line-height: 1;
+    transition: all 0.3s ease;
+}
+
+.remove-btn:hover {
+    color: #dc2626;
+    transform: scale(1.2);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+/* Tabela customizada */
+.table {
+    color: #e5e7eb;
+}
+
+.table thead th {
+    background: rgba(30, 41, 59, 0.8);
+    border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 1rem;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.table tbody tr:hover {
+    background: rgba(56, 189, 248, 0.05);
+}
+
+.table tbody tr.selected {
+    background: rgba(56, 189, 248, 0.1);
+    border-left: 3px solid #38bdf8;
+}
+
+.table tbody td {
+    padding: 0.9rem 1rem;
+    vertical-align: middle;
+}
+
+/* Checkbox customizado */
+.form-check-input {
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 2px solid rgba(148, 163, 184, 0.4);
+    background: rgba(30, 41, 59, 0.5);
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: #38bdf8;
+    border-color: #38bdf8;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(56, 189, 248, 0.25);
+}
+
+/* Paginação */
+.page-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    background: rgba(30, 41, 59, 0.5);
+    color: #94a3b8;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.page-btn:hover {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+.page-btn.active {
+    background: rgba(56, 189, 248, 0.3);
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+.page-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+</style>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/components.js') }}"></script>
+{% endblock %}

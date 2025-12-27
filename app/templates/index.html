@@ -1,0 +1,127 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Início · PhaseFlow{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title">
+            <i class="bi bi-activity"></i>
+            PhaseFlow
+        </div>
+        <div class="page-subtitle">
+            Plataforma integrada para cálculos de equilíbrio de fases (ELV, ELL, ESL) com foco em uso acadêmico e profissional.
+        </div>
+    </div>
+    <div>
+        <span class="page-badge">
+            <i class="bi bi-check-circle"></i> Versão TCC
+        </span>
+    </div>
+</div>
+
+<!-- Seção: Módulos de Cálculo -->
+<div class="row g-3 mb-4">
+    <!-- Módulo ELV -->
+    <div class="col-lg-4 col-md-6">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">ELV · Líquido Vapor</div>
+                    <div class="panel-subtitle">Ponto de bolha, orvalho, flash e diagramas P-x-y / T-x-y</div>
+                </div>
+            </div>
+            <p class="text-muted-soft mb-3">
+                Modelos Ideal, NRTL, UNIQUAC e UNIFAC para misturas binárias e multicomponentes com base de parâmetros dedicada.
+            </p>
+            <a href="{{ url_for('elv.calculator') }}" class="btn-sim btn-sim-primary">
+                <i class="bi bi-droplet-fill"></i> Acessar módulo ELV
+            </a>
+        </div>
+    </div>
+
+    <!-- Módulo ELL -->
+    <div class="col-lg-4 col-md-6">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">ELL · Líquido Líquido</div>
+                    <div class="panel-subtitle">Separação e extração de fases líquidas</div>
+                </div>
+            </div>
+            <p class="text-muted-soft mb-3">
+                Cálculo de curvas binodais, tie-lines e diagramas ternários para sistemas de extração líquido-líquido com modelos NRTL, UNIQUAC e UNIFAC.
+            </p>
+            <a href="{{ url_for('ell.ell_calculator') }}" class="btn-sim btn-sim-ell">
+                <i class="bi bi-water"></i> Acessar módulo ELL
+            </a>
+        </div>
+    </div>
+
+    <!-- Módulo ESL -->
+    <div class="col-lg-4 col-md-6">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">ESL · Sólido Líquido</div>
+                    <div class="panel-subtitle">Solubilidade e eutéticos</div>
+                </div>
+            </div>
+            <p class="text-muted-soft mb-3">
+                Estudo de solubilidade, pontos eutéticos e diagramas de fase sólido-líquido para sistemas selecionados.
+            </p>
+            <a href="{{ url_for('esl.calculator') }}" class="btn-sim btn-sim-esl" style="margin-top: 1.8rem;">
+                <i class="bi bi-snow2"></i> Acessar módulo ESL
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Seção: Recursos e Ferramentas -->
+<div class="row g-3 justify-content-center">
+    <!-- Dashboard -->
+    <div class="col-lg-5 col-md-6">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">Dashboard de Simulações</div>
+                    <div class="panel-subtitle">Histórico e estatísticas</div>
+                </div>
+            </div>
+            <p class="text-muted-soft mb-3">
+                Visão geral das simulações realizadas, distribuição por módulo/modelo e acompanhamento dos casos do TCC.
+            </p>
+            <a href="{{ url_for('dashboard.index') }}" class="btn-sim btn-sim-dashboard">
+                <i class="bi bi-speedometer2"></i> Abrir dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Seção Educacional -->
+    <div class="col-lg-5 col-md-6">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">Fundamentos e Tutoriais</div>
+                    <div class="panel-subtitle">Material didático e guias práticos</div>
+                </div>
+            </div>
+            <p class="text-muted-soft mb-3">
+                Aprenda os conceitos de equilíbrio de fases, veja casos da indústria e siga roteiros guiados passo a passo.
+            </p>
+            <a href="{{ url_for('educational.index') }}" class="btn-sim btn-sim-educational">
+                <i class="bi bi-book"></i> Explorar conteúdo educacional
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Remover sublinhado dos links-botão */
+a.btn-sim {
+    text-decoration: none !important;
+}
+</style>
+
+{% endblock %}

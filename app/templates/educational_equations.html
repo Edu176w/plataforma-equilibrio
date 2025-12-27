@@ -1,0 +1,590 @@
+{% extends "base.html" %}
+
+{% block title %}Equações Implementadas · Formulação Matemática{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title">
+            <i class="bi bi-code-square"></i>
+            Equações Implementadas
+        </div>
+        <div class="page-subtitle">
+            Formulação matemática completa dos modelos termodinâmicos
+        </div>
+    </div>
+    <div>
+        <button class="btn-sim btn-sim-ghost" onclick="window.location.href='{{ url_for('educational.index') }}'">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </button>
+    </div>
+</div>
+
+<!-- Navegação por módulo -->
+<div class="panel mb-3">
+    <div class="equation-nav">
+        <button class="eq-nav-btn active" data-module="elv">
+            <i class="bi bi-droplet-fill"></i> ELV
+        </button>
+        <button class="eq-nav-btn" data-module="ell">
+            <i class="bi bi-water"></i> ELL
+        </button>
+        <button class="eq-nav-btn" data-module="esl">
+            <i class="bi bi-snow2"></i> ESL
+        </button>
+        <button class="eq-nav-btn" data-module="models">
+            <i class="bi bi-cpu"></i> Modelos
+        </button>
+    </div>
+</div>
+
+<!-- Seção ELV -->
+<div class="equation-section" data-module="elv">
+    <div class="panel">
+        <h3 class="module-title">
+            <i class="bi bi-droplet-fill"></i>
+            Equilíbrio Líquido-Vapor (ELV)
+        </h3>
+
+        <!-- Equação fundamental -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Equação Fundamental de Equilíbrio</h4>
+                <span class="eq-id">[ELV.1]</span>
+            </div>
+            <div class="eq-formula">
+                \[ y_i \cdot \phi_i \cdot P = x_i \cdot \gamma_i \cdot f_i^{sat} \]
+            </div>
+            <div class="eq-description">
+                <strong>Onde:</strong>
+                <ul>
+                    <li>\( y_i \): fração molar do componente \(i\) na fase vapor</li>
+                    <li>\( x_i \): fração molar do componente \(i\) na fase líquida</li>
+                    <li>\( \phi_i \): coeficiente de fugacidade da fase vapor</li>
+                    <li>\( \gamma_i \): coeficiente de atividade da fase líquida</li>
+                    <li>\( P \): pressão total do sistema</li>
+                    <li>\( f_i^{sat} \): fugacidade do componente puro saturado</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fugacidade saturada -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Fugacidade de Componente Puro Saturado</h4>
+                <span class="eq-id">[ELV.2]</span>
+            </div>
+            <div class="eq-formula">
+                \[ f_i^{sat} = \phi_i^{sat} \cdot P_i^{sat} \cdot \exp\left[\frac{V_i^L(P - P_i^{sat})}{RT}\right] \]
+            </div>
+            <div class="eq-description">
+                <strong>Correção de Poynting:</strong> O termo exponencial corrige o efeito da pressão 
+                sobre a fugacidade do líquido puro. Geralmente desprezível em baixas pressões (\(P \approx P_i^{sat}\)).
+            </div>
+        </div>
+
+        <!-- Ponto de Bolha -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Cálculo de Ponto de Bolha (T dado)</h4>
+                <span class="eq-id">[ELV.3]</span>
+            </div>
+            <div class="eq-formula">
+                \[ \sum_{i=1}^{N} y_i = \sum_{i=1}^{N} \frac{x_i \cdot \gamma_i \cdot P_i^{sat}}{P} = 1 \]
+            </div>
+            <div class="eq-implementation">
+                <strong>Algoritmo iterativo:</strong>
+                <pre>1. Estimar P inicial
+2. Calcular γ_i para cada componente
+3. Calcular P = Σ(x_i · γ_i · P_i^sat)
+4. Se |P_novo - P_antigo| < tol: convergiu
+5. Senão: P = P_novo, voltar ao passo 2</pre>
+            </div>
+        </div>
+
+        <!-- Ponto de Orvalho -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Cálculo de Ponto de Orvalho (T dado)</h4>
+                <span class="eq-id">[ELV.4]</span>
+            </div>
+            <div class="eq-formula">
+                \[ \sum_{i=1}^{N} x_i = \sum_{i=1}^{N} \frac{y_i \cdot P}{\gamma_i \cdot P_i^{sat}} = 1 \]
+            </div>
+            <div class="eq-implementation">
+                <strong>Algoritmo iterativo:</strong>
+                <pre>1. Estimar x_i inicial (y_i / K_i)
+2. Normalizar: x_i = x_i / Σ(x_i)
+3. Calcular γ_i para composição x_i
+4. Calcular P = 1 / Σ(y_i / (γ_i · P_i^sat))
+5. Atualizar x_i e verificar convergência</pre>
+            </div>
+        </div>
+
+        <!-- Flash Isotérmico -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Flash Isotérmico - Equação de Rachford-Rice</h4>
+                <span class="eq-id">[ELV.5]</span>
+            </div>
+            <div class="eq-formula">
+                \[ f(\beta) = \sum_{i=1}^{N} \frac{z_i(K_i - 1)}{1 + \beta(K_i - 1)} = 0 \]
+            </div>
+            <div class="eq-description">
+                <strong>Onde:</strong>
+                <ul>
+                    <li>\( \beta \): fração molar vaporizada (0 ≤ β ≤ 1)</li>
+                    <li>\( z_i \): composição global da alimentação</li>
+                    <li>\( K_i = y_i / x_i \): razão de equilíbrio</li>
+                </ul>
+            </div>
+            <div class="eq-implementation">
+                <strong>Método de Newton-Raphson:</strong>
+                <pre>β_{n+1} = β_n - f(β_n) / f'(β_n)
+
+onde: f'(β) = -Σ[z_i(K_i - 1)² / (1 + β(K_i - 1))²]</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Seção ELL -->
+<div class="equation-section" data-module="ell" style="display: none;">
+    <div class="panel">
+        <h3 class="module-title">
+            <i class="bi bi-water"></i>
+            Equilíbrio Líquido-Líquido (ELL)
+        </h3>
+
+        <!-- Condição de iso-atividade -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Condição de Iso-Atividade</h4>
+                <span class="eq-id">[ELL.1]</span>
+            </div>
+            <div class="eq-formula">
+                \[ x_i^I \cdot \gamma_i^I = x_i^{II} \cdot \gamma_i^{II} \quad \forall i \]
+            </div>
+            <div class="eq-description">
+                Condição de equilíbrio para cada componente \(i\) nas fases líquidas I e II. 
+                Gera sistema de equações não-lineares resolvido por métodos numéricos.
+            </div>
+        </div>
+
+        <!-- Balanço material -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Balanço Material Global</h4>
+                <span class="eq-id">[ELL.2]</span>
+            </div>
+            <div class="eq-formula">
+                \[ F = L^I + L^{II} \]
+                \[ z_i \cdot F = x_i^I \cdot L^I + x_i^{II} \cdot L^{II} \]
+            </div>
+            <div class="eq-description">
+                <strong>Onde:</strong>
+                <ul>
+                    <li>\( F \): vazão total de alimentação</li>
+                    <li>\( L^I, L^{II} \): vazões das fases líquidas I e II</li>
+                    <li>\( z_i \): fração molar global do componente \(i\)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Curva binodal -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Cálculo de Curva Binodal</h4>
+                <span class="eq-id">[ELL.3]</span>
+            </div>
+            <div class="eq-formula">
+                \[ \ln(\gamma_i^I) = \ln(\gamma_i^{II}) \quad \text{(mesmo valor nas duas fases)} \]
+            </div>
+            <div class="eq-implementation">
+                <strong>Algoritmo de traçado:</strong>
+                <pre>1. Especificar x_1^I (variar de 0 a 1)
+2. Resolver sistema para encontrar x_1^II
+3. Calcular x_2^I e x_2^II por fechamento
+4. Verificar condição de iso-atividade
+5. Plotar pontos (x_1^I, x_2^I) e (x_1^II, x_2^II)</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Seção ESL -->
+<div class="equation-section" data-module="esl" style="display: none;">
+    <div class="panel">
+        <h3 class="module-title">
+            <i class="bi bi-snow2"></i>
+            Equilíbrio Sólido-Líquido (ESL)
+        </h3>
+
+        <!-- Solubilidade ideal -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Equação de Solubilidade Ideal</h4>
+                <span class="eq-id">[ESL.1]</span>
+            </div>
+            <div class="eq-formula">
+                \[ \ln x_i = -\frac{\Delta H_{fus,i}}{R}\left(\frac{1}{T} - \frac{1}{T_{m,i}}\right) \]
+            </div>
+            <div class="eq-description">
+                <strong>Onde:</strong>
+                <ul>
+                    <li>\( x_i \): solubilidade (fração molar) do componente \(i\)</li>
+                    <li>\( \Delta H_{fus,i} \): entalpia de fusão do soluto</li>
+                    <li>\( T_{m,i} \): temperatura de fusão do soluto puro</li>
+                    <li>\( T \): temperatura do sistema</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Solubilidade não-ideal -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Correção para Não-Idealidade</h4>
+                <span class="eq-id">[ESL.2]</span>
+            </div>
+            <div class="eq-formula">
+                \[ \ln(x_i \cdot \gamma_i) = -\frac{\Delta H_{fus,i}}{R}\left(\frac{1}{T} - \frac{1}{T_{m,i}}\right) - \frac{\Delta C_{p,i}}{R}\left[\ln\frac{T_m}{T} - \frac{T_m}{T} + 1\right] \]
+            </div>
+            <div class="eq-description">
+                Inclui termo de capacidade calorífica \( \Delta C_p \) e coeficiente de atividade \( \gamma_i \). 
+                Mais preciso para sistemas não-ideais.
+            </div>
+        </div>
+
+        <!-- Ponto eutético -->
+        <div class="equation-block">
+            <div class="eq-header">
+                <h4 class="eq-title">Condição de Ponto Eutético</h4>
+                <span class="eq-id">[ESL.3]</span>
+            </div>
+            <div class="eq-formula">
+                \[ \frac{\partial T}{\partial x_i} = 0 \quad \text{(mínimo de temperatura)} \]
+            </div>
+            <div class="eq-description">
+                No ponto eutético, a temperatura é mínima e múltiplas fases sólidas coexistem 
+                em equilíbrio com uma fase líquida.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Seção Modelos -->
+<div class="equation-section" data-module="models" style="display: none;">
+    <div class="panel">
+        <h3 class="module-title">
+            <i class="bi bi-cpu"></i>
+            Modelos de Coeficiente de Atividade
+        </h3>
+
+        <!-- NRTL -->
+        <div class="equation-block featured">
+            <div class="eq-header">
+                <h4 class="eq-title">Modelo NRTL (Non-Random Two-Liquid)</h4>
+                <span class="eq-id">[NRTL.1]</span>
+            </div>
+            <div class="eq-formula">
+                \[ \ln \gamma_i = \frac{\sum_j x_j \tau_{ji} G_{ji}}{\sum_k x_k G_{ki}} + \sum_j \frac{x_j G_{ij}}{\sum_k x_k G_{kj}} \left[\tau_{ij} - \frac{\sum_m x_m \tau_{mj} G_{mj}}{\sum_k x_k G_{kj}}\right] \]
+            </div>
+            <div class="eq-parameters">
+                <strong>Parâmetros:</strong>
+                <div class="param-grid">
+                    <div class="param-item">
+                        <strong>τ<sub>ij</sub>:</strong> parâmetro de energia de interação
+                    </div>
+                    <div class="param-item">
+                        <strong>G<sub>ij</sub> = exp(-α<sub>ij</sub>τ<sub>ij</sub>):</strong> fator de não-aleatoriedade
+                    </div>
+                    <div class="param-item">
+                        <strong>α<sub>ij</sub>:</strong> parâmetro de não-aleatoriedade (tipicamente 0.2-0.47)
+                    </div>
+                </div>
+            </div>
+            <div class="eq-implementation">
+                <strong>Implementação:</strong>
+                <pre>def calculate_nrtl_gamma(x, tau, alpha):
+    n = len(x)
+    G = np.exp(-alpha * tau)
+    gamma = np.zeros(n)
+    
+    for i in range(n):
+        sum1 = sum(x[j] * tau[j,i] * G[j,i] for j in range(n))
+        sum2 = sum(x[k] * G[k,i] for k in range(n))
+        term1 = sum1 / sum2
+        
+        term2 = 0
+        for j in range(n):
+            num = x[j] * G[i,j]
+            den = sum(x[k] * G[k,j] for k in range(n))
+            sum3 = sum(x[m] * tau[m,j] * G[m,j] for m in range(n))
+            term2 += (num/den) * (tau[i,j] - sum3/den)
+        
+        gamma[i] = np.exp(term1 + term2)
+    
+    return gamma</pre>
+            </div>
+        </div>
+
+        <!-- UNIQUAC -->
+        <div class="equation-block featured">
+            <div class="eq-header">
+                <h4 class="eq-title">Modelo UNIQUAC</h4>
+                <span class="eq-id">[UNIQUAC.1]</span>
+            </div>
+            <div class="eq-formula">
+                \[ \ln \gamma_i = \ln \gamma_i^C + \ln \gamma_i^R \]
+            </div>
+            <div class="eq-description">
+                <strong>Termo Combinatorial:</strong>
+                \[ \ln \gamma_i^C = \ln\frac{\Phi_i}{x_i} + \frac{z}{2}q_i\ln\frac{\theta_i}{\Phi_i} + l_i - \frac{\Phi_i}{x_i}\sum_j x_j l_j \]
+                
+                <strong>Termo Residual:</strong>
+                \[ \ln \gamma_i^R = q_i\left[1 - \ln\sum_j \theta_j\tau_{ji} - \sum_j\frac{\theta_j\tau_{ij}}{\sum_k\theta_k\tau_{kj}}\right] \]
+            </div>
+            <div class="eq-parameters">
+                <strong>Parâmetros de substância pura:</strong>
+                <ul>
+                    <li>\( r_i \): volume molecular relativo (van der Waals)</li>
+                    <li>\( q_i \): área superficial molecular relativa</li>
+                    <li>\( \Phi_i = \frac{x_i r_i}{\sum_j x_j r_j} \): fração de segmento</li>
+                    <li>\( \theta_i = \frac{x_i q_i}{\sum_j x_j q_j} \): fração de área</li>
+                    <li>\( l_i = \frac{z}{2}(r_i - q_i) - (r_i - 1) \), com z = 10</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- UNIFAC -->
+        <div class="equation-block featured">
+            <div class="eq-header">
+                <h4 class="eq-title">Modelo UNIFAC (Contribuição de Grupos)</h4>
+                <span class="eq-id">[UNIFAC.1]</span>
+            </div>
+            <div class="eq-formula">
+                \[ \ln \gamma_i = \ln \gamma_i^C + \ln \gamma_i^R \]
+            </div>
+            <div class="eq-description">
+                <strong>Parâmetros calculados por grupos funcionais:</strong>
+                \[ r_i = \sum_k \nu_k^{(i)} R_k \quad \text{e} \quad q_i = \sum_k \nu_k^{(i)} Q_k \]
+                
+                Onde:
+                <ul>
+                    <li>\( \nu_k^{(i)} \): número de grupos do tipo k na molécula i</li>
+                    <li>\( R_k, Q_k \): parâmetros de volume e área do grupo k (tabelados)</li>
+                </ul>
+            </div>
+            <div class="eq-implementation">
+                <strong>Vantagem:</strong> Permite predição de propriedades sem dados experimentais, 
+                usando apenas a estrutura molecular e tabelas de parâmetros de grupos.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nota sobre validação -->
+<div class="panel mt-4" style="background: rgba(34, 197, 94, 0.08); border-left: 3px solid #22c55e;">
+    <div style="display: flex; gap: 1rem;">
+        <i class="bi bi-shield-check" style="color: #22c55e; font-size: 1.5rem; flex-shrink: 0;"></i>
+        <div>
+            <h5 style="color: var(--text-strong); margin-bottom: 0.5rem;">Validação das Implementações</h5>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; line-height: 1.6;">
+                Todas as equações foram implementadas seguindo rigorosamente as formulações originais 
+                das referências citadas. Os resultados foram validados contra:
+            </p>
+            <ul style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; margin-bottom: 0;">
+                <li>Dados experimentais publicados (VLE-IG, DDBST)</li>
+                <li>Exemplos resolvidos de livros-texto (Smith et al., Prausnitz et al.)</li>
+                <li>Comparação com simuladores comerciais (quando disponível)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Estilos de equações */
+.equation-nav {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.eq-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.3rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.eq-nav-btn:hover,
+.eq-nav-btn.active {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.7);
+    color: var(--text-strong);
+}
+
+.module-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+}
+
+.equation-block {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.equation-block.featured {
+    border-left: 4px solid #8b5cf6;
+}
+
+.eq-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.eq-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin: 0;
+}
+
+.eq-id {
+    background: rgba(56, 189, 248, 0.15);
+    color: #7dd3fc;
+    padding: 0.3rem 0.7rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.eq-formula {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    overflow-x: auto;
+}
+
+.eq-description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.eq-description strong {
+    color: var(--text-strong);
+}
+
+.eq-description ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.eq-description li {
+    margin-bottom: 0.3rem;
+}
+
+.eq-parameters {
+    background: rgba(56, 189, 248, 0.05);
+    border-left: 3px solid #38bdf8;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.eq-parameters strong {
+    color: var(--text-strong);
+    display: block;
+    margin-bottom: 0.6rem;
+}
+
+.param-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.6rem;
+}
+
+.param-item {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    padding: 0.5rem;
+    background: rgba(15, 23, 42, 0.4);
+    border-radius: 4px;
+}
+
+.eq-implementation {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.eq-implementation strong {
+    color: var(--text-strong);
+    display: block;
+    margin-bottom: 0.6rem;
+}
+
+.eq-implementation pre {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 6px;
+    color: #e0f2fe;
+    font-size: 0.85rem;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    margin: 0;
+    line-height: 1.6;
+}
+</style>
+
+<!-- MathJax para renderizar equações LaTeX -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script>
+// Navegação entre módulos
+document.querySelectorAll('.eq-nav-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const module = this.dataset.module;
+        
+        // Atualizar botões ativos
+        document.querySelectorAll('.eq-nav-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Mostrar seção correspondente
+        document.querySelectorAll('.equation-section').forEach(section => {
+            section.style.display = section.dataset.module === module ? 'block' : 'none';
+        });
+    });
+});
+</script>
+
+{% endblock %}

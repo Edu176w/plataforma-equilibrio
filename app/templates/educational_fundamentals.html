@@ -1,0 +1,788 @@
+{% extends "base.html" %}
+
+{% block title %}Fundamentos · Equilíbrio de Fases{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title">
+            <i class="bi bi-lightbulb"></i>
+            Fundamentos de Equilíbrio de Fases
+        </div>
+        <div class="page-subtitle">
+            Conceitos essenciais de termodinâmica aplicada
+        </div>
+    </div>
+    <div>
+        <button class="btn-sim btn-sim-ghost" onclick="window.location.href='{{ url_for('educational.index') }}'">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </button>
+    </div>
+</div>
+
+<!-- Navegação por tópicos -->
+<div class="panel mb-3">
+    <div class="topics-nav">
+        <a href="#equilibrio" class="topic-link active">
+            <i class="bi bi-1-circle-fill"></i> Condição de Equilíbrio
+        </a>
+        <a href="#elv" class="topic-link">
+            <i class="bi bi-2-circle-fill"></i> Equilíbrio Líquido-Vapor
+        </a>
+        <a href="#ell" class="topic-link">
+            <i class="bi bi-3-circle-fill"></i> Equilíbrio Líquido-Líquido
+        </a>
+        <a href="#esl" class="topic-link">
+            <i class="bi bi-4-circle-fill"></i> Equilíbrio Sólido-Líquido
+        </a>
+        <a href="#desvios" class="topic-link">
+            <i class="bi bi-5-circle-fill"></i> Desvios da Idealidade
+        </a>
+    </div>
+</div>
+
+<!-- 1. Condição de Equilíbrio -->
+<div id="equilibrio" class="fundamental-section">
+    <div class="panel">
+        <h3 class="section-title">
+            <i class="bi bi-circle-fill topic-icon"></i>
+            Condição de Equilíbrio Termodinâmico
+        </h3>
+        
+        <div class="concept-box">
+            <div class="concept-header">
+                <i class="bi bi-info-circle"></i>
+                <strong>Conceito Fundamental</strong>
+            </div>
+            <p>
+                Um sistema em equilíbrio termodinâmico apresenta <strong>potencial químico igual</strong> 
+                para cada componente em todas as fases coexistentes.
+            </p>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <div class="formula-card">
+                    <div class="formula-title">Critério de Equilíbrio</div>
+                    <div class="formula-content">
+                        \[ \mu_i^{\alpha} = \mu_i^{\beta} = \mu_i^{\gamma} = \cdots \]
+                    </div>
+                    <p class="formula-desc">
+                        Onde μ<sub>i</sub> é o potencial químico do componente <em>i</em> 
+                        nas fases α, β, γ, etc.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="formula-card">
+                    <div class="formula-title">Fugacidade (critério prático)</div>
+                    <div class="formula-content">
+                        \[ f_i^{\alpha} = f_i^{\beta} = f_i^{\gamma} = \cdots \]
+                    </div>
+                    <p class="formula-desc">
+                        A fugacidade <em>f<sub>i</sub></em> é uma propriedade mensurável 
+                        equivalente ao potencial químico.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="key-points mt-4">
+            <h5><i class="bi bi-star-fill"></i> Pontos-Chave</h5>
+            <ul>
+                <li>O equilíbrio é atingido quando não há mais transferência líquida de massa entre fases</li>
+                <li>Temperatura e pressão devem ser uniformes em todo o sistema</li>
+                <li>O número de graus de liberdade é dado pela <strong>Regra de Gibbs</strong>: F = C - P + 2</li>
+                <li>Para sistemas isobáricos (P constante): F = C - P + 1</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 2. Equilíbrio Líquido-Vapor (ELV) -->
+<div id="elv" class="fundamental-section">
+    <div class="panel">
+        <h3 class="section-title">
+            <i class="bi bi-droplet-fill topic-icon"></i>
+            Equilíbrio Líquido-Vapor (ELV)
+        </h3>
+
+        <p class="text-muted-soft">
+            Governa processos de <strong>destilação</strong>, <strong>evaporação</strong> e 
+            <strong>absorção</strong>. Fundamental para separação de misturas voláteis.
+        </p>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-12">
+                <div class="formula-card">
+                    <div class="formula-title">Equação de Equilíbrio ELV</div>
+                    <div class="formula-content">
+                        \[ y_i \cdot \phi_i \cdot P = x_i \cdot \gamma_i \cdot f_i^{sat} \]
+                    </div>
+                    <div class="formula-legend">
+                        <span><strong>y<sub>i</sub></strong>: fração molar na fase vapor</span>
+                        <span><strong>x<sub>i</sub></strong>: fração molar na fase líquida</span>
+                        <span><strong>φ<sub>i</sub></strong>: coeficiente de fugacidade (vapor)</span>
+                        <span><strong>γ<sub>i</sub></strong>: coeficiente de atividade (líquido)</span>
+                        <span><strong>P</strong>: pressão total</span>
+                        <span><strong>f<sub>i</sub><sup>sat</sup></strong>: fugacidade do componente puro saturado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-box mt-4">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="model-comparison">
+                        <h5><i class="bi bi-check-circle"></i> Sistema Ideal</h5>
+                        <p>Simplificações aplicáveis:</p>
+                        <ul>
+                            <li>γ<sub>i</sub> = 1 (comportamento ideal da fase líquida)</li>
+                            <li>φ<sub>i</sub> = 1 (comportamento ideal da fase vapor)</li>
+                            <li>f<sub>i</sub><sup>sat</sup> ≈ P<sub>i</sub><sup>sat</sup> (baixa pressão)</li>
+                        </ul>
+                        <div class="formula-content mt-2">
+                            \[ y_i \cdot P = x_i \cdot P_i^{sat} \]
+                        </div>
+                        <p class="text-muted-soft mt-2">
+                            <strong>Lei de Raoult</strong> - válida para misturas de componentes 
+                            quimicamente similares (ex: benzeno-tolueno).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="model-comparison">
+                        <h5><i class="bi bi-exclamation-triangle"></i> Sistema Não-Ideal</h5>
+                        <p>Correções necessárias:</p>
+                        <ul>
+                            <li>γ<sub>i</sub> calculado por NRTL, UNIQUAC ou UNIFAC</li>
+                            <li>φ<sub>i</sub> calculado por equação de estado (se P alta)</li>
+                            <li>Correção de Poynting para f<sub>i</sub><sup>sat</sup></li>
+                        </ul>
+                        <div class="alert-box mt-2">
+                            <i class="bi bi-info-circle"></i>
+                            Desvios significativos ocorrem quando:
+                            <ul class="mt-2 mb-0">
+                                <li>Moléculas têm polaridades muito diferentes</li>
+                                <li>Há ligações de hidrogênio (água-etanol)</li>
+                                <li>Tamanhos moleculares são muito distintos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="key-points mt-4">
+            <h5><i class="bi bi-star-fill"></i> Aplicações Práticas</h5>
+            <ul>
+                <li><strong>Destilação</strong>: Separação de componentes por diferença de volatilidade</li>
+                <li><strong>Azeotropia</strong>: Limite de separação quando x<sub>i</sub> = y<sub>i</sub></li>
+                <li><strong>Diagramas P-x-y e T-x-y</strong>: Representação visual do equilíbrio</li>
+                <li><strong>Flash isotérmico</strong>: Separação instantânea em vaso bifásico</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 3. Equilíbrio Líquido-Líquido (ELL) -->
+<div id="ell" class="fundamental-section">
+    <div class="panel">
+        <h3 class="section-title">
+            <i class="bi bi-water topic-icon"></i>
+            Equilíbrio Líquido-Líquido (ELL)
+        </h3>
+
+        <p class="text-muted-soft">
+            Ocorre quando dois líquidos são <strong>parcialmente miscíveis</strong>, formando 
+            duas fases líquidas em equilíbrio. Base da <strong>extração líquido-líquido</strong>.
+        </p>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-12">
+                <div class="formula-card">
+                    <div class="formula-title">Condição de Iso-Atividade</div>
+                    <div class="formula-content">
+                        \[ x_i^I \cdot \gamma_i^I = x_i^{II} \cdot \gamma_i^{II} \]
+                    </div>
+                    <p class="formula-desc">
+                        Para todas as espécies <em>i</em> presentes nas fases I e II. 
+                        Sistema de equações não-lineares resolvido iterativamente.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <div class="concept-visual">
+                    <h5><i class="bi bi-diagram-3"></i> Curva Binodal</h5>
+                    <p>Delimita a região de separação de fases:</p>
+                    <ul>
+                        <li><strong>Dentro da binodal</strong>: Sistema bifásico (2 líquidos)</li>
+                        <li><strong>Fora da binodal</strong>: Sistema monofásico (1 líquido)</li>
+                        <li><strong>Plait point</strong>: Topo da binodal (fases idênticas)</li>
+                    </ul>
+                    <div class="note-box mt-2">
+                        <i class="bi bi-lightbulb"></i>
+                        <strong>Nota:</strong> A região binodal aumenta com a diminuição da temperatura 
+                        para sistemas com consolução superior.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="concept-visual">
+                    <h5><i class="bi bi-arrows-expand"></i> Tie-Lines</h5>
+                    <p>Linhas de amarração conectam composições em equilíbrio:</p>
+                    <ul>
+                        <li><strong>Extremidades</strong>: Composições das fases I e II</li>
+                        <li><strong>Inclinação</strong>: Indica seletividade da extração</li>
+                        <li><strong>Comprimento</strong>: Diferença de composição entre fases</li>
+                    </ul>
+                    <div class="note-box mt-2">
+                        <i class="bi bi-lightbulb"></i>
+                        <strong>Aplicação:</strong> Usado para determinar número de estágios 
+                        teóricos em colunas de extração.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="key-points mt-4">
+            <h5><i class="bi bi-star-fill"></i> Aplicações Práticas</h5>
+            <ul>
+                <li><strong>Extração líquido-líquido</strong>: Separação de solutos usando solvente imiscível</li>
+                <li><strong>Purificação</strong>: Remoção de impurezas por extração seletiva</li>
+                <li><strong>Recuperação de produtos</strong>: Isolamento de produtos de fermentação, síntese</li>
+                <li><strong>Tratamento de efluentes</strong>: Remoção de contaminantes orgânicos</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 4. Equilíbrio Sólido-Líquido (ESL) -->
+<div id="esl" class="fundamental-section">
+    <div class="panel">
+        <h3 class="section-title">
+            <i class="bi bi-snow2 topic-icon"></i>
+            Equilíbrio Sólido-Líquido (ESL)
+        </h3>
+
+        <p class="text-muted-soft">
+            Governa processos de <strong>cristalização</strong>, <strong>solubilidade</strong> e 
+            <strong>formação de eutéticos</strong>. Fundamental para purificação e separação sólido-líquido.
+        </p>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-12">
+                <div class="formula-card">
+                    <div class="formula-title">Equação de Solubilidade Ideal</div>
+                    <div class="formula-content">
+                        \[ \ln x_i = -\frac{\Delta H_{fus}}{R} \left( \frac{1}{T} - \frac{1}{T_m} \right) \]
+                    </div>
+                    <div class="formula-legend">
+                        <span><strong>x<sub>i</sub></strong>: solubilidade (fração molar)</span>
+                        <span><strong>ΔH<sub>fus</sub></strong>: entalpia de fusão</span>
+                        <span><strong>T<sub>m</sub></strong>: temperatura de fusão do soluto puro</span>
+                        <span><strong>T</strong>: temperatura do sistema</span>
+                        <span><strong>R</strong>: constante dos gases</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-12">
+                <div class="formula-card">
+                    <div class="formula-title">Correção para Não-Idealidade</div>
+                    <div class="formula-content">
+                        \[ \ln (x_i \cdot \gamma_i) = -\frac{\Delta H_{fus}}{R} \left( \frac{1}{T} - \frac{1}{T_m} \right) - \frac{\Delta C_p}{R} \left[ \ln\frac{T_m}{T} - \frac{T_m}{T} + 1 \right] \]
+                    </div>
+                    <p class="formula-desc">
+                        Inclui termo de capacidade calorífica (ΔC<sub>p</sub>) e coeficiente de atividade (γ<sub>i</sub>) 
+                        para sistemas não-ideais.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <div class="concept-visual">
+                    <h5><i class="bi bi-snow"></i> Ponto Eutético</h5>
+                    <p>Composição de fusão mínima:</p>
+                    <ul>
+                        <li><strong>T<sub>eutético</sub></strong> < T<sub>fusão</sub> de qualquer componente</li>
+                        <li>Solidificação a <strong>temperatura constante</strong></li>
+                        <li>Mistura sólida homogênea formada</li>
+                    </ul>
+                    <div class="example-box mt-2">
+                        <strong>Exemplo:</strong> Sistema NaCl-H₂O tem eutético a -21.1°C 
+                        (23.3% NaCl) - usado em misturas anticongelantes.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="concept-visual">
+                    <h5><i class="bi bi-gem"></i> Cristalização</h5>
+                    <p>Formação de fase sólida ordenada:</p>
+                    <ul>
+                        <li><strong>Nucleação</strong>: Formação de núcleos críticos</li>
+                        <li><strong>Crescimento</strong>: Aumento do cristal formado</li>
+                        <li><strong>Supersaturação</strong>: Força motriz (C > C<sub>sat</sub>)</li>
+                    </ul>
+                    <div class="example-box mt-2">
+                        <strong>Purificação:</strong> Componente menos solúvel cristaliza primeiro, 
+                        deixando impurezas na fase líquida (licor-mãe).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="key-points mt-4">
+            <h5><i class="bi bi-star-fill"></i> Aplicações Práticas</h5>
+            <ul>
+                <li><strong>Cristalização industrial</strong>: Produção de sais, açúcar, APIs farmacêuticas</li>
+                <li><strong>Purificação por recristalização</strong>: Separação baseada em diferenças de solubilidade</li>
+                <li><strong>Freeze drying</strong>: Liofilização de produtos sensíveis ao calor</li>
+                <li><strong>Formação de hidratos</strong>: Prevenção em tubulações de gás/petróleo</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 5. Desvios da Idealidade -->
+<div id="desvios" class="fundamental-section">
+    <div class="panel">
+        <h3 class="section-title">
+            <i class="bi bi-graph-up topic-icon"></i>
+            Desvios da Idealidade
+        </h3>
+
+        <p class="text-muted-soft">
+            Sistemas reais raramente seguem a Lei de Raoult. <strong>Desvios da idealidade</strong> 
+            surgem devido a interações moleculares específicas.
+        </p>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-6">
+                <div class="deviation-card positive">
+                    <h5><i class="bi bi-arrow-up-circle"></i> Desvio Positivo (γ > 1)</h5>
+                    <p><strong>Causa:</strong> Repulsão entre moléculas diferentes</p>
+                    <p><strong>Característica:</strong> Pressão de vapor > Lei de Raoult</p>
+                    <div class="formula-content">
+                        \[ P > P_{ideal} \quad (\gamma_i > 1) \]
+                    </div>
+                    <ul class="mt-2">
+                        <li>Moléculas se "repelem"</li>
+                        <li>Pode formar <strong>azeótropo de mínimo</strong></li>
+                        <li>Exemplos: acetona-água, etanol-água</li>
+                    </ul>
+                    <div class="example-box mt-2">
+                        <strong>Etanol-Água:</strong> γ<sub>etanol</sub> ≈ 1.7 a x = 0.5 
+                        (azeótropo a 95.6% etanol, 78.2°C)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="deviation-card negative">
+                    <h5><i class="bi bi-arrow-down-circle"></i> Desvio Negativo (γ < 1)</h5>
+                    <p><strong>Causa:</strong> Atração entre moléculas diferentes</p>
+                    <p><strong>Característica:</strong> Pressão de vapor < Lei de Raoult</p>
+                    <div class="formula-content">
+                        \[ P < P_{ideal} \quad (\gamma_i < 1) \]
+                    </div>
+                    <ul class="mt-2">
+                        <li>Moléculas se "atraem" (ligações H)</li>
+                        <li>Pode formar <strong>azeótropo de máximo</strong></li>
+                        <li>Exemplos: clorofórmio-acetona, HCl-água</li>
+                    </ul>
+                    <div class="example-box mt-2">
+                        <strong>Clorofórmio-Acetona:</strong> γ < 1 devido a ligação de hidrogênio 
+                        entre H-CCl₃ e O=C(CH₃)₂
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="model-selection mt-4">
+            <h5><i class="bi bi-gear-fill"></i> Quando Usar Cada Modelo?</h5>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="model-guide">
+                        <div class="model-name">Ideal</div>
+                        <p class="model-use">Componentes similares (benzeno-tolueno)</p>
+                        <p class="model-accuracy">Erro: ~1-5%</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="model-guide">
+                        <div class="model-name">NRTL</div>
+                        <p class="model-use">Sistemas polares, LLE</p>
+                        <p class="model-accuracy">Erro: ~2-10%</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="model-guide">
+                        <div class="model-name">UNIQUAC</div>
+                        <p class="model-use">Moléculas tamanhos diferentes</p>
+                        <p class="model-accuracy">Erro: ~2-8%</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="model-guide">
+                        <div class="model-name">UNIFAC</div>
+                        <p class="model-use">Sem dados experimentais</p>
+                        <p class="model-accuracy">Erro: ~5-20%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Referências -->
+<div class="panel mt-4">
+    <h4><i class="bi bi-book"></i> Referências Principais</h4>
+    <ul class="references-list">
+        <li>Smith, J.M., Van Ness, H.C., Abbott, M.M. (2007). <em>Introdução à Termodinâmica da Engenharia Química</em>, 7ª ed.</li>
+        <li>Prausnitz, J.M., Lichtenthaler, R.N., Azevedo, E.G. (1999). <em>Molecular Thermodynamics of Fluid-Phase Equilibria</em>, 3rd ed.</li>
+        <li>Sandler, S.I. (2006). <em>Chemical, Biochemical, and Engineering Thermodynamics</em>, 4th ed.</li>
+        <li>Seider, W.D. et al. (2017). <em>Product and Process Design Principles</em>, 4th ed.</li>
+    </ul>
+</div>
+
+<style>
+/* Estilos específicos da página de fundamentos */
+.topics-nav {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+}
+
+.topic-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.topic-link:hover,
+.topic-link.active {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: rgba(56, 189, 248, 0.7);
+    color: var(--text-strong);
+}
+
+.fundamental-section {
+    margin-bottom: 2rem;
+    scroll-margin-top: 100px;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.topic-icon {
+    color: #38bdf8;
+}
+
+.concept-box {
+    background: rgba(56, 189, 248, 0.08);
+    border-left: 3px solid #38bdf8;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.concept-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #38bdf8;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.formula-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 10px;
+    padding: 1.2rem;
+}
+
+.formula-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-strong);
+    margin-bottom: 0.8rem;
+}
+
+.formula-content {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    color: #e0f2fe;
+    font-size: 1.1rem;
+    overflow-x: auto;
+}
+
+.formula-desc {
+    margin-top: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+.formula-legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.formula-legend span {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+}
+
+.key-points {
+    background: rgba(34, 197, 94, 0.08);
+    border-left: 3px solid #22c55e;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+}
+
+.key-points h5 {
+    font-size: 1rem;
+    color: var(--text-strong);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.key-points ul {
+    margin-bottom: 0;
+}
+
+.key-points li {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    margin-bottom: 0.4rem;
+}
+
+.comparison-box {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.model-comparison {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.model-comparison h5 {
+    font-size: 1rem;
+    color: var(--text-strong);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.alert-box {
+    background: rgba(245, 158, 11, 0.1);
+    border-left: 3px solid #f59e0b;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: 0.88rem;
+}
+
+.concept-visual {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.concept-visual h5 {
+    font-size: 1rem;
+    color: var(--text-strong);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.note-box,
+.example-box {
+    background: rgba(56, 189, 248, 0.08);
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    border-left: 2px solid #38bdf8;
+}
+
+.deviation-card {
+    padding: 1.2rem;
+    border-radius: 10px;
+    border: 2px solid;
+}
+
+.deviation-card.positive {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.deviation-card.negative {
+    background: rgba(59, 130, 246, 0.08);
+    border-color: rgba(59, 130, 246, 0.4);
+}
+
+.deviation-card h5 {
+    font-size: 1rem;
+    color: var(--text-strong);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.model-selection {
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.model-selection h5 {
+    font-size: 1.1rem;
+    color: var(--text-strong);
+    margin-bottom: 1rem;
+}
+
+.model-guide {
+    background: rgba(15, 23, 42, 0.8);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.model-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #8b5cf6;
+    margin-bottom: 0.5rem;
+}
+
+.model-use {
+    font-size: 0.88rem;
+    color: var(--text-main);
+    margin-bottom: 0.3rem;
+}
+
+.model-accuracy {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-bottom: 0;
+}
+
+.references-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.references-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.references-list li:last-child {
+    border-bottom: none;
+}
+</style>
+
+<!-- MathJax para renderizar equações LaTeX -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script>
+// Navegação suave entre seções
+document.querySelectorAll('.topic-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active de todos
+        document.querySelectorAll('.topic-link').forEach(l => l.classList.remove('active'));
+        
+        // Adiciona active no clicado
+        this.classList.add('active');
+        
+        // Scroll suave para seção
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+
+// Detecta seção visível durante scroll
+const observerOptions = {
+    root: null,
+    rootMargin: '-100px 0px -80% 0px',
+    threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            const correspondingLink = document.querySelector(`.topic-link[href="#${id}"]`);
+            if (correspondingLink) {
+                document.querySelectorAll('.topic-link').forEach(l => l.classList.remove('active'));
+                correspondingLink.classList.add('active');
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.fundamental-section').forEach(section => {
+    observer.observe(section);
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard · PhaseFlow{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+    <!-- Cabeçalho -->
+    <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="page-title">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </h1>
+                <p class="text-muted-soft">
+                    Acompanhe suas simulações e estatísticas em tempo real
+                </p>
+            </div>
+            <div>
+                <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.9rem; padding: 0.5rem 1rem;">
+                    <i class="bi bi-check-circle"></i> VERSÃO TCC
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards de Estatísticas -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="panel text-center">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #38bdf8;" id="totalSimulations">0</div>
+                <div class="text-muted-soft mt-2">Total de Simulações</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel text-center">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #22c55e;" id="todaySimulations">0</div>
+                <div class="text-muted-soft mt-2">Hoje</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel text-center">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #f97316;" id="successRate">0%</div>
+                <div class="text-muted-soft mt-2">Taxa de Sucesso</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel text-center">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #a855f7;" id="avgTime">0s</div>
+                <div class="text-muted-soft mt-2">Tempo Médio</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-header mb-3">
+                    <div class="panel-title">
+                        <i class="bi bi-bar-chart-fill"></i> Simulações por Módulo
+                    </div>
+                </div>
+                <div style="position: relative; height: 300px;">
+                    <canvas id="moduleChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-header mb-3">
+                    <div class="panel-title">
+                        <i class="bi bi-graph-up"></i> Modelos Mais Usados
+                    </div>
+                </div>
+                <div style="position: relative; height: 300px;">
+                    <canvas id="modelChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Histórico de Simulações -->
+    <div class="panel">
+        <div class="panel-header mb-3">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <div class="panel-title">
+                    <i class="bi bi-clock-history"></i> Histórico de Simulações
+                </div>
+                <button class="btn-sim btn-sim-secondary btn-sm" onclick="exportHistory()">
+                    <i class="bi bi-download"></i> Exportar
+                </button>
+            </div>
+        </div>
+
+        <div id="simulationHistory">
+            <div class="text-center text-muted-soft py-5">
+                <div class="spinner-border" role="status" style="color: #38bdf8;">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+                <div class="mt-2">Carregando histórico...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Detalhes da Simulação -->
+<div class="modal fade" id="simulationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content" style="background: #0f172a; color: #e5e7eb; border: 1px solid rgba(148, 163, 184, 0.3);">
+            <div class="modal-header" style="border-bottom: 1px solid rgba(148, 163, 184, 0.2);">
+                <h5 class="modal-title">
+                    <i class="bi bi-graph-up"></i> Detalhes da Simulação
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="simulationModalBody">
+                <!-- preenchido por dashboard.js -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Itens do histórico */
+.simulation-item {
+    padding: 1rem 1.2rem;
+    background: rgba(30, 41, 59, 0.5);
+    border-left: 4px solid #38bdf8;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.simulation-item:hover {
+    background: rgba(56, 189, 248, 0.1);
+    transform: translateX(4px);
+    border-left-color: #60a5fa;
+}
+
+.simulation-item.success {
+    border-left-color: #22c55e;
+}
+
+.simulation-item.error {
+    border-left-color: #ef4444;
+}
+
+/* Badges dos módulos */
+.module-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.module-elv {
+    background: rgba(56, 189, 248, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.module-ell {
+    background: rgba(249, 115, 22, 0.2);
+    color: #fb923c;
+    border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.module-esl {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+/* Grid de resultados no modal */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.result-item {
+    padding: 0.8rem;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.result-item .label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.result-item .value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+/* Customização do modal */
+.modal-content {
+    backdrop-filter: blur(10px);
+}
+
+.modal-header .btn-close {
+    opacity: 0.7;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 1;
+}
+</style>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

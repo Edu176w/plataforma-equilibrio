@@ -1,0 +1,951 @@
+{% extends "base.html" %}
+
+{% block title %}Tutoriais Guiados · Passo a Passo{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title">
+            <i class="bi bi-play-circle"></i>
+            Tutoriais Guiados
+        </div>
+        <div class="page-subtitle">
+            Aprenda a resolver problemas práticos de equilíbrio de fases
+        </div>
+    </div>
+    <div>
+        <button class="btn-sim btn-sim-ghost" onclick="window.location.href='{{ url_for('educational.index') }}'">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </button>
+    </div>
+</div>
+
+<!-- Lista de tutoriais -->
+<div class="row g-3">
+    <!-- Tutorial 1: Flash Isotérmico -->
+    <div class="col-lg-6">
+        <div class="tutorial-card">
+            <div class="tutorial-header">
+                <div class="tutorial-number">01</div>
+                <div>
+                    <h4 class="tutorial-title">Flash Isotérmico de Etanol-Água</h4>
+                    <div class="tutorial-meta">
+                        <span class="meta-item">
+                            <i class="bi bi-clock"></i> 15 min
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-droplet-fill"></i> ELV
+                        </span>
+                        <span class="meta-item difficulty-beginner">
+                            <i class="bi bi-star-fill"></i> Iniciante
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-description">
+                <p>
+                    Aprenda a calcular separação flash de uma mistura etanol-água usando o módulo ELV. 
+                    Você aprenderá a interpretar diagramas e calcular frações vaporizadas.
+                </p>
+            </div>
+
+            <div class="tutorial-topics">
+                <h5>O que você vai aprender:</h5>
+                <ul>
+                    <li><i class="bi bi-check2"></i> Conceito de separação flash</li>
+                    <li><i class="bi bi-check2"></i> Algoritmo de Rachford-Rice</li>
+                    <li><i class="bi bi-check2"></i> Interpretação de resultados</li>
+                    <li><i class="bi bi-check2"></i> Análise de sensibilidade T-P</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-actions">
+                <button class="btn-sim btn-sim-educational" onclick="openTutorial('flash-ethanol-water')">
+                    <i class="bi bi-play-fill"></i> Iniciar Tutorial
+                </button>
+                <button class="btn-sim btn-sim-ghost btn-sm" onclick="previewTutorial('flash-ethanol-water')">
+                    <i class="bi bi-eye"></i> Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial 2: Diagrama P-x-y ✅ CORRIGIDO -->
+    <div class="col-lg-6">
+        <div class="tutorial-card">
+            <div class="tutorial-header">
+                <div class="tutorial-number">02</div>
+                <div>
+                    <h4 class="tutorial-title">Construção de Diagrama P-x-y</h4>
+                    <div class="tutorial-meta">
+                        <span class="meta-item">
+                            <i class="bi bi-clock"></i> 20 min
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-droplet-fill"></i> ELV
+                        </span>
+                        <span class="meta-item difficulty-beginner">
+                            <i class="bi bi-star-fill"></i> Iniciante
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-description">
+                <p>
+                    Construa um diagrama de equilíbrio isotérmico P-x-y para o sistema benzeno-tolueno. 
+                    Entenda pontos de bolha, orvalho e curvas de equilíbrio.
+                </p>
+            </div>
+
+            <div class="tutorial-topics">
+                <h5>O que você vai aprender:</h5>
+                <ul>
+                    <li><i class="bi bi-check2"></i> Cálculo de ponto de bolha</li>
+                    <li><i class="bi bi-check2"></i> Cálculo de ponto de orvalho</li>
+                    <li><i class="bi bi-check2"></i> Geração de curvas isotérmicas</li>
+                    <li><i class="bi bi-check2"></i> Análise de volatilidade relativa</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-actions">
+                <button class="btn-sim btn-sim-educational" onclick="openTutorial('diagram-pxy')">
+                    <i class="bi bi-play-fill"></i> Iniciar Tutorial
+                </button>
+                <button class="btn-sim btn-sim-ghost btn-sm" onclick="previewTutorial('diagram-pxy')">
+                    <i class="bi bi-eye"></i> Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial 3: Azeotropia ✅ CORRIGIDO -->
+    <div class="col-lg-6">
+        <div class="tutorial-card">
+            <div class="tutorial-header">
+                <div class="tutorial-number">03</div>
+                <div>
+                    <h4 class="tutorial-title">Identificação de Azeótropos</h4>
+                    <div class="tutorial-meta">
+                        <span class="meta-item">
+                            <i class="bi bi-clock"></i> 25 min
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-droplet-fill"></i> ELV
+                        </span>
+                        <span class="meta-item difficulty-intermediate">
+                            <i class="bi bi-star-fill"></i> Intermediário
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-description">
+                <p>
+                    Detecte e caracterize o azeótropo de mínimo do sistema metanol-benzeno usando NRTL. 
+                    Aprenda por que a destilação simples tem limites.
+                </p>
+            </div>
+
+            <div class="tutorial-topics">
+                <h5>O que você vai aprender:</h5>
+                <ul>
+                    <li><i class="bi bi-check2"></i> Desvios da Lei de Raoult</li>
+                    <li><i class="bi bi-check2"></i> Identificação de azeótropos</li>
+                    <li><i class="bi bi-check2"></i> Limites de destilação</li>
+                    <li><i class="bi bi-check2"></i> Alternativas de separação</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-actions">
+                <button class="btn-sim btn-sim-educational" onclick="openTutorial('azeotrope-detection')">
+                    <i class="bi bi-play-fill"></i> Iniciar Tutorial
+                </button>
+                <button class="btn-sim btn-sim-ghost btn-sm" onclick="previewTutorial('azeotrope-detection')">
+                    <i class="bi bi-eye"></i> Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial 4: Comparação de Modelos -->
+    <div class="col-lg-6">
+        <div class="tutorial-card">
+            <div class="tutorial-header">
+                <div class="tutorial-number">04</div>
+                <div>
+                    <h4 class="tutorial-title">Comparação Ideal vs NRTL vs UNIQUAC</h4>
+                    <div class="tutorial-meta">
+                        <span class="meta-item">
+                            <i class="bi bi-clock"></i> 30 min
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-droplet-fill"></i> ELV
+                        </span>
+                        <span class="meta-item difficulty-intermediate">
+                            <i class="bi bi-star-fill"></i> Intermediário
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-description">
+                <p>
+                    Compare predições de diferentes modelos termodinâmicos para acetona-água. 
+                    Entenda quando usar cada modelo.
+                </p>
+            </div>
+
+            <div class="tutorial-topics">
+                <h5>O que você vai aprender:</h5>
+                <ul>
+                    <li><i class="bi bi-check2"></i> Limitações do modelo ideal</li>
+                    <li><i class="bi bi-check2"></i> Vantagens do NRTL e UNIQUAC</li>
+                    <li><i class="bi bi-check2"></i> Análise de coeficientes de atividade</li>
+                    <li><i class="bi bi-check2"></i> Critérios de seleção de modelo</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-actions">
+                <button class="btn-sim btn-sim-educational" onclick="openTutorial('model-comparison')">
+                    <i class="bi bi-play-fill"></i> Iniciar Tutorial
+                </button>
+                <button class="btn-sim btn-sim-ghost btn-sm" onclick="previewTutorial('model-comparison')">
+                    <i class="bi bi-eye"></i> Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial 5: Extração Líquido-Líquido -->
+    <div class="col-lg-6">
+        <div class="tutorial-card">
+            <div class="tutorial-header">
+                <div class="tutorial-number">05</div>
+                <div>
+                    <h4 class="tutorial-title">Extração de Acetona com 1-Butanol</h4>
+                    <div class="tutorial-meta">
+                        <span class="meta-item">
+                            <i class="bi bi-clock"></i> 35 min
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-water"></i> ELL
+                        </span>
+                        <span class="meta-item difficulty-advanced">
+                            <i class="bi bi-star-fill"></i> Avançado
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-description">
+                <p>
+                    Projete uma extração líquido-líquido multi-estágios para recuperar acetona de solução aquosa. 
+                    Use NRTL para sistemas ternários.
+                </p>
+            </div>
+
+            <div class="tutorial-topics">
+                <h5>O que você vai aprender:</h5>
+                <ul>
+                    <li><i class="bi bi-check2"></i> Extração multi-estágios</li>
+                    <li><i class="bi bi-check2"></i> Coeficiente de distribuição</li>
+                    <li><i class="bi bi-check2"></i> Cálculo de estágios teóricos</li>
+                    <li><i class="bi bi-check2"></i> Análise de seletividade</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-actions">
+                <button class="btn-sim btn-sim-educational" onclick="openTutorial('lle-extraction')">
+                    <i class="bi bi-play-fill"></i> Iniciar Tutorial
+                </button>
+                <button class="btn-sim btn-sim-ghost btn-sm" onclick="previewTutorial('lle-extraction')">
+                    <i class="bi bi-eye"></i> Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial 6: Diagrama Ternário -->
+    <div class="col-lg-6">
+        <div class="tutorial-card">
+            <div class="tutorial-header">
+                <div class="tutorial-number">06</div>
+                <div>
+                    <h4 class="tutorial-title">Construção de Diagrama Ternário</h4>
+                    <div class="tutorial-meta">
+                        <span class="meta-item">
+                            <i class="bi bi-clock"></i> 30 min
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-water"></i> ELL
+                        </span>
+                        <span class="meta-item difficulty-intermediate">
+                            <i class="bi bi-star-fill"></i> Intermediário
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-description">
+                <p>
+                    Construa e interprete um diagrama ternário completo para água-tolueno-anilina. 
+                    Identifique região binodal e plait point.
+                </p>
+            </div>
+
+            <div class="tutorial-topics">
+                <h5>O que você vai aprender:</h5>
+                <ul>
+                    <li><i class="bi bi-check2"></i> Cálculo de curva binodal</li>
+                    <li><i class="bi bi-check2"></i> Determinação de tie-lines</li>
+                    <li><i class="bi bi-check2"></i> Identificação do plait point</li>
+                    <li><i class="bi bi-check2"></i> Balanço material em extração</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-actions">
+                <button class="btn-sim btn-sim-educational" onclick="openTutorial('ternary-diagram')">
+                    <i class="bi bi-play-fill"></i> Iniciar Tutorial
+                </button>
+                <button class="btn-sim btn-sim-ghost btn-sm" onclick="previewTutorial('ternary-diagram')">
+                    <i class="bi bi-eye"></i> Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial 7: Cristalização -->
+    <div class="col-lg-6">
+        <div class="tutorial-card">
+            <div class="tutorial-header">
+                <div class="tutorial-number">07</div>
+                <div>
+                    <h4 class="tutorial-title">Cristalização de Naftaleno</h4>
+                    <div class="tutorial-meta">
+                        <span class="meta-item">
+                            <i class="bi bi-clock"></i> 25 min
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-snow2"></i> ESL
+                        </span>
+                        <span class="meta-item difficulty-beginner">
+                            <i class="bi bi-star-fill"></i> Iniciante
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-description">
+                <p>
+                    Calcule a solubilidade de naftaleno em benzeno em diferentes temperaturas. 
+                    Projete um processo de cristalização fracionada.
+                </p>
+            </div>
+
+            <div class="tutorial-topics">
+                <h5>O que você vai aprender:</h5>
+                <ul>
+                    <li><i class="bi bi-check2"></i> Cálculo de solubilidade</li>
+                    <li><i class="bi bi-check2"></i> Curvas de solubilidade vs T</li>
+                    <li><i class="bi bi-check2"></i> Rendimento de cristalização</li>
+                    <li><i class="bi bi-check2"></i> Pureza do produto cristalizado</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-actions">
+                <button class="btn-sim btn-sim-educational" onclick="openTutorial('crystallization')">
+                    <i class="bi bi-play-fill"></i> Iniciar Tutorial
+                </button>
+                <button class="btn-sim btn-sim-ghost btn-sm" onclick="previewTutorial('crystallization')">
+                    <i class="bi bi-eye"></i> Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial 8: Ponto Eutético ✅ CORRIGIDO -->
+    <div class="col-lg-6">
+        <div class="tutorial-card">
+            <div class="tutorial-header">
+                <div class="tutorial-number">08</div>
+                <div>
+                    <h4 class="tutorial-title">Determinação de Ponto Eutético</h4>
+                    <div class="tutorial-meta">
+                        <span class="meta-item">
+                            <i class="bi bi-clock"></i> 30 min
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-snow2"></i> ESL
+                        </span>
+                        <span class="meta-item difficulty-intermediate">
+                            <i class="bi bi-star-fill"></i> Intermediário
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tutorial-description">
+                <p>
+                    Identifique o ponto eutético do sistema naftaleno-benzeno e entenda o gap de miscibilidade 
+                    líquido-líquido em baixas temperaturas.
+                </p>
+            </div>
+
+            <div class="tutorial-topics">
+                <h5>O que você vai aprender:</h5>
+                <ul>
+                    <li><i class="bi bi-check2"></i> Conceito de ponto eutético</li>
+                    <li><i class="bi bi-check2"></i> Diagramas de fases SLE</li>
+                    <li><i class="bi bi-check2"></i> Gap de miscibilidade L₁+L₂</li>
+                    <li><i class="bi bi-check2"></i> Aplicações práticas</li>
+                </ul>
+            </div>
+
+            <div class="tutorial-actions">
+                <button class="btn-sim btn-sim-educational" onclick="openTutorial('eutectic-point')">
+                    <i class="bi bi-play-fill"></i> Iniciar Tutorial
+                </button>
+                <button class="btn-sim btn-sim-ghost btn-sm" onclick="previewTutorial('eutectic-point')">
+                    <i class="bi bi-eye"></i> Preview
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Roteiro de Aprendizado ✅ CORRIGIDO -->
+<div class="panel mt-4">
+    <h4 class="mb-3">
+        <i class="bi bi-map"></i> Roteiro de Aprendizado Sugerido
+    </h4>
+    
+    <div class="learning-path">
+        <div class="path-stage">
+            <div class="stage-header">
+                <div class="stage-number">Nível 1</div>
+                <h5>Fundamentos (Iniciante)</h5>
+            </div>
+            <div class="stage-tutorials">
+                <span class="tutorial-pill">01 - Flash Isotérmico</span>
+                <span class="tutorial-pill">02 - Diagrama P-x-y</span>
+                <span class="tutorial-pill">07 - Cristalização</span>
+            </div>
+            <p class="stage-desc">
+                Comece com conceitos básicos de equilíbrio e cálculos simples. 
+                Ideal para quem está tendo primeiro contato com a área.
+            </p>
+        </div>
+
+        <div class="path-arrow">
+            <i class="bi bi-arrow-down"></i>
+        </div>
+
+        <div class="path-stage">
+            <div class="stage-header">
+                <div class="stage-number">Nível 2</div>
+                <h5>Intermediário</h5>
+            </div>
+            <div class="stage-tutorials">
+                <span class="tutorial-pill">03 - Azeotropia</span>
+                <span class="tutorial-pill">04 - Comparação de Modelos</span>
+                <span class="tutorial-pill">06 - Diagrama Ternário</span>
+                <span class="tutorial-pill">08 - Ponto Eutético</span>
+            </div>
+            <p class="stage-desc">
+                Aprofunde-se em sistemas não-ideais, modelos termodinâmicos e 
+                cálculos de maior complexidade.
+            </p>
+        </div>
+
+        <div class="path-arrow">
+            <i class="bi bi-arrow-down"></i>
+        </div>
+
+        <div class="path-stage">
+            <div class="stage-header">
+                <div class="stage-number">Nível 3</div>
+                <h5>Avançado</h5>
+            </div>
+            <div class="stage-tutorials">
+                <span class="tutorial-pill">05 - Extração LLE</span>
+            </div>
+            <p class="stage-desc">
+                Projete processos completos de separação com múltiplos estágios 
+                e otimização de parâmetros operacionais.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Dicas de Estudo -->
+<div class="panel mt-3">
+    <div class="tips-section">
+        <h4 class="mb-3">
+            <i class="bi bi-lightbulb-fill"></i> Dicas para Aproveitar os Tutoriais
+        </h4>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="tip-card">
+                    <i class="bi bi-pencil-square tip-icon"></i>
+                    <h5>Anote os Conceitos</h5>
+                    <p>
+                        Mantenha um caderno para registrar fórmulas importantes, 
+                        parâmetros e observações durante os tutoriais.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="tip-card">
+                    <i class="bi bi-calculator tip-icon"></i>
+                    <h5>Refaça os Cálculos</h5>
+                    <p>
+                        Após completar um tutorial, tente reproduzir os cálculos 
+                        manualmente para fixar o aprendizado.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="tip-card">
+                    <i class="bi bi-graph-up tip-icon"></i>
+                    <h5>Explore Variações</h5>
+                    <p>
+                        Mude temperaturas, pressões e composições para ver como 
+                        os resultados se alteram.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Estilos específicos de tutoriais */
+.tutorial-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tutorial-card:hover {
+    border-color: rgba(245, 158, 11, 0.6);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
+    transform: translateY(-2px);
+}
+
+.tutorial-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tutorial-number {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.tutorial-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    margin-bottom: 0.5rem;
+}
+
+.tutorial-meta {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+}
+
+.meta-item i {
+    font-size: 0.9rem;
+}
+
+.difficulty-beginner {
+    color: #86efac;
+}
+
+.difficulty-intermediate {
+    color: #fcd34d;
+}
+
+.difficulty-advanced {
+    color: #fca5a5;
+}
+
+.tutorial-description {
+    margin-bottom: 1rem;
+}
+
+.tutorial-description p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.tutorial-topics {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.tutorial-topics h5 {
+    font-size: 0.9rem;
+    color: var(--text-strong);
+    margin-bottom: 0.7rem;
+}
+
+.tutorial-topics ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.tutorial-topics li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+}
+
+.tutorial-topics li:last-child {
+    margin-bottom: 0;
+}
+
+.tutorial-topics li i {
+    color: #22c55e;
+    font-size: 0.9rem;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+}
+
+.tutorial-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.learning-path {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.path-stage {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 10px;
+    padding: 1.3rem;
+}
+
+.stage-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.stage-number {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.stage-header h5 {
+    font-size: 1.1rem;
+    color: var(--text-strong);
+    margin-bottom: 0;
+}
+
+.stage-tutorials {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+}
+
+.tutorial-pill {
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #7dd3fc;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.stage-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.path-arrow {
+    display: flex;
+    justify-content: center;
+    padding: 0.8rem 0;
+}
+
+.path-arrow i {
+    font-size: 1.5rem;
+    color: #f59e0b;
+}
+
+.tips-section {
+    padding: 0.5rem;
+}
+
+.tip-card {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.tip-card:hover {
+    border-color: rgba(245, 158, 11, 0.5);
+    background: rgba(15, 23, 42, 0.6);
+}
+
+.tip-icon {
+    font-size: 2rem;
+    color: #f59e0b;
+    margin-bottom: 0.8rem;
+}
+
+.tip-card h5 {
+    font-size: 0.95rem;
+    color: var(--text-strong);
+    margin-bottom: 0.5rem;
+}
+
+.tip-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+</style>
+
+<script>
+/**
+ * Inicia tutorial interativo
+ */
+async function openTutorial(tutorialId) {
+    console.log('🎓 [TUTORIAL] Abrindo tutorial:', tutorialId);
+    window.location.href = `/educational/tutorials/${tutorialId}/start`;
+}
+
+/**
+ * Mostra preview do tutorial
+ */
+async function previewTutorial(tutorialId) {
+    console.log('👁️ [TUTORIAL] Preview:', tutorialId);
+    
+    try {
+        const response = await fetch(`/educational/api/tutorials/${tutorialId}`);
+        const data = await response.json();
+        
+        if (!data.success) {
+            throw new Error('Tutorial não encontrado');
+        }
+        
+        const tutorial = data.tutorial;
+        showPreviewModal(tutorial);
+        
+    } catch (error) {
+        console.error('[TUTORIAL] Erro:', error);
+        alert('Erro ao carregar preview do tutorial.');
+    }
+}
+
+/**
+ * Mostra modal de preview
+ */
+function showPreviewModal(tutorial) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        animation: fadeIn 0.3s ease;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: #1e293b;
+            border: 2px solid #f59e0b;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        ">
+            <button onclick="this.closest('[style*=fixed]').remove()" style="
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: transparent;
+                border: none;
+                color: #94a3b8;
+                font-size: 28px;
+                cursor: pointer;
+                padding: 5px;
+                line-height: 1;
+            ">×</button>
+            
+            <div style="margin-bottom: 25px;">
+                <h2 style="color: #fcd34d; font-size: 1.8rem; font-weight: 700; margin-bottom: 10px;">
+                    <i class="bi bi-play-circle"></i> ${tutorial.title}
+                </h2>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <span style="background: rgba(245,158,11,0.2); color: #fcd34d; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem;">
+                        <i class="bi bi-clock"></i> ${tutorial.duration} min
+                    </span>
+                    <span style="background: rgba(56,189,248,0.2); color: #7dd3fc; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem;">
+                        <i class="bi bi-droplet-fill"></i> ${tutorial.module.toUpperCase()}
+                    </span>
+                    <span style="background: rgba(139,92,246,0.2); color: #c4b5fd; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem;">
+                        <i class="bi bi-star-fill"></i> ${tutorial.level}
+                    </span>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <h4 style="color: #e5e7eb; font-size: 1.1rem; margin-bottom: 10px;">📋 Descrição</h4>
+                <p style="color: #cbd5e1; line-height: 1.6;">${tutorial.description}</p>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <h4 style="color: #e5e7eb; font-size: 1.1rem; margin-bottom: 10px;">🎯 Objetivos de Aprendizagem</h4>
+                <ul style="color: #cbd5e1; line-height: 1.8; padding-left: 20px;">
+                    ${tutorial.objectives.map(obj => `<li>${obj}</li>`).join('')}
+                </ul>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <h4 style="color: #e5e7eb; font-size: 1.1rem; margin-bottom: 10px;">📚 Pré-requisitos</h4>
+                <ul style="color: #cbd5e1; line-height: 1.8; padding-left: 20px;">
+                    ${tutorial.prerequisites.map(pre => `<li>${pre}</li>`).join('')}
+                </ul>
+            </div>
+            
+            <div style="margin-bottom: 25px;">
+                <h4 style="color: #e5e7eb; font-size: 1.1rem; margin-bottom: 15px;">📝 Roteiro (${tutorial.steps.length} passos)</h4>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    ${tutorial.steps.map((step, index) => `
+                        <div style="
+                            background: rgba(15,23,42,0.5);
+                            border-left: 3px solid #f59e0b;
+                            padding: 12px;
+                            border-radius: 8px;
+                        ">
+                            <div style="color: #fcd34d; font-weight: 600; margin-bottom: 5px;">
+                                ${index + 1}. ${step.title}
+                            </div>
+                            <div style="color: #94a3b8; font-size: 0.9rem;">
+                                ${step.content}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button onclick="this.closest('[style*=fixed]').remove()" style="
+                    background: rgba(148,163,184,0.2);
+                    border: 1px solid rgba(148,163,184,0.4);
+                    color: #cbd5e1;
+                    padding: 12px 24px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    transition: all 0.2s;
+                ">Fechar</button>
+                <button onclick="openTutorial('${tutorial.id}')" style="
+                    background: linear-gradient(135deg, #f59e0b, #d97706);
+                    border: none;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    transition: all 0.2s;
+                ">
+                    <i class="bi bi-play-fill"></i> Iniciar Tutorial
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+    });
+    
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    `;
+    document.head.appendChild(style);
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,550 @@
+[
+  {
+    "id": "20251209201333424705",
+    "timestamp": "2025-12-09T20:13:33.424756",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "UNIQUAC",
+    "components": [
+      "Acetona",
+      "Metanol"
+    ],
+    "conditions": {
+      "components": [
+        "acetone",
+        "methanol"
+      ],
+      "model": "UNIQUAC",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (atm)": 2.1779,
+      "P (bar)": 2.2067,
+      "P (kPa)": 220.67,
+      "P1_sat (kPa)": 215.48,
+      "P2_sat (kPa)": 181.11,
+      "T (C)": 80,
+      "T (K)": 353.15,
+      "gamma1": 1.0658,
+      "gamma2": 1.1688,
+      "model": "UNIQUAC",
+      "x1 (acetone)": 0.5,
+      "x2 (methanol)": 0.5,
+      "y1 (acetone)": 0.5204,
+      "y2 (methanol)": 0.4796
+    },
+    "execution_time": 0.02,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251209201347440951",
+    "timestamp": "2025-12-09T20:13:47.440998",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "Ideal",
+    "components": [
+      "Acetona",
+      "Metanol"
+    ],
+    "conditions": {
+      "components": [
+        "acetone",
+        "methanol"
+      ],
+      "model": "Ideal",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (atm)": 1.957,
+      "P (bar)": 1.983,
+      "P (kPa)": 198.3,
+      "P1_sat (kPa)": 215.48,
+      "P2_sat (kPa)": 181.11,
+      "T (C)": 80,
+      "T (K)": 353.15,
+      "gamma1": 1,
+      "gamma2": 1,
+      "model": "Ideal",
+      "x1 (acetone)": 0.5,
+      "x2 (methanol)": 0.5,
+      "y1 (acetone)": 0.5433,
+      "y2 (methanol)": 0.4567
+    },
+    "execution_time": 0.01,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251209201354577726",
+    "timestamp": "2025-12-09T20:13:54.577774",
+    "module": "elv",
+    "calculation_type": "flash",
+    "model": "Ideal",
+    "components": [
+      "Acetona",
+      "Metanol"
+    ],
+    "conditions": {
+      "components": [
+        "acetone",
+        "methanol"
+      ],
+      "model": "Ideal",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C",
+      "pressure": 101.325,
+      "pressure_unit": "kPa"
+    },
+    "results": {
+      "Fracao liquido (1-beta)": 0,
+      "Fracao vapor (beta)": 1,
+      "K1": 2.1266,
+      "K2": 1.7874,
+      "P (kPa)": 101.33,
+      "T (C)": 80,
+      "gamma1": 1,
+      "gamma2": 1,
+      "model": "Ideal",
+      "x1 (acetone)": 0.2351,
+      "x2 (methanol)": 0.2797,
+      "y1 (acetone)": 0.5,
+      "y2 (methanol)": 0.5,
+      "z1 (acetone)": 0.5,
+      "z2 (methanol)": 0.5
+    },
+    "execution_time": 0.03,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251209201359778998",
+    "timestamp": "2025-12-09T20:13:59.779047",
+    "module": "elv",
+    "calculation_type": "flash",
+    "model": "NRTL",
+    "components": [
+      "Acetona",
+      "Metanol"
+    ],
+    "conditions": {
+      "components": [
+        "acetone",
+        "methanol"
+      ],
+      "model": "NRTL",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C",
+      "pressure": 101.325,
+      "pressure_unit": "kPa"
+    },
+    "results": {
+      "Fracao liquido (1-beta)": 0,
+      "Fracao vapor (beta)": 1,
+      "K1": 2.4282,
+      "K2": 2.0054,
+      "P (kPa)": 101.33,
+      "T (C)": 80,
+      "gamma1": 1.1418,
+      "gamma2": 1.1219,
+      "model": "NRTL",
+      "x1 (acetone)": 0.2059,
+      "x2 (methanol)": 0.2493,
+      "y1 (acetone)": 0.5,
+      "y2 (methanol)": 0.5,
+      "z1 (acetone)": 0.5,
+      "z2 (methanol)": 0.5
+    },
+    "execution_time": 0.02,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212131458006",
+    "timestamp": "2025-12-12T13:14:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "Ideal",
+    "components": [
+      "Ethanol",
+      "Water"
+    ],
+    "conditions": {
+      "components": [
+        "ethanol",
+        "water"
+      ],
+      "model": "Ideal",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 100.5,
+      "T (C)": 80,
+      "gamma1": 1.0,
+      "gamma2": 1.0,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.01,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212141158006",
+    "timestamp": "2025-12-12T14:11:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "NRTL",
+    "components": [
+      "Acetone",
+      "Methanol"
+    ],
+    "conditions": {
+      "components": [
+        "acetone",
+        "methanol"
+      ],
+      "model": "NRTL",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 105.5,
+      "T (C)": 80,
+      "gamma1": 1.01,
+      "gamma2": 1.01,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.011,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212150858006",
+    "timestamp": "2025-12-12T15:08:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "UNIQUAC",
+    "components": [
+      "Benzene",
+      "Toluene"
+    ],
+    "conditions": {
+      "components": [
+        "benzene",
+        "toluene"
+      ],
+      "model": "UNIQUAC",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 110.5,
+      "T (C)": 80,
+      "gamma1": 1.02,
+      "gamma2": 1.02,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.012,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212160558006",
+    "timestamp": "2025-12-12T16:05:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "UNIFAC",
+    "components": [
+      "Water",
+      "Acetic Acid"
+    ],
+    "conditions": {
+      "components": [
+        "water",
+        "acetic acid"
+      ],
+      "model": "UNIFAC",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 115.5,
+      "T (C)": 80,
+      "gamma1": 1.03,
+      "gamma2": 1.03,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.013000000000000001,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212170258006",
+    "timestamp": "2025-12-12T17:02:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "Ideal",
+    "components": [
+      "Ethanol",
+      "Water"
+    ],
+    "conditions": {
+      "components": [
+        "ethanol",
+        "water"
+      ],
+      "model": "Ideal",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 120.5,
+      "T (C)": 80,
+      "gamma1": 1.04,
+      "gamma2": 1.04,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.014,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212175958006",
+    "timestamp": "2025-12-12T17:59:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "NRTL",
+    "components": [
+      "Acetone",
+      "Methanol"
+    ],
+    "conditions": {
+      "components": [
+        "acetone",
+        "methanol"
+      ],
+      "model": "NRTL",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 125.5,
+      "T (C)": 80,
+      "gamma1": 1.05,
+      "gamma2": 1.05,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.015,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212185658006",
+    "timestamp": "2025-12-12T18:56:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "UNIQUAC",
+    "components": [
+      "Benzene",
+      "Toluene"
+    ],
+    "conditions": {
+      "components": [
+        "benzene",
+        "toluene"
+      ],
+      "model": "UNIQUAC",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 130.5,
+      "T (C)": 80,
+      "gamma1": 1.06,
+      "gamma2": 1.06,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.016,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212195358006",
+    "timestamp": "2025-12-12T19:53:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "UNIFAC",
+    "components": [
+      "Water",
+      "Acetic Acid"
+    ],
+    "conditions": {
+      "components": [
+        "water",
+        "acetic acid"
+      ],
+      "model": "UNIFAC",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 135.5,
+      "T (C)": 80,
+      "gamma1": 1.07,
+      "gamma2": 1.07,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.017,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212205058006",
+    "timestamp": "2025-12-12T20:50:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "Ideal",
+    "components": [
+      "Ethanol",
+      "Water"
+    ],
+    "conditions": {
+      "components": [
+        "ethanol",
+        "water"
+      ],
+      "model": "Ideal",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 140.5,
+      "T (C)": 80,
+      "gamma1": 1.08,
+      "gamma2": 1.08,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.018000000000000002,
+    "success": true,
+    "error_message": null
+  },
+  {
+    "id": "20251212214758006",
+    "timestamp": "2025-12-12T21:47:58.006847",
+    "module": "elv",
+    "calculation_type": "bubble",
+    "model": "NRTL",
+    "components": [
+      "Acetone",
+      "Methanol"
+    ],
+    "conditions": {
+      "components": [
+        "acetone",
+        "methanol"
+      ],
+      "model": "NRTL",
+      "compositions": [
+        0.5,
+        0.5
+      ],
+      "temperature": 80,
+      "temperature_unit": "C"
+    },
+    "results": {
+      "P (kPa)": 145.5,
+      "T (C)": 80,
+      "gamma1": 1.09,
+      "gamma2": 1.09,
+      "x1": 0.5,
+      "x2": 0.5,
+      "y1": 0.6,
+      "y2": 0.4
+    },
+    "execution_time": 0.019000000000000003,
+    "success": true,
+    "error_message": null
+  }
+]

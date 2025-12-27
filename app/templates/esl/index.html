@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}ESL - Equilíbrio Sólido-Líquido{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="hero-section">
+    <h1 class="hero-title">
+        <i class="bi bi-snow2"></i> ESL - Equilíbrio Sólido-Líquido
+    </h1>
+    <p class="hero-subtitle">
+        Cristalização e solubilidade com pontos eutéticos e diagramas de fase
+    </p>
+</div>
+
+<!-- Formulário -->
+<div class="form-section">
+    <h3 class="mb-4">
+        <i class="bi bi-calculator"></i> Configurar Cálculo
+    </h3>
+    
+    <form id="eslForm">
+        <!-- Tipo de Cálculo -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Tipo de Cálculo</label>
+                <select class="form-select form-select-custom" id="calculationType">
+                    <option value="solubility">Solubilidade</option>
+                    <option value="eutectic">Ponto Eutético</option>
+                    <option value="solubility-curve">Curva de Solubilidade</option>
+                    <option value="phase-diagram">Diagrama de Fases</option>
+                </select>
+            </div>
+            
+            <div class="col-md-6">
+                <label class="form-label">Modelo Termodinâmico</label>
+                <select class="form-select form-select-custom" id="model">
+                    <option value="ideal">Ideal (Recomendado)</option>
+                    <option value="NRTL">NRTL</option>
+                    <option value="UNIQUAC">UNIQUAC</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Componentes -->
+        <div class="mb-3">
+            <label class="form-label">Componente 1 (Soluto Sólido)</label>
+            <input type="text" class="form-control form-control-custom" id="component1" 
+                   value="Naphthalene" placeholder="Ex: Naphthalene">
+            <small class="text-muted">Componente que cristaliza</small>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Componente 2 (Solvente)</label>
+            <input type="text" class="form-control form-control-custom" id="component2" 
+                   value="Benzene" placeholder="Ex: Benzene, Toluene">
+            <small class="text-muted">Fase líquida</small>
+        </div>
+        
+        <!-- Temperatura (para solubilidade) -->
+        <div class="row mb-3" id="tempSection">
+            <div class="col-md-6">
+                <label class="form-label">Temperatura (K)</label>
+                <input type="number" class="form-control form-control-custom" id="temperature" 
+                       value="298.15" step="0.01">
+                <small class="text-muted">25°C = 298.15 K</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Pressão (Pa)</label>
+                <input type="number" class="form-control form-control-custom" id="pressure" 
+                       value="101325">
+                <small class="text-muted">1 atm = 101325 Pa</small>
+            </div>
+        </div>
+        
+        <!-- Faixa de temperatura (para curvas e diagramas) -->
+        <div id="tempRangeSection" style="display: none;">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Temperatura Mínima (K)</label>
+                    <input type="number" class="form-control form-control-custom" id="tMin" 
+                           value="273.15" step="1">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Temperatura Máxima (K)</label>
+                    <input type="number" class="form-control form-control-custom" id="tMax" 
+                           value="373.15" step="1">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Número de Pontos</label>
+                <input type="number" class="form-control form-control-custom" id="nPoints" 
+                       value="30" min="10" max="100">
+            </div>
+        </div>
+        
+        <!-- Botões -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary-custom btn-custom" 
+                    style="background: linear-gradient(135deg, #059669, #10b981);">
+                <i class="bi bi-play-fill"></i> Calcular
+            </button>
+            <button type="button" class="btn btn-outline-custom btn-custom ms-2" onclick="resetFormESL()">
+                <i class="bi bi-arrow-clockwise"></i> Limpar
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Resultados -->
+<div id="resultsSection" style="display: none;">
+    <div class="results-section">
+        <h3 class="mb-4">
+            <i class="bi bi-clipboard-data"></i> Resultados
+        </h3>
+        <div id="resultsContent"></div>
+    </div>
+    
+    <!-- Gráfico -->
+    <div class="plot-container">
+        <h3 class="mb-4">
+            <i class="bi bi-graph-up"></i> Visualização
+        </h3>
+        <div id="plotDiv"></div>
+    </div>
+</div>
+
+<!-- Informação sobre ESL -->
+<div class="card-custom mt-4">
+    <h4><i class="bi bi-info-circle"></i> Sobre Equilíbrio Sólido-Líquido</h4>
+    <p class="text-muted mb-3">
+        O equilíbrio sólido-líquido (ESL) descreve a solubilidade de sólidos em líquidos e 
+        a formação de misturas eutéticas, fundamentais para processos de cristalização.
+    </p>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <h6 class="text-gradient">Aplicações</h6>
+            <ul class="text-muted">
+                <li>Purificação por cristalização</li>
+                <li>Produção de fármacos</li>
+                <li>Síntese de compostos orgânicos</li>
+                <li>Separação crioscópica</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h6 class="text-gradient">Conceitos</h6>
+            <ul class="text-muted">
+                <li><strong>Solubilidade:</strong> Máxima concentração em equilíbrio</li>
+                <li><strong>Ponto Eutético:</strong> Mínimo de fusão</li>
+                <li><strong>Curva de Liquidus:</strong> Início da cristalização</li>
+                <li><strong>Supersaturação:</strong> Força motriz de cristalização</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/esl_calculator.js') }}"></script>
+{% endblock %}

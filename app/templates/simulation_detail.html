@@ -1,0 +1,228 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Simulação #{{ simulation.id }} · Equilibrium Suite{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+    <!-- Cabeçalho -->
+    <div class="mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="page-title">
+                    <i class="bi bi-file-earmark-text"></i> Simulação #{{ simulation.id }}
+                </h1>
+                <p class="text-muted-soft">
+                    {{ simulation.module.upper() }} · {{ simulation.calculation_type }} · {{ simulation.model }}
+                </p>
+            </div>
+            <div>
+                <a href="/dashboard" class="btn-sim btn-sim-secondary">
+                    <i class="bi bi-arrow-left"></i> Voltar ao Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <!-- Informações Gerais -->
+        <div class="col-md-6">
+            <div class="panel h-100">
+                <div class="panel-header mb-3">
+                    <div class="panel-title">
+                        <i class="bi bi-info-circle"></i> Informações Gerais
+                    </div>
+                </div>
+                <div class="results-grid" style="gap: 0.8rem;">
+                    <div class="result-item">
+                        <span class="label">Módulo</span>
+                        <span class="value">
+                            <span class="module-badge module-{{ simulation.module.lower() }}">
+                                {{ simulation.module.upper() }}
+                            </span>
+                        </span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Tipo de Cálculo</span>
+                        <span class="value">{{ simulation.calculation_type }}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Modelo</span>
+                        <span class="value"><code>{{ simulation.model }}</code></span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Data e Hora</span>
+                        <span class="value">{{ simulation.created_at.strftime('%d/%m/%Y %H:%M:%S') }}</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Tempo de Execução</span>
+                        <span class="value">{{ simulation.execution_time }}s</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Status</span>
+                        <span class="value">
+                            {% if simulation.success %}
+                            <span class="badge" style="background: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 0.3rem 0.7rem; border: 1px solid rgba(34, 197, 94, 0.3);">
+                                <i class="bi bi-check-circle-fill"></i> Sucesso
+                            </span>
+                            {% else %}
+                            <span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 0.3rem 0.7rem; border: 1px solid rgba(239, 68, 68, 0.3);">
+                                <i class="bi bi-x-circle-fill"></i> Erro
+                            </span>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Componentes -->
+        <div class="col-md-6">
+            <div class="panel h-100">
+                <div class="panel-header mb-3">
+                    <div class="panel-title">
+                        <i class="bi bi-flask"></i> Componentes
+                    </div>
+                </div>
+                <ul class="list-unstyled mb-0">
+                    {% for comp in simulation.components|fromjson %}
+                    <li class="mb-2" style="padding: 0.6rem; background: rgba(30, 41, 59, 0.5); border-radius: 6px; border-left: 3px solid #38bdf8;">
+                        <i class="bi bi-check-circle-fill" style="color: #22c55e;"></i> 
+                        <strong>{{ comp }}</strong>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Condições -->
+    <div class="panel mt-3">
+        <div class="panel-header mb-3">
+            <div class="panel-title">
+                <i class="bi bi-gear"></i> Condições de Entrada
+            </div>
+        </div>
+        <pre class="code-block">{{ simulation.conditions|fromjson|tojson(indent=2) }}</pre>
+    </div>
+
+    <!-- Resultados -->
+    <div class="panel mt-3">
+        <div class="panel-header mb-3">
+            <div class="panel-title">
+                <i class="bi bi-graph-up"></i> Resultados
+            </div>
+        </div>
+        <pre class="code-block">{{ simulation.results|fromjson|tojson(indent=2) }}</pre>
+    </div>
+    
+    <!-- Erro (se houver) -->
+    {% if not simulation.success and simulation.error_message %}
+    <div class="panel mt-3" style="border-left: 4px solid #ef4444;">
+        <div class="panel-header mb-3">
+            <div class="panel-title" style="color: #ef4444;">
+                <i class="bi bi-exclamation-triangle-fill"></i> Mensagem de Erro
+            </div>
+        </div>
+        <pre class="code-block" style="color: #fca5a5;">{{ simulation.error_message }}</pre>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+/* Badges dos módulos */
+.module-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.module-elv {
+    background: rgba(56, 189, 248, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.module-ell {
+    background: rgba(249, 115, 22, 0.2);
+    color: #fb923c;
+    border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.module-esl {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+/* Grid de resultados */
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+}
+
+.result-item {
+    padding: 0.8rem;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.result-item .label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.result-item .value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.result-item code {
+    background: rgba(148, 163, 184, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #60a5fa;
+}
+
+/* Blocos de código */
+.code-block {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 8px;
+    padding: 1rem;
+    color: #e5e7eb;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    margin: 0;
+}
+
+.code-block::-webkit-scrollbar {
+    height: 8px;
+}
+
+.code-block::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 4px;
+}
+
+.code-block::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 4px;
+}
+
+.code-block::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.5);
+}
+</style>
+
+{% endblock %}

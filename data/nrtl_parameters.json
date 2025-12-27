@@ -1,0 +1,31 @@
+{
+  "binary_pairs": [
+    {
+      "component1": "Água",
+      "component2": "Etanol",
+      "tau12": 0.8009,
+      "tau21": -0.1771,
+      "alpha12": 0.2937,
+      "temperature_unit": "K",
+      "reference": "NIST-ASPEN"
+    },
+    {
+      "component1": "Água",
+      "component2": "Acetona",
+      "tau12": 1.4350,
+      "tau21": 0.5820,
+      "alpha12": 0.3000,
+      "temperature_unit": "K",
+      "reference": "DECHEMA"
+    },
+    {
+      "component1": "Etanol",
+      "component2": "Benzeno",
+      "tau12": 0.5560,
+      "tau21": 0.3290,
+      "alpha12": 0.3000,
+      "temperature_unit": "K",
+      "reference": "DECHEMA"
+    }
+  ]
+}

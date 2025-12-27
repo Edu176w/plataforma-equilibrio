@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}ELL - Equilíbrio Líquido-Líquido{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="hero-section">
+    <h1 class="hero-title">
+        <i class="bi bi-water"></i> ELL - Equilíbrio Líquido-Líquido
+    </h1>
+    <p class="hero-subtitle">
+        Extração líquido-líquido com curvas binodais, tie-lines e diagramas ternários
+    </p>
+</div>
+
+<!-- Formulário -->
+<div class="form-section">
+    <h3 class="mb-4">
+        <i class="bi bi-calculator"></i> Configurar Cálculo
+    </h3>
+    
+    <form id="ellForm">
+        <!-- Tipo de Cálculo -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Tipo de Cálculo</label>
+                <select class="form-select form-select-custom" id="calculationType">
+                    <option value="lle">Cálculo ELL</option>
+                    <option value="stability">Teste de Estabilidade</option>
+                    <option value="binodal">Curva Binodal</option>
+                    <option value="tielines">Tie-Lines</option>
+                    <option value="ternary">Diagrama Ternário</option>
+                </select>
+            </div>
+            
+            <div class="col-md-6">
+                <label class="form-label">Modelo Termodinâmico</label>
+                <select class="form-select form-select-custom" id="model">
+                    <option value="PR">Peng-Robinson (Recomendado)</option>
+                    <option value="NRTL">NRTL</option>
+                    <option value="UNIQUAC">UNIQUAC</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Número de Componentes -->
+        <div class="mb-3">
+            <label class="form-label">Número de Componentes</label>
+            <select class="form-select form-select-custom" id="numComponents">
+                <option value="2">2 (Binário)</option>
+                <option value="3" selected>3 (Ternário)</option>
+            </select>
+        </div>
+        
+        <!-- Componentes -->
+        <div class="mb-3">
+            <label class="form-label">Componente 1 (Solvente)</label>
+            <input type="text" class="form-control form-control-custom" id="component1" 
+                   value="Water" placeholder="Ex: Water">
+            <small class="text-muted">Tipicamente a fase aquosa</small>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Componente 2 (Solvente Orgânico)</label>
+            <input type="text" class="form-control form-control-custom" id="component2" 
+                   value="Toluene" placeholder="Ex: Toluene, Hexane">
+            <small class="text-muted">Fase orgânica imiscível</small>
+        </div>
+        
+        <div class="mb-3" id="component3Section">
+            <label class="form-label">Componente 3 (Soluto)</label>
+            <input type="text" class="form-control form-control-custom" id="component3" 
+                   value="Acetic acid" placeholder="Ex: Acetic acid">
+            <small class="text-muted">Soluto que distribui entre as fases</small>
+        </div>
+        
+        <!-- Composição -->
+        <div id="compositionSection">
+            <h5 class="mt-4 mb-3">Composição Global</h5>
+            
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Fração Molar 1 (z₁)</label>
+                    <input type="number" class="form-control form-control-custom" id="z1" 
+                           value="0.5" step="0.01" min="0" max="1">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Fração Molar 2 (z₂)</label>
+                    <input type="number" class="form-control form-control-custom" id="z2" 
+                           value="0.3" step="0.01" min="0" max="1">
+                </div>
+                <div class="col-md-4" id="z3Section">
+                    <label class="form-label">Fração Molar 3 (z₃)</label>
+                    <input type="number" class="form-control form-control-custom" id="z3" 
+                           value="0.2" step="0.01" min="0" max="1" readonly>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Condições -->
+        <div class="row mb-3 mt-4">
+            <div class="col-md-6">
+                <label class="form-label">Temperatura (K)</label>
+                <input type="number" class="form-control form-control-custom" id="temperature" 
+                       value="298.15" step="0.01">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Pressão (Pa)</label>
+                <input type="number" class="form-control form-control-custom" id="pressure" 
+                       value="101325">
+            </div>
+        </div>
+        
+        <!-- Botões -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-secondary-custom btn-custom">
+                <i class="bi bi-play-fill"></i> Calcular
+            </button>
+            <button type="button" class="btn btn-outline-custom btn-custom ms-2" onclick="resetFormELL()">
+                <i class="bi bi-arrow-clockwise"></i> Limpar
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Resultados -->
+<div id="resultsSection" style="display: none;">
+    <div class="results-section">
+        <h3 class="mb-4">
+            <i class="bi bi-clipboard-data"></i> Resultados
+        </h3>
+        <div id="resultsContent"></div>
+    </div>
+    
+    <!-- Gráfico -->
+    <div class="plot-container">
+        <h3 class="mb-4">
+            <i class="bi bi-graph-up"></i> Visualização
+        </h3>
+        <div id="plotDiv"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/ell_calculator.js') }}"></script>
+{% endblock %}

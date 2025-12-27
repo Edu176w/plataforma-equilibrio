@@ -1,0 +1,5431 @@
+{
+  "group_params": {
+    "1": {
+      "subgroup_id": 1,
+      "subgroup_name": "<CH3>",
+      "main_group_id": 1,
+      "R": 0.9011,
+      "Q": 0.848
+    },
+    "2": {
+      "subgroup_id": 2,
+      "subgroup_name": "<CH2>",
+      "main_group_id": 1,
+      "R": 0.6744,
+      "Q": 0.54
+    },
+    "3": {
+      "subgroup_id": 3,
+      "subgroup_name": "<CH>",
+      "main_group_id": 1,
+      "R": 0.4469,
+      "Q": 0.228
+    },
+    "4": {
+      "subgroup_id": 4,
+      "subgroup_name": "<C>",
+      "main_group_id": 1,
+      "R": 0.2195,
+      "Q": 0.0
+    },
+    "5": {
+      "subgroup_id": 5,
+      "subgroup_name": "<CH2=CH>",
+      "main_group_id": 2,
+      "R": 1.3454,
+      "Q": 1.176
+    },
+    "6": {
+      "subgroup_id": 6,
+      "subgroup_name": "<CH=CH>",
+      "main_group_id": 2,
+      "R": 1.1167,
+      "Q": 0.867
+    },
+    "7": {
+      "subgroup_id": 7,
+      "subgroup_name": "<CH2=C>",
+      "main_group_id": 2,
+      "R": 1.1173,
+      "Q": 0.988
+    },
+    "8": {
+      "subgroup_id": 8,
+      "subgroup_name": "<CH=C>",
+      "main_group_id": 2,
+      "R": 0.8886,
+      "Q": 0.676
+    },
+    "9": {
+      "subgroup_id": 9,
+      "subgroup_name": "<ACH>",
+      "main_group_id": 3,
+      "R": 0.5313,
+      "Q": 0.4
+    },
+    "10": {
+      "subgroup_id": 10,
+      "subgroup_name": "<AC>",
+      "main_group_id": 3,
+      "R": 0.3652,
+      "Q": 0.12
+    },
+    "11": {
+      "subgroup_id": 11,
+      "subgroup_name": "<ACCH3>",
+      "main_group_id": 4,
+      "R": 1.2663,
+      "Q": 0.968
+    },
+    "12": {
+      "subgroup_id": 12,
+      "subgroup_name": "<ACCH2>",
+      "main_group_id": 4,
+      "R": 1.0396,
+      "Q": 0.66
+    },
+    "13": {
+      "subgroup_id": 13,
+      "subgroup_name": "<ACCH>",
+      "main_group_id": 4,
+      "R": 0.8121,
+      "Q": 0.348
+    },
+    "14": {
+      "subgroup_id": 14,
+      "subgroup_name": "<OH>",
+      "main_group_id": 5,
+      "R": 1.0,
+      "Q": 1.2
+    },
+    "15": {
+      "subgroup_id": 15,
+      "subgroup_name": "<CH3OH>",
+      "main_group_id": 6,
+      "R": 1.4311,
+      "Q": 1.432
+    },
+    "16": {
+      "subgroup_id": 16,
+      "subgroup_name": "<H2O>",
+      "main_group_id": 7,
+      "R": 0.92,
+      "Q": 1.4
+    },
+    "17": {
+      "subgroup_id": 17,
+      "subgroup_name": "<ACOH>",
+      "main_group_id": 8,
+      "R": 0.8952,
+      "Q": 0.68
+    },
+    "18": {
+      "subgroup_id": 18,
+      "subgroup_name": "<CH3CO>",
+      "main_group_id": 9,
+      "R": 1.6724,
+      "Q": 1.488
+    },
+    "19": {
+      "subgroup_id": 19,
+      "subgroup_name": "<CH2CO>",
+      "main_group_id": 9,
+      "R": 1.4457,
+      "Q": 1.18
+    },
+    "20": {
+      "subgroup_id": 20,
+      "subgroup_name": "<CHO>",
+      "main_group_id": 10,
+      "R": 0.998,
+      "Q": 0.948
+    },
+    "21": {
+      "subgroup_id": 21,
+      "subgroup_name": "<CH3COO>",
+      "main_group_id": 11,
+      "R": 1.9031,
+      "Q": 1.728
+    },
+    "22": {
+      "subgroup_id": 22,
+      "subgroup_name": "<CH2COO>",
+      "main_group_id": 11,
+      "R": 1.6764,
+      "Q": 1.42
+    },
+    "23": {
+      "subgroup_id": 23,
+      "subgroup_name": "<HCOO>",
+      "main_group_id": 12,
+      "R": 1.242,
+      "Q": 1.188
+    },
+    "24": {
+      "subgroup_id": 24,
+      "subgroup_name": "<CH3O>",
+      "main_group_id": 13,
+      "R": 1.145,
+      "Q": 1.088
+    },
+    "25": {
+      "subgroup_id": 25,
+      "subgroup_name": "<CH2O>",
+      "main_group_id": 13,
+      "R": 0.9183,
+      "Q": 0.78
+    },
+    "26": {
+      "subgroup_id": 26,
+      "subgroup_name": "<CHO>",
+      "main_group_id": 13,
+      "R": 0.6908,
+      "Q": 0.468
+    },
+    "27": {
+      "subgroup_id": 27,
+      "subgroup_name": "<THF>",
+      "main_group_id": 13,
+      "R": 0.9183,
+      "Q": 1.1
+    },
+    "28": {
+      "subgroup_id": 28,
+      "subgroup_name": "<CH3NH2>",
+      "main_group_id": 14,
+      "R": 1.5959,
+      "Q": 1.544
+    },
+    "29": {
+      "subgroup_id": 29,
+      "subgroup_name": "<CH2NH2>",
+      "main_group_id": 14,
+      "R": 1.3692,
+      "Q": 1.236
+    },
+    "30": {
+      "subgroup_id": 30,
+      "subgroup_name": "<CHNH2>",
+      "main_group_id": 14,
+      "R": 1.1417,
+      "Q": 0.924
+    },
+    "31": {
+      "subgroup_id": 31,
+      "subgroup_name": "<CH3NH>",
+      "main_group_id": 15,
+      "R": 1.4337,
+      "Q": 1.244
+    },
+    "32": {
+      "subgroup_id": 32,
+      "subgroup_name": "<CH2NH>",
+      "main_group_id": 15,
+      "R": 1.207,
+      "Q": 0.936
+    },
+    "33": {
+      "subgroup_id": 33,
+      "subgroup_name": "<CHNH>",
+      "main_group_id": 15,
+      "R": 0.9795,
+      "Q": 0.624
+    },
+    "34": {
+      "subgroup_id": 34,
+      "subgroup_name": "<CH3N>",
+      "main_group_id": 16,
+      "R": 1.1865,
+      "Q": 0.94
+    },
+    "35": {
+      "subgroup_id": 35,
+      "subgroup_name": "<CH2N>",
+      "main_group_id": 16,
+      "R": 0.9597,
+      "Q": 0.632
+    },
+    "36": {
+      "subgroup_id": 36,
+      "subgroup_name": "<ACNH2>",
+      "main_group_id": 17,
+      "R": 1.06,
+      "Q": 0.816
+    },
+    "37": {
+      "subgroup_id": 37,
+      "subgroup_name": "<C5H5N>",
+      "main_group_id": 18,
+      "R": 2.9993,
+      "Q": 2.113
+    },
+    "38": {
+      "subgroup_id": 38,
+      "subgroup_name": "<C5H4N>",
+      "main_group_id": 18,
+      "R": 2.8332,
+      "Q": 1.833
+    },
+    "39": {
+      "subgroup_id": 39,
+      "subgroup_name": "<C5H3N>",
+      "main_group_id": 18,
+      "R": 2.667,
+      "Q": 1.553
+    },
+    "40": {
+      "subgroup_id": 40,
+      "subgroup_name": "<CH3CN>",
+      "main_group_id": 19,
+      "R": 1.8701,
+      "Q": 1.724
+    },
+    "41": {
+      "subgroup_id": 41,
+      "subgroup_name": "<CH2CN>",
+      "main_group_id": 19,
+      "R": 1.6434,
+      "Q": 1.416
+    },
+    "42": {
+      "subgroup_id": 42,
+      "subgroup_name": "<COOH>",
+      "main_group_id": 20,
+      "R": 1.3013,
+      "Q": 1.224
+    },
+    "43": {
+      "subgroup_id": 43,
+      "subgroup_name": "<HCOOH>",
+      "main_group_id": 20,
+      "R": 1.528,
+      "Q": 1.532
+    },
+    "44": {
+      "subgroup_id": 44,
+      "subgroup_name": "<CH2CL>",
+      "main_group_id": 21,
+      "R": 1.4654,
+      "Q": 1.264
+    },
+    "45": {
+      "subgroup_id": 45,
+      "subgroup_name": "<CHCL>",
+      "main_group_id": 21,
+      "R": 1.238,
+      "Q": 0.952
+    },
+    "46": {
+      "subgroup_id": 46,
+      "subgroup_name": "<CCL>",
+      "main_group_id": 21,
+      "R": 1.0106,
+      "Q": 0.724
+    },
+    "47": {
+      "subgroup_id": 47,
+      "subgroup_name": "<CH2CL2>",
+      "main_group_id": 22,
+      "R": 2.2564,
+      "Q": 1.988
+    },
+    "48": {
+      "subgroup_id": 48,
+      "subgroup_name": "<CHCL2>",
+      "main_group_id": 22,
+      "R": 2.0606,
+      "Q": 1.684
+    },
+    "49": {
+      "subgroup_id": 49,
+      "subgroup_name": "<CCL2>",
+      "main_group_id": 22,
+      "R": 1.8016,
+      "Q": 1.448
+    },
+    "50": {
+      "subgroup_id": 50,
+      "subgroup_name": "<CHCL3>",
+      "main_group_id": 23,
+      "R": 2.87,
+      "Q": 2.41
+    },
+    "51": {
+      "subgroup_id": 51,
+      "subgroup_name": "<CCL3>",
+      "main_group_id": 23,
+      "R": 2.6401,
+      "Q": 2.184
+    },
+    "52": {
+      "subgroup_id": 52,
+      "subgroup_name": "<CCL4>",
+      "main_group_id": 24,
+      "R": 3.39,
+      "Q": 2.91
+    },
+    "53": {
+      "subgroup_id": 53,
+      "subgroup_name": "<ACCL>",
+      "main_group_id": 25,
+      "R": 1.1562,
+      "Q": 0.844
+    },
+    "54": {
+      "subgroup_id": 54,
+      "subgroup_name": "<CH3NO2>",
+      "main_group_id": 26,
+      "R": 2.0086,
+      "Q": 1.868
+    },
+    "55": {
+      "subgroup_id": 55,
+      "subgroup_name": "<CH2NO2>",
+      "main_group_id": 26,
+      "R": 1.7818,
+      "Q": 1.56
+    },
+    "56": {
+      "subgroup_id": 56,
+      "subgroup_name": "<CHNO2>",
+      "main_group_id": 26,
+      "R": 1.5544,
+      "Q": 1.248
+    },
+    "57": {
+      "subgroup_id": 57,
+      "subgroup_name": "<ACNO2>",
+      "main_group_id": 27,
+      "R": 1.4199,
+      "Q": 1.104
+    },
+    "58": {
+      "subgroup_id": 58,
+      "subgroup_name": "<CS2>",
+      "main_group_id": 28,
+      "R": 2.057,
+      "Q": 1.65
+    },
+    "59": {
+      "subgroup_id": 59,
+      "subgroup_name": "<CH3SH>",
+      "main_group_id": 29,
+      "R": 1.877,
+      "Q": 1.676
+    },
+    "60": {
+      "subgroup_id": 60,
+      "subgroup_name": "<CH2SH>",
+      "main_group_id": 29,
+      "R": 1.651,
+      "Q": 1.368
+    },
+    "61": {
+      "subgroup_id": 61,
+      "subgroup_name": "<FURFURAL>",
+      "main_group_id": 30,
+      "R": 3.168,
+      "Q": 2.484
+    },
+    "62": {
+      "subgroup_id": 62,
+      "subgroup_name": "<DOH>",
+      "main_group_id": 31,
+      "R": 2.4088,
+      "Q": 2.248
+    },
+    "63": {
+      "subgroup_id": 63,
+      "subgroup_name": "<I>",
+      "main_group_id": 32,
+      "R": 1.264,
+      "Q": 0.992
+    },
+    "64": {
+      "subgroup_id": 64,
+      "subgroup_name": "<BR>",
+      "main_group_id": 33,
+      "R": 0.9492,
+      "Q": 0.832
+    },
+    "65": {
+      "subgroup_id": 65,
+      "subgroup_name": "<CH=-C>",
+      "main_group_id": 34,
+      "R": 1.292,
+      "Q": 1.088
+    },
+    "66": {
+      "subgroup_id": 66,
+      "subgroup_name": "<C=-C>",
+      "main_group_id": 34,
+      "R": 1.0613,
+      "Q": 0.784
+    },
+    "67": {
+      "subgroup_id": 67,
+      "subgroup_name": "<DMSO>",
+      "main_group_id": 35,
+      "R": 2.8266,
+      "Q": 2.472
+    },
+    "68": {
+      "subgroup_id": 68,
+      "subgroup_name": "<ACRY>",
+      "main_group_id": 36,
+      "R": 2.3144,
+      "Q": 2.052
+    },
+    "69": {
+      "subgroup_id": 69,
+      "subgroup_name": "<CL-(C=C)>",
+      "main_group_id": 37,
+      "R": 0.791,
+      "Q": 0.724
+    },
+    "70": {
+      "subgroup_id": 70,
+      "subgroup_name": "<C=C>",
+      "main_group_id": 2,
+      "R": 0.6605,
+      "Q": 0.485
+    },
+    "71": {
+      "subgroup_id": 71,
+      "subgroup_name": "<ACF>",
+      "main_group_id": 38,
+      "R": 0.6948,
+      "Q": 0.524
+    },
+    "72": {
+      "subgroup_id": 72,
+      "subgroup_name": "<DMF>",
+      "main_group_id": 39,
+      "R": 3.0856,
+      "Q": 2.736
+    },
+    "73": {
+      "subgroup_id": 73,
+      "subgroup_name": "<HCON(CH2)2>",
+      "main_group_id": 39,
+      "R": 2.6322,
+      "Q": 2.12
+    },
+    "74": {
+      "subgroup_id": 74,
+      "subgroup_name": "<CF3>",
+      "main_group_id": 40,
+      "R": 1.406,
+      "Q": 1.38
+    },
+    "75": {
+      "subgroup_id": 75,
+      "subgroup_name": "<CF2>",
+      "main_group_id": 40,
+      "R": 1.0105,
+      "Q": 0.92
+    },
+    "76": {
+      "subgroup_id": 76,
+      "subgroup_name": "<CF>",
+      "main_group_id": 40,
+      "R": 0.615,
+      "Q": 0.46
+    },
+    "77": {
+      "subgroup_id": 77,
+      "subgroup_name": "<COO>",
+      "main_group_id": 41,
+      "R": 1.38,
+      "Q": 1.2
+    },
+    "78": {
+      "subgroup_id": 78,
+      "subgroup_name": "<SIH3>",
+      "main_group_id": 42,
+      "R": 1.6035,
+      "Q": 1.2632
+    },
+    "79": {
+      "subgroup_id": 79,
+      "subgroup_name": "<SIH2>",
+      "main_group_id": 42,
+      "R": 1.4443,
+      "Q": 1.0063
+    },
+    "80": {
+      "subgroup_id": 80,
+      "subgroup_name": "<SIH>",
+      "main_group_id": 42,
+      "R": 1.2853,
+      "Q": 0.7494
+    },
+    "81": {
+      "subgroup_id": 81,
+      "subgroup_name": "<SI>",
+      "main_group_id": 42,
+      "R": 1.047,
+      "Q": 0.4099
+    },
+    "82": {
+      "subgroup_id": 82,
+      "subgroup_name": "<SIH2O>",
+      "main_group_id": 43,
+      "R": 1.4838,
+      "Q": 1.0621
+    },
+    "83": {
+      "subgroup_id": 83,
+      "subgroup_name": "<SIHO>",
+      "main_group_id": 43,
+      "R": 1.303,
+      "Q": 0.7639
+    },
+    "84": {
+      "subgroup_id": 84,
+      "subgroup_name": "<SIO>",
+      "main_group_id": 43,
+      "R": 1.1044,
+      "Q": 0.4657
+    },
+    "85": {
+      "subgroup_id": 85,
+      "subgroup_name": "<NMP>",
+      "main_group_id": 44,
+      "R": 3.981,
+      "Q": 3.2
+    },
+    "86": {
+      "subgroup_id": 86,
+      "subgroup_name": "<CCL3F>",
+      "main_group_id": 45,
+      "R": 3.0356,
+      "Q": 2.644
+    },
+    "87": {
+      "subgroup_id": 87,
+      "subgroup_name": "<CCL2F>",
+      "main_group_id": 45,
+      "R": 2.2287,
+      "Q": 1.916
+    },
+    "88": {
+      "subgroup_id": 88,
+      "subgroup_name": "<HCCL2F>",
+      "main_group_id": 45,
+      "R": 2.406,
+      "Q": 2.116
+    },
+    "89": {
+      "subgroup_id": 89,
+      "subgroup_name": "<HCCLF>",
+      "main_group_id": 45,
+      "R": 1.6493,
+      "Q": 1.416
+    },
+    "90": {
+      "subgroup_id": 90,
+      "subgroup_name": "<CCLF2>",
+      "main_group_id": 45,
+      "R": 1.8174,
+      "Q": 1.648
+    },
+    "91": {
+      "subgroup_id": 91,
+      "subgroup_name": "<HCCLF2>",
+      "main_group_id": 45,
+      "R": 1.967,
+      "Q": 1.828
+    },
+    "92": {
+      "subgroup_id": 92,
+      "subgroup_name": "<CCLF3>",
+      "main_group_id": 45,
+      "R": 2.1721,
+      "Q": 2.1
+    },
+    "93": {
+      "subgroup_id": 93,
+      "subgroup_name": "<CCL2F2>",
+      "main_group_id": 45,
+      "R": 2.6243,
+      "Q": 2.376
+    },
+    "94": {
+      "subgroup_id": 94,
+      "subgroup_name": "<AMH2>",
+      "main_group_id": 46,
+      "R": 1.4515,
+      "Q": 1.248
+    },
+    "95": {
+      "subgroup_id": 95,
+      "subgroup_name": "<AMHCH3>",
+      "main_group_id": 46,
+      "R": 2.1905,
+      "Q": 1.796
+    },
+    "96": {
+      "subgroup_id": 96,
+      "subgroup_name": "<AMHCH2>",
+      "main_group_id": 46,
+      "R": 1.9637,
+      "Q": 1.488
+    },
+    "97": {
+      "subgroup_id": 97,
+      "subgroup_name": "<AM(CH3)2>",
+      "main_group_id": 46,
+      "R": 2.8589,
+      "Q": 2.428
+    },
+    "98": {
+      "subgroup_id": 98,
+      "subgroup_name": "<AMCH3CH2>",
+      "main_group_id": 46,
+      "R": 2.6322,
+      "Q": 2.12
+    },
+    "99": {
+      "subgroup_id": 99,
+      "subgroup_name": "<AM(CH2)2>",
+      "main_group_id": 46,
+      "R": 2.4054,
+      "Q": 1.812
+    },
+    "100": {
+      "subgroup_id": 100,
+      "subgroup_name": "<C2H5O2>",
+      "main_group_id": 47,
+      "R": 2.1226,
+      "Q": 1.904
+    },
+    "101": {
+      "subgroup_id": 101,
+      "subgroup_name": "<C2H4O2>",
+      "main_group_id": 47,
+      "R": 1.8952,
+      "Q": 1.592
+    },
+    "102": {
+      "subgroup_id": 102,
+      "subgroup_name": "<CH3S>",
+      "main_group_id": 48,
+      "R": 1.613,
+      "Q": 1.368
+    },
+    "103": {
+      "subgroup_id": 103,
+      "subgroup_name": "<CH2S>",
+      "main_group_id": 48,
+      "R": 1.3863,
+      "Q": 1.06
+    },
+    "104": {
+      "subgroup_id": 104,
+      "subgroup_name": "<CHS>",
+      "main_group_id": 48,
+      "R": 1.1589,
+      "Q": 0.748
+    },
+    "105": {
+      "subgroup_id": 105,
+      "subgroup_name": "<MORPH>",
+      "main_group_id": 49,
+      "R": 3.474,
+      "Q": 2.796
+    },
+    "106": {
+      "subgroup_id": 106,
+      "subgroup_name": "<C4H4S>",
+      "main_group_id": 50,
+      "R": 2.8569,
+      "Q": 2.14
+    },
+    "107": {
+      "subgroup_id": 107,
+      "subgroup_name": "<C4H3S>",
+      "main_group_id": 50,
+      "R": 2.6908,
+      "Q": 1.86
+    },
+    "108": {
+      "subgroup_id": 108,
+      "subgroup_name": "<C4H2S>",
+      "main_group_id": 50,
+      "R": 2.5247,
+      "Q": 1.58
+    },
+    "109": {
+      "subgroup_id": 109,
+      "subgroup_name": "<NCO>",
+      "main_group_id": 51,
+      "R": 1.0567,
+      "Q": 0.732
+    },
+    "118": {
+      "subgroup_id": 118,
+      "subgroup_name": "<(CH2)2SU>",
+      "main_group_id": 55,
+      "R": 2.6869,
+      "Q": 2.12
+    },
+    "119": {
+      "subgroup_id": 119,
+      "subgroup_name": "<CH2CHSU>",
+      "main_group_id": 55,
+      "R": 2.4595,
+      "Q": 1.808
+    },
+    "178": {
+      "subgroup_id": 178,
+      "subgroup_name": "<IMIDAZOL>",
+      "main_group_id": 84,
+      "R": 2.026,
+      "Q": 0.868
+    },
+    "179": {
+      "subgroup_id": 179,
+      "subgroup_name": "<BTI>",
+      "main_group_id": 85,
+      "R": 5.774,
+      "Q": 4.932
+    }
+  },
+  "main_groups": {
+    "1": {
+      "group_id": 1,
+      "group_name": "CH2",
+      "subgroup_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "2": {
+      "group_id": 2,
+      "group_name": "C=C",
+      "subgroup_ids": [
+        5,
+        6,
+        7,
+        8,
+        70
+      ]
+    },
+    "3": {
+      "group_id": 3,
+      "group_name": "ACH",
+      "subgroup_ids": [
+        9,
+        10
+      ]
+    },
+    "4": {
+      "group_id": 4,
+      "group_name": "ACCH2",
+      "subgroup_ids": [
+        11,
+        12,
+        13
+      ]
+    },
+    "5": {
+      "group_id": 5,
+      "group_name": "OH",
+      "subgroup_ids": [
+        14
+      ]
+    },
+    "6": {
+      "group_id": 6,
+      "group_name": "CH3OH",
+      "subgroup_ids": [
+        15
+      ]
+    },
+    "7": {
+      "group_id": 7,
+      "group_name": "H2O",
+      "subgroup_ids": [
+        16
+      ]
+    },
+    "8": {
+      "group_id": 8,
+      "group_name": "ACOH",
+      "subgroup_ids": [
+        17
+      ]
+    },
+    "9": {
+      "group_id": 9,
+      "group_name": "CH2CO",
+      "subgroup_ids": [
+        18,
+        19
+      ]
+    },
+    "10": {
+      "group_id": 10,
+      "group_name": "CHO",
+      "subgroup_ids": [
+        20
+      ]
+    },
+    "11": {
+      "group_id": 11,
+      "group_name": "CCOO",
+      "subgroup_ids": [
+        21,
+        22
+      ]
+    },
+    "12": {
+      "group_id": 12,
+      "group_name": "HCOO",
+      "subgroup_ids": [
+        23
+      ]
+    },
+    "13": {
+      "group_id": 13,
+      "group_name": "CH2O",
+      "subgroup_ids": [
+        24,
+        25,
+        26,
+        27
+      ]
+    },
+    "14": {
+      "group_id": 14,
+      "group_name": "CNH2",
+      "subgroup_ids": [
+        28,
+        29,
+        30
+      ]
+    },
+    "15": {
+      "group_id": 15,
+      "group_name": "CNH",
+      "subgroup_ids": [
+        31,
+        32,
+        33
+      ]
+    },
+    "16": {
+      "group_id": 16,
+      "group_name": "(C)3N",
+      "subgroup_ids": [
+        34,
+        35
+      ]
+    },
+    "17": {
+      "group_id": 17,
+      "group_name": "ACNH2",
+      "subgroup_ids": [
+        36
+      ]
+    },
+    "18": {
+      "group_id": 18,
+      "group_name": "PYRIDINE",
+      "subgroup_ids": [
+        37,
+        38,
+        39
+      ]
+    },
+    "19": {
+      "group_id": 19,
+      "group_name": "CCN",
+      "subgroup_ids": [
+        40,
+        41
+      ]
+    },
+    "20": {
+      "group_id": 20,
+      "group_name": "COOH",
+      "subgroup_ids": [
+        42,
+        43
+      ]
+    },
+    "21": {
+      "group_id": 21,
+      "group_name": "CCL",
+      "subgroup_ids": [
+        44,
+        45,
+        46
+      ]
+    },
+    "22": {
+      "group_id": 22,
+      "group_name": "CCL2",
+      "subgroup_ids": [
+        47,
+        48,
+        49
+      ]
+    },
+    "23": {
+      "group_id": 23,
+      "group_name": "CCL3",
+      "subgroup_ids": [
+        50,
+        51
+      ]
+    },
+    "24": {
+      "group_id": 24,
+      "group_name": "CCL4",
+      "subgroup_ids": [
+        52
+      ]
+    },
+    "25": {
+      "group_id": 25,
+      "group_name": "ACCL",
+      "subgroup_ids": [
+        53
+      ]
+    },
+    "26": {
+      "group_id": 26,
+      "group_name": "CNO2",
+      "subgroup_ids": [
+        54,
+        55,
+        56
+      ]
+    },
+    "27": {
+      "group_id": 27,
+      "group_name": "ACNO2",
+      "subgroup_ids": [
+        57
+      ]
+    },
+    "28": {
+      "group_id": 28,
+      "group_name": "CS2",
+      "subgroup_ids": [
+        58
+      ]
+    },
+    "29": {
+      "group_id": 29,
+      "group_name": "CH3SH",
+      "subgroup_ids": [
+        59,
+        60
+      ]
+    },
+    "30": {
+      "group_id": 30,
+      "group_name": "FURFURAL",
+      "subgroup_ids": [
+        61
+      ]
+    },
+    "31": {
+      "group_id": 31,
+      "group_name": "DOH",
+      "subgroup_ids": [
+        62
+      ]
+    },
+    "32": {
+      "group_id": 32,
+      "group_name": "I",
+      "subgroup_ids": [
+        63
+      ]
+    },
+    "33": {
+      "group_id": 33,
+      "group_name": "BR",
+      "subgroup_ids": [
+        64
+      ]
+    },
+    "34": {
+      "group_id": 34,
+      "group_name": "C=-C",
+      "subgroup_ids": [
+        65,
+        66
+      ]
+    },
+    "35": {
+      "group_id": 35,
+      "group_name": "DMSO",
+      "subgroup_ids": [
+        67
+      ]
+    },
+    "36": {
+      "group_id": 36,
+      "group_name": "ACRY",
+      "subgroup_ids": [
+        68
+      ]
+    },
+    "37": {
+      "group_id": 37,
+      "group_name": "CLCC",
+      "subgroup_ids": [
+        69
+      ]
+    },
+    "38": {
+      "group_id": 38,
+      "group_name": "ACF",
+      "subgroup_ids": [
+        71
+      ]
+    },
+    "39": {
+      "group_id": 39,
+      "group_name": "DMF",
+      "subgroup_ids": [
+        72,
+        73
+      ]
+    },
+    "40": {
+      "group_id": 40,
+      "group_name": "CF2",
+      "subgroup_ids": [
+        74,
+        75,
+        76
+      ]
+    },
+    "41": {
+      "group_id": 41,
+      "group_name": "COO",
+      "subgroup_ids": [
+        77
+      ]
+    },
+    "42": {
+      "group_id": 42,
+      "group_name": "SIH2",
+      "subgroup_ids": [
+        78,
+        79,
+        80,
+        81
+      ]
+    },
+    "43": {
+      "group_id": 43,
+      "group_name": "SIO",
+      "subgroup_ids": [
+        82,
+        83,
+        84
+      ]
+    },
+    "44": {
+      "group_id": 44,
+      "group_name": "NMP",
+      "subgroup_ids": [
+        85
+      ]
+    },
+    "45": {
+      "group_id": 45,
+      "group_name": "CCLF",
+      "subgroup_ids": [
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93
+      ]
+    },
+    "46": {
+      "group_id": 46,
+      "group_name": "CON(AM)",
+      "subgroup_ids": [
+        94,
+        95,
+        96,
+        97,
+        98,
+        99
+      ]
+    },
+    "47": {
+      "group_id": 47,
+      "group_name": "OCCOH",
+      "subgroup_ids": [
+        100,
+        101
+      ]
+    },
+    "48": {
+      "group_id": 48,
+      "group_name": "CH2S",
+      "subgroup_ids": [
+        102,
+        103,
+        104
+      ]
+    },
+    "49": {
+      "group_id": 49,
+      "group_name": "MORPH",
+      "subgroup_ids": [
+        105
+      ]
+    },
+    "50": {
+      "group_id": 50,
+      "group_name": "THIOPHEN",
+      "subgroup_ids": [
+        106,
+        107,
+        108
+      ]
+    },
+    "51": {
+      "group_id": 51,
+      "group_name": "NCO",
+      "subgroup_ids": [
+        109
+      ]
+    },
+    "55": {
+      "group_id": 55,
+      "group_name": "SULFONES",
+      "subgroup_ids": [
+        118,
+        119
+      ]
+    },
+    "84": {
+      "group_id": 84,
+      "group_name": "IMIDAZOL",
+      "subgroup_ids": [
+        178
+      ]
+    },
+    "85": {
+      "group_id": 85,
+      "group_name": "BTI",
+      "subgroup_ids": [
+        179
+      ]
+    }
+  },
+  "component_groups": {
+    "7732-18-5": {
+      "cas": "7732-18-5",
+      "name": "water",
+      "groups": {
+        "16": 1
+      }
+    },
+    "67-56-1": {
+      "cas": "67-56-1",
+      "name": "methanol",
+      "groups": {
+        "15": 1
+      }
+    },
+    "64-17-5": {
+      "cas": "64-17-5",
+      "name": "ethanol",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "14": 1
+      }
+    },
+    "67-63-0": {
+      "cas": "67-63-0",
+      "name": "isopropanol",
+      "groups": {
+        "1": 2,
+        "3": 1,
+        "14": 1
+      }
+    },
+    "71-23-8": {
+      "cas": "71-23-8",
+      "name": "1-propanol",
+      "groups": {
+        "1": 1,
+        "2": 2,
+        "14": 1
+      }
+    },
+    "71-36-3": {
+      "cas": "71-36-3",
+      "name": "1-butanol",
+      "groups": {
+        "1": 1,
+        "2": 3,
+        "14": 1
+      }
+    },
+    "78-83-1": {
+      "cas": "78-83-1",
+      "name": "2-methyl-1-propanol",
+      "groups": {
+        "1": 2,
+        "2": 1,
+        "3": 1,
+        "14": 1
+      }
+    },
+    "75-65-0": {
+      "cas": "75-65-0",
+      "name": "tert-butanol",
+      "groups": {
+        "1": 3,
+        "4": 1,
+        "14": 1
+      }
+    },
+    "71-41-0": {
+      "cas": "71-41-0",
+      "name": "1-pentanol",
+      "groups": {
+        "1": 1,
+        "2": 4,
+        "14": 1
+      }
+    },
+    "78-93-3": {
+      "cas": "78-93-3",
+      "name": "2-butanone",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "18": 1
+      }
+    },
+    "67-64-1": {
+      "cas": "67-64-1",
+      "name": "acetone",
+      "groups": {
+        "1": 1,
+        "18": 1
+      }
+    },
+    "96-22-0": {
+      "cas": "96-22-0",
+      "name": "3-pentanone",
+      "groups": {
+        "1": 2,
+        "2": 1,
+        "19": 1
+      }
+    },
+    "141-78-6": {
+      "cas": "141-78-6",
+      "name": "ethyl acetate",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "21": 1
+      }
+    },
+    "79-20-9": {
+      "cas": "79-20-9",
+      "name": "methyl acetate",
+      "groups": {
+        "1": 1,
+        "21": 1
+      }
+    },
+    "109-60-4": {
+      "cas": "109-60-4",
+      "name": "propyl acetate",
+      "groups": {
+        "1": 1,
+        "2": 2,
+        "21": 1
+      }
+    },
+    "123-86-4": {
+      "cas": "123-86-4",
+      "name": "butyl acetate",
+      "groups": {
+        "1": 1,
+        "2": 3,
+        "21": 1
+      }
+    },
+    "64-19-7": {
+      "cas": "64-19-7",
+      "name": "acetic acid",
+      "groups": {
+        "1": 1,
+        "42": 1
+      }
+    },
+    "79-09-4": {
+      "cas": "79-09-4",
+      "name": "propionic acid",
+      "groups": {
+        "1": 1,
+        "2": 1,
+        "42": 1
+      }
+    },
+    "107-92-6": {
+      "cas": "107-92-6",
+      "name": "butyric acid",
+      "groups": {
+        "1": 1,
+        "2": 2,
+        "42": 1
+      }
+    },
+    "110-54-3": {
+      "cas": "110-54-3",
+      "name": "hexane",
+      "groups": {
+        "1": 2,
+        "2": 4
+      }
+    },
+    "109-66-0": {
+      "cas": "109-66-0",
+      "name": "pentane",
+      "groups": {
+        "1": 2,
+        "2": 3
+      }
+    },
+    "106-97-8": {
+      "cas": "106-97-8",
+      "name": "butane",
+      "groups": {
+        "1": 2,
+        "2": 2
+      }
+    },
+    "74-98-6": {
+      "cas": "74-98-6",
+      "name": "propane",
+      "groups": {
+        "1": 2,
+        "2": 1
+      }
+    },
+    "71-43-2": {
+      "cas": "71-43-2",
+      "name": "benzene",
+      "groups": {
+        "9": 6
+      }
+    },
+    "108-88-3": {
+      "cas": "108-88-3",
+      "name": "toluene",
+      "groups": {
+        "9": 5,
+        "11": 1
+      }
+    },
+    "100-41-4": {
+      "cas": "100-41-4",
+      "name": "ethylbenzene",
+      "groups": {
+        "1": 1,
+        "9": 5,
+        "12": 1
+      }
+    },
+    "108-38-3": {
+      "cas": "108-38-3",
+      "name": "m-xylene",
+      "groups": {
+        "9": 4,
+        "11": 2
+      }
+    },
+    "67-66-3": {
+      "cas": "67-66-3",
+      "name": "chloroform",
+      "groups": {
+        "50": 1
+      }
+    },
+    "56-23-5": {
+      "cas": "56-23-5",
+      "name": "carbon tetrachloride",
+      "groups": {
+        "52": 1
+      }
+    },
+    "75-09-2": {
+      "cas": "75-09-2",
+      "name": "dichloromethane",
+      "groups": {
+        "47": 1
+      }
+    },
+    "107-06-2": {
+      "cas": "107-06-2",
+      "name": "1,2-dichloroethane",
+      "groups": {
+        "44": 2
+      }
+    },
+    "109-99-9": {
+      "cas": "109-99-9",
+      "name": "tetrahydrofuran",
+      "groups": {
+        "2": 3,
+        "27": 1
+      }
+    },
+    "60-29-7": {
+      "cas": "60-29-7",
+      "name": "diethyl ether",
+      "groups": {
+        "1": 2,
+        "2": 1,
+        "25": 1
+      }
+    },
+    "123-91-1": {
+      "cas": "123-91-1",
+      "name": "1,4-dioxane",
+      "groups": {
+        "2": 2,
+        "27": 2
+      }
+    },
+    "67-68-5": {
+      "cas": "67-68-5",
+      "name": "dimethyl sulfoxide",
+      "groups": {
+        "67": 1
+      }
+    },
+    "75-05-8": {
+      "cas": "75-05-8",
+      "name": "acetonitrile",
+      "groups": {
+        "40": 1
+      }
+    },
+    "110-82-7": {
+      "cas": "110-82-7",
+      "name": "cyclohexane",
+      "groups": {
+        "2": 6
+      }
+    },
+    "108-94-1": {
+      "cas": "108-94-1",
+      "name": "cyclohexanone",
+      "groups": {
+        "2": 4,
+        "19": 1
+      }
+    },
+    "100-51-6": {
+      "cas": "100-51-6",
+      "name": "benzyl alcohol",
+      "groups": {
+        "9": 5,
+        "12": 1,
+        "14": 1
+      }
+    },
+    "108-95-2": {
+      "cas": "108-95-2",
+      "name": "phenol",
+      "groups": {
+        "9": 5,
+        "17": 1
+      }
+    },
+    "108-90-7": {
+      "cas": "108-90-7",
+      "name": "chlorobenzene",
+      "groups": {
+        "9": 5,
+        "53": 1
+      }
+    },
+    "62-53-3": {
+      "cas": "62-53-3",
+      "name": "aniline",
+      "groups": {
+        "9": 5,
+        "36": 1
+      }
+    },
+    "110-86-1": {
+      "cas": "110-86-1",
+      "name": "pyridine",
+      "groups": {
+        "37": 1
+      }
+    },
+    "98-95-3": {
+      "cas": "98-95-3",
+      "name": "nitrobenzene",
+      "groups": {
+        "9": 5,
+        "57": 1
+      }
+    },
+    "121-44-8": {
+      "cas": "121-44-8",
+      "name": "triethylamine",
+      "groups": {
+        "1": 3,
+        "2": 2,
+        "35": 1
+      }
+    },
+    "68-12-2": {
+      "cas": "68-12-2",
+      "name": "n,n-dimethylformamide",
+      "groups": {
+        "72": 1
+      }
+    },
+    "126-33-0": {
+      "cas": "126-33-0",
+      "name": "sulfolane",
+      "groups": {
+        "2": 2,
+        "118": 1
+      }
+    }
+  },
+  "group_interactions": {
+    "1__2": {
+      "group1": 1,
+      "group2": 2,
+      "amn": 86.02,
+      "anm": -35.36
+    },
+    "1__3": {
+      "group1": 1,
+      "group2": 3,
+      "amn": 61.13,
+      "anm": -11.12
+    },
+    "1__4": {
+      "group1": 1,
+      "group2": 4,
+      "amn": 76.5,
+      "anm": -69.7
+    },
+    "1__5": {
+      "group1": 1,
+      "group2": 5,
+      "amn": 986.5,
+      "anm": 156.4
+    },
+    "1__6": {
+      "group1": 1,
+      "group2": 6,
+      "amn": 697.2,
+      "anm": 16.51
+    },
+    "1__7": {
+      "group1": 1,
+      "group2": 7,
+      "amn": 1318.0,
+      "anm": 300.0
+    },
+    "1__8": {
+      "group1": 1,
+      "group2": 8,
+      "amn": 1333.0,
+      "anm": 275.8
+    },
+    "1__9": {
+      "group1": 1,
+      "group2": 9,
+      "amn": 476.4,
+      "anm": 26.76
+    },
+    "1__10": {
+      "group1": 1,
+      "group2": 10,
+      "amn": 677.0,
+      "anm": 505.7
+    },
+    "1__11": {
+      "group1": 1,
+      "group2": 11,
+      "amn": 232.1,
+      "anm": 114.8
+    },
+    "1__12": {
+      "group1": 1,
+      "group2": 12,
+      "amn": 507.0,
+      "anm": 329.3
+    },
+    "1__13": {
+      "group1": 1,
+      "group2": 13,
+      "amn": 251.5,
+      "anm": 83.36
+    },
+    "1__14": {
+      "group1": 1,
+      "group2": 14,
+      "amn": 391.5,
+      "anm": -30.48
+    },
+    "1__15": {
+      "group1": 1,
+      "group2": 15,
+      "amn": 255.7,
+      "anm": 65.33
+    },
+    "1__16": {
+      "group1": 1,
+      "group2": 16,
+      "amn": 206.6,
+      "anm": -83.98
+    },
+    "1__17": {
+      "group1": 1,
+      "group2": 17,
+      "amn": 920.7,
+      "anm": 1139.0
+    },
+    "1__18": {
+      "group1": 1,
+      "group2": 18,
+      "amn": 287.77,
+      "anm": -101.56
+    },
+    "1__19": {
+      "group1": 1,
+      "group2": 19,
+      "amn": 597.0,
+      "anm": 24.82
+    },
+    "1__20": {
+      "group1": 1,
+      "group2": 20,
+      "amn": 663.5,
+      "anm": 315.3
+    },
+    "1__21": {
+      "group1": 1,
+      "group2": 21,
+      "amn": 35.93,
+      "anm": 91.46
+    },
+    "1__22": {
+      "group1": 1,
+      "group2": 22,
+      "amn": 53.76,
+      "anm": 34.01
+    },
+    "1__23": {
+      "group1": 1,
+      "group2": 23,
+      "amn": 24.9,
+      "anm": 36.7
+    },
+    "1__24": {
+      "group1": 1,
+      "group2": 24,
+      "amn": 104.3,
+      "anm": -78.45
+    },
+    "1__25": {
+      "group1": 1,
+      "group2": 25,
+      "amn": 11.44,
+      "anm": 106.8
+    },
+    "1__26": {
+      "group1": 1,
+      "group2": 26,
+      "amn": 661.5,
+      "anm": -32.69
+    },
+    "1__27": {
+      "group1": 1,
+      "group2": 27,
+      "amn": 543.0,
+      "anm": 5541.0
+    },
+    "1__28": {
+      "group1": 1,
+      "group2": 28,
+      "amn": 153.6,
+      "anm": -52.65
+    },
+    "1__29": {
+      "group1": 1,
+      "group2": 29,
+      "amn": 184.4,
+      "anm": -7.481
+    },
+    "1__30": {
+      "group1": 1,
+      "group2": 30,
+      "amn": 354.55,
+      "anm": -25.31
+    },
+    "1__31": {
+      "group1": 1,
+      "group2": 31,
+      "amn": 3025.0,
+      "anm": 139.93
+    },
+    "1__32": {
+      "group1": 1,
+      "group2": 32,
+      "amn": 335.8,
+      "anm": 128.0
+    },
+    "1__33": {
+      "group1": 1,
+      "group2": 33,
+      "amn": 479.5,
+      "anm": -31.52
+    },
+    "1__34": {
+      "group1": 1,
+      "group2": 34,
+      "amn": 298.9,
+      "anm": -72.88
+    },
+    "1__35": {
+      "group1": 1,
+      "group2": 35,
+      "amn": 526.5,
+      "anm": 50.49
+    },
+    "1__36": {
+      "group1": 1,
+      "group2": 36,
+      "amn": 689.0,
+      "anm": -165.9
+    },
+    "1__37": {
+      "group1": 1,
+      "group2": 37,
+      "amn": -4.189,
+      "anm": 47.41
+    },
+    "1__38": {
+      "group1": 1,
+      "group2": 38,
+      "amn": 125.8,
+      "anm": -5.132
+    },
+    "1__39": {
+      "group1": 1,
+      "group2": 39,
+      "amn": 485.3,
+      "anm": -31.95
+    },
+    "1__40": {
+      "group1": 1,
+      "group2": 40,
+      "amn": -2.859,
+      "anm": 147.3
+    },
+    "1__41": {
+      "group1": 1,
+      "group2": 41,
+      "amn": 387.1,
+      "anm": 529.0
+    },
+    "1__42": {
+      "group1": 1,
+      "group2": 42,
+      "amn": -450.4,
+      "anm": -34.36
+    },
+    "1__43": {
+      "group1": 1,
+      "group2": 43,
+      "amn": 252.7,
+      "anm": 110.2
+    },
+    "1__44": {
+      "group1": 1,
+      "group2": 44,
+      "amn": 220.3,
+      "anm": 13.89
+    },
+    "1__45": {
+      "group1": 1,
+      "group2": 45,
+      "amn": -5.869,
+      "anm": 30.74
+    },
+    "1__46": {
+      "group1": 1,
+      "group2": 46,
+      "amn": 390.9,
+      "anm": 27.97
+    },
+    "1__47": {
+      "group1": 1,
+      "group2": 47,
+      "amn": 553.3,
+      "anm": -11.92
+    },
+    "1__48": {
+      "group1": 1,
+      "group2": 48,
+      "amn": 187.0,
+      "anm": 39.93
+    },
+    "1__49": {
+      "group1": 1,
+      "group2": 49,
+      "amn": 216.1,
+      "anm": -23.61
+    },
+    "1__50": {
+      "group1": 1,
+      "group2": 50,
+      "amn": 92.99,
+      "anm": -8.479
+    },
+    "1__51": {
+      "group1": 1,
+      "group2": 51,
+      "amn": 699.13,
+      "anm": 456.19
+    },
+    "1__55": {
+      "group1": 1,
+      "group2": 55,
+      "amn": 808.59,
+      "anm": 245.21
+    },
+    "1__84": {
+      "group1": 1,
+      "group2": 84,
+      "amn": -1243.0,
+      "anm": 125.36
+    },
+    "1__85": {
+      "group1": 1,
+      "group2": 85,
+      "amn": 637.65,
+      "anm": 221.56
+    },
+    "2__3": {
+      "group1": 2,
+      "group2": 3,
+      "amn": 38.81,
+      "anm": 3.446
+    },
+    "2__4": {
+      "group1": 2,
+      "group2": 4,
+      "amn": 74.15,
+      "anm": -113.6
+    },
+    "2__5": {
+      "group1": 2,
+      "group2": 5,
+      "amn": 524.1,
+      "anm": 457.0
+    },
+    "2__6": {
+      "group1": 2,
+      "group2": 6,
+      "amn": 787.6,
+      "anm": -12.52
+    },
+    "2__7": {
+      "group1": 2,
+      "group2": 7,
+      "amn": 270.6,
+      "anm": 496.1
+    },
+    "2__8": {
+      "group1": 2,
+      "group2": 8,
+      "amn": 526.1,
+      "anm": 217.5
+    },
+    "2__9": {
+      "group1": 2,
+      "group2": 9,
+      "amn": 182.6,
+      "anm": 42.92
+    },
+    "2__10": {
+      "group1": 2,
+      "group2": 10,
+      "amn": 448.75,
+      "anm": 56.3
+    },
+    "2__11": {
+      "group1": 2,
+      "group2": 11,
+      "amn": 37.85,
+      "anm": 132.1
+    },
+    "2__12": {
+      "group1": 2,
+      "group2": 12,
+      "amn": 333.5,
+      "anm": 110.4
+    },
+    "2__13": {
+      "group1": 2,
+      "group2": 13,
+      "amn": 214.5,
+      "anm": 26.51
+    },
+    "2__14": {
+      "group1": 2,
+      "group2": 14,
+      "amn": 240.9,
+      "anm": 1.163
+    },
+    "2__15": {
+      "group1": 2,
+      "group2": 15,
+      "amn": 163.9,
+      "anm": -28.7
+    },
+    "2__16": {
+      "group1": 2,
+      "group2": 16,
+      "amn": 61.11,
+      "anm": -25.38
+    },
+    "2__17": {
+      "group1": 2,
+      "group2": 17,
+      "amn": 749.3,
+      "anm": 2000.0
+    },
+    "2__18": {
+      "group1": 2,
+      "group2": 18,
+      "amn": 280.5,
+      "anm": -47.63
+    },
+    "2__19": {
+      "group1": 2,
+      "group2": 19,
+      "amn": 336.9,
+      "anm": -40.62
+    },
+    "2__20": {
+      "group1": 2,
+      "group2": 20,
+      "amn": 318.9,
+      "anm": 1264.0
+    },
+    "2__21": {
+      "group1": 2,
+      "group2": 21,
+      "amn": -36.87,
+      "anm": 40.25
+    },
+    "2__22": {
+      "group1": 2,
+      "group2": 22,
+      "amn": 58.55,
+      "anm": -23.5
+    },
+    "2__23": {
+      "group1": 2,
+      "group2": 23,
+      "amn": -13.99,
+      "anm": 51.06
+    },
+    "2__24": {
+      "group1": 2,
+      "group2": 24,
+      "amn": -109.7,
+      "anm": 160.9
+    },
+    "2__25": {
+      "group1": 2,
+      "group2": 25,
+      "amn": 100.1,
+      "anm": 70.32
+    },
+    "2__26": {
+      "group1": 2,
+      "group2": 26,
+      "amn": 357.5,
+      "anm": -1.996
+    },
+    "2__28": {
+      "group1": 2,
+      "group2": 28,
+      "amn": 76.3,
+      "anm": 16.623
+    },
+    "2__30": {
+      "group1": 2,
+      "group2": 30,
+      "amn": 262.9,
+      "anm": 82.64
+    },
+    "2__33": {
+      "group1": 2,
+      "group2": 33,
+      "amn": 183.8,
+      "anm": 174.6
+    },
+    "2__34": {
+      "group1": 2,
+      "group2": 34,
+      "amn": 31.14,
+      "anm": 41.38
+    },
+    "2__35": {
+      "group1": 2,
+      "group2": 35,
+      "amn": 179.0,
+      "anm": 64.07
+    },
+    "2__36": {
+      "group1": 2,
+      "group2": 36,
+      "amn": -52.87,
+      "anm": 573.0
+    },
+    "2__37": {
+      "group1": 2,
+      "group2": 37,
+      "amn": -66.46,
+      "anm": 124.2
+    },
+    "2__38": {
+      "group1": 2,
+      "group2": 38,
+      "amn": 359.3,
+      "anm": -131.7
+    },
+    "2__39": {
+      "group1": 2,
+      "group2": 39,
+      "amn": -70.45,
+      "anm": 249.0
+    },
+    "2__40": {
+      "group1": 2,
+      "group2": 40,
+      "amn": 449.4,
+      "anm": 62.4
+    },
+    "2__41": {
+      "group1": 2,
+      "group2": 41,
+      "amn": 48.33,
+      "anm": 1397.0
+    },
+    "2__44": {
+      "group1": 2,
+      "group2": 44,
+      "amn": 86.46,
+      "anm": -16.11
+    },
+    "2__46": {
+      "group1": 2,
+      "group2": 46,
+      "amn": 200.2,
+      "anm": 9.755
+    },
+    "2__47": {
+      "group1": 2,
+      "group2": 47,
+      "amn": 268.1,
+      "anm": 132.4
+    },
+    "2__48": {
+      "group1": 2,
+      "group2": 48,
+      "amn": -617.0,
+      "anm": 543.6
+    },
+    "2__49": {
+      "group1": 2,
+      "group2": 49,
+      "amn": 62.56,
+      "anm": 161.1
+    },
+    "2__55": {
+      "group1": 2,
+      "group2": 55,
+      "amn": 200.94,
+      "anm": 384.45
+    },
+    "2__84": {
+      "group1": 2,
+      "group2": 84,
+      "amn": -861.46,
+      "anm": -391.81
+    },
+    "2__85": {
+      "group1": 2,
+      "group2": 85,
+      "amn": 424.93,
+      "anm": 629.96
+    },
+    "3__4": {
+      "group1": 3,
+      "group2": 4,
+      "amn": 167.0,
+      "anm": -146.8
+    },
+    "3__5": {
+      "group1": 3,
+      "group2": 5,
+      "amn": 636.1,
+      "anm": 89.6
+    },
+    "3__6": {
+      "group1": 3,
+      "group2": 6,
+      "amn": 637.35,
+      "anm": -50.0
+    },
+    "3__7": {
+      "group1": 3,
+      "group2": 7,
+      "amn": 903.8,
+      "anm": 362.3
+    },
+    "3__8": {
+      "group1": 3,
+      "group2": 8,
+      "amn": 1329.0,
+      "anm": 25.34
+    },
+    "3__9": {
+      "group1": 3,
+      "group2": 9,
+      "amn": 25.77,
+      "anm": 140.1
+    },
+    "3__10": {
+      "group1": 3,
+      "group2": 10,
+      "amn": 347.3,
+      "anm": 23.39
+    },
+    "3__11": {
+      "group1": 3,
+      "group2": 11,
+      "amn": 5.994,
+      "anm": 85.84
+    },
+    "3__12": {
+      "group1": 3,
+      "group2": 12,
+      "amn": 287.1,
+      "anm": 18.12
+    },
+    "3__13": {
+      "group1": 3,
+      "group2": 13,
+      "amn": 32.14,
+      "anm": 52.13
+    },
+    "3__14": {
+      "group1": 3,
+      "group2": 14,
+      "amn": 161.7,
+      "anm": -44.85
+    },
+    "3__15": {
+      "group1": 3,
+      "group2": 15,
+      "amn": 122.8,
+      "anm": -22.31
+    },
+    "3__16": {
+      "group1": 3,
+      "group2": 16,
+      "amn": 90.49,
+      "anm": -223.9
+    },
+    "3__17": {
+      "group1": 3,
+      "group2": 17,
+      "amn": 648.2,
+      "anm": 247.5
+    },
+    "3__18": {
+      "group1": 3,
+      "group2": 18,
+      "amn": -4.449,
+      "anm": 31.87
+    },
+    "3__19": {
+      "group1": 3,
+      "group2": 19,
+      "amn": 212.5,
+      "anm": -22.97
+    },
+    "3__20": {
+      "group1": 3,
+      "group2": 20,
+      "amn": 537.4,
+      "anm": 62.32
+    },
+    "3__21": {
+      "group1": 3,
+      "group2": 21,
+      "amn": -18.81,
+      "anm": 4.68
+    },
+    "3__22": {
+      "group1": 3,
+      "group2": 22,
+      "amn": -144.4,
+      "anm": 121.3
+    },
+    "3__23": {
+      "group1": 3,
+      "group2": 23,
+      "amn": -231.9,
+      "anm": 288.5
+    },
+    "3__24": {
+      "group1": 3,
+      "group2": 24,
+      "amn": 3.0,
+      "anm": -4.7
+    },
+    "3__25": {
+      "group1": 3,
+      "group2": 25,
+      "amn": 187.0,
+      "anm": -97.27
+    },
+    "3__26": {
+      "group1": 3,
+      "group2": 26,
+      "amn": 168.04,
+      "anm": 10.38
+    },
+    "3__27": {
+      "group1": 3,
+      "group2": 27,
+      "amn": 194.9,
+      "anm": 1824.0
+    },
+    "3__28": {
+      "group1": 3,
+      "group2": 28,
+      "amn": 52.068,
+      "anm": 21.497
+    },
+    "3__29": {
+      "group1": 3,
+      "group2": 29,
+      "amn": -10.43,
+      "anm": 28.41
+    },
+    "3__30": {
+      "group1": 3,
+      "group2": 30,
+      "amn": -64.69,
+      "anm": 157.29
+    },
+    "3__31": {
+      "group1": 3,
+      "group2": 31,
+      "amn": 210.366,
+      "anm": 221.4
+    },
+    "3__32": {
+      "group1": 3,
+      "group2": 32,
+      "amn": 113.3,
+      "anm": 58.68
+    },
+    "3__33": {
+      "group1": 3,
+      "group2": 33,
+      "amn": 261.3,
+      "anm": -154.2
+    },
+    "3__34": {
+      "group1": 3,
+      "group2": 34,
+      "amn": 154.26,
+      "anm": -101.12
+    },
+    "3__35": {
+      "group1": 3,
+      "group2": 35,
+      "amn": 169.9,
+      "anm": -2.504
+    },
+    "3__36": {
+      "group1": 3,
+      "group2": 36,
+      "amn": 383.9,
+      "anm": -123.6
+    },
+    "3__37": {
+      "group1": 3,
+      "group2": 37,
+      "amn": -259.1,
+      "anm": 395.8
+    },
+    "3__38": {
+      "group1": 3,
+      "group2": 38,
+      "amn": 389.3,
+      "anm": -237.2
+    },
+    "3__39": {
+      "group1": 3,
+      "group2": 39,
+      "amn": 245.6,
+      "anm": -133.9
+    },
+    "3__40": {
+      "group1": 3,
+      "group2": 40,
+      "amn": 22.67,
+      "anm": 140.6
+    },
+    "3__41": {
+      "group1": 3,
+      "group2": 41,
+      "amn": 103.5,
+      "anm": 317.6
+    },
+    "3__42": {
+      "group1": 3,
+      "group2": 42,
+      "amn": -432.3,
+      "anm": 787.9
+    },
+    "3__43": {
+      "group1": 3,
+      "group2": 43,
+      "amn": 238.9,
+      "anm": 234.4
+    },
+    "3__44": {
+      "group1": 3,
+      "group2": 44,
+      "amn": 30.04,
+      "anm": -23.88
+    },
+    "3__45": {
+      "group1": 3,
+      "group2": 45,
+      "amn": -88.11,
+      "anm": 167.9
+    },
+    "3__47": {
+      "group1": 3,
+      "group2": 47,
+      "amn": 333.3,
+      "anm": -86.88
+    },
+    "3__49": {
+      "group1": 3,
+      "group2": 49,
+      "amn": -59.58,
+      "anm": 142.9
+    },
+    "3__50": {
+      "group1": 3,
+      "group2": 50,
+      "amn": -39.16,
+      "anm": 23.93
+    },
+    "3__55": {
+      "group1": 3,
+      "group2": 55,
+      "amn": 360.82,
+      "anm": 47.05
+    },
+    "4__5": {
+      "group1": 4,
+      "group2": 5,
+      "amn": 803.2,
+      "anm": 25.82
+    },
+    "4__6": {
+      "group1": 4,
+      "group2": 6,
+      "amn": 603.25,
+      "anm": -44.5
+    },
+    "4__7": {
+      "group1": 4,
+      "group2": 7,
+      "amn": 5695.0,
+      "anm": 377.6
+    },
+    "4__8": {
+      "group1": 4,
+      "group2": 8,
+      "amn": 884.9,
+      "anm": 244.2
+    },
+    "4__9": {
+      "group1": 4,
+      "group2": 9,
+      "amn": -52.1,
+      "anm": 365.8
+    },
+    "4__10": {
+      "group1": 4,
+      "group2": 10,
+      "amn": 586.8,
+      "anm": 106.0
+    },
+    "4__11": {
+      "group1": 4,
+      "group2": 11,
+      "amn": 5688.0,
+      "anm": -170.0
+    },
+    "4__12": {
+      "group1": 4,
+      "group2": 12,
+      "amn": 197.8,
+      "anm": 428.0
+    },
+    "4__13": {
+      "group1": 4,
+      "group2": 13,
+      "amn": 213.1,
+      "anm": 65.69
+    },
+    "4__14": {
+      "group1": 4,
+      "group2": 14,
+      "amn": 19.02,
+      "anm": 296.4
+    },
+    "4__15": {
+      "group1": 4,
+      "group2": 15,
+      "amn": -49.29,
+      "anm": 223.0
+    },
+    "4__16": {
+      "group1": 4,
+      "group2": 16,
+      "amn": 23.5,
+      "anm": 109.9
+    },
+    "4__17": {
+      "group1": 4,
+      "group2": 17,
+      "amn": 664.2,
+      "anm": 762.8
+    },
+    "4__18": {
+      "group1": 4,
+      "group2": 18,
+      "amn": 52.8,
+      "anm": 49.8
+    },
+    "4__19": {
+      "group1": 4,
+      "group2": 19,
+      "amn": 6096.0,
+      "anm": -138.4
+    },
+    "4__20": {
+      "group1": 4,
+      "group2": 20,
+      "amn": 872.3,
+      "anm": 89.86
+    },
+    "4__21": {
+      "group1": 4,
+      "group2": 21,
+      "amn": -114.14,
+      "anm": 122.91
+    },
+    "4__22": {
+      "group1": 4,
+      "group2": 22,
+      "amn": -111.0,
+      "anm": 140.78
+    },
+    "4__23": {
+      "group1": 4,
+      "group2": 23,
+      "amn": -80.25,
+      "anm": 69.9
+    },
+    "4__24": {
+      "group1": 4,
+      "group2": 24,
+      "amn": -141.3,
+      "anm": 134.7
+    },
+    "4__25": {
+      "group1": 4,
+      "group2": 25,
+      "amn": -211.0,
+      "anm": 402.5
+    },
+    "4__26": {
+      "group1": 4,
+      "group2": 26,
+      "amn": 3629.0,
+      "anm": -97.05
+    },
+    "4__27": {
+      "group1": 4,
+      "group2": 27,
+      "amn": 4448.0,
+      "anm": -127.8
+    },
+    "4__28": {
+      "group1": 4,
+      "group2": 28,
+      "amn": -9.451,
+      "anm": 40.675
+    },
+    "4__29": {
+      "group1": 4,
+      "group2": 29,
+      "amn": 393.6,
+      "anm": 19.56
+    },
+    "4__30": {
+      "group1": 4,
+      "group2": 30,
+      "amn": 48.49,
+      "anm": 128.8
+    },
+    "4__31": {
+      "group1": 4,
+      "group2": 31,
+      "amn": 4975.0,
+      "anm": 150.64
+    },
+    "4__32": {
+      "group1": 4,
+      "group2": 32,
+      "amn": 259.0,
+      "anm": 26.41
+    },
+    "4__33": {
+      "group1": 4,
+      "group2": 33,
+      "amn": 210.0,
+      "anm": 1112.0
+    },
+    "4__34": {
+      "group1": 4,
+      "group2": 34,
+      "amn": -152.55,
+      "anm": 614.52
+    },
+    "4__35": {
+      "group1": 4,
+      "group2": 35,
+      "amn": 4284.0,
+      "anm": -143.2
+    },
+    "4__36": {
+      "group1": 4,
+      "group2": 36,
+      "amn": -119.2,
+      "anm": 397.4
+    },
+    "4__37": {
+      "group1": 4,
+      "group2": 37,
+      "amn": -282.5,
+      "anm": 419.1
+    },
+    "4__38": {
+      "group1": 4,
+      "group2": 38,
+      "amn": 101.4,
+      "anm": -157.3
+    },
+    "4__39": {
+      "group1": 4,
+      "group2": 39,
+      "amn": 5629.0,
+      "anm": -240.2
+    },
+    "4__40": {
+      "group1": 4,
+      "group2": 40,
+      "amn": -245.39,
+      "anm": 839.83
+    },
+    "4__41": {
+      "group1": 4,
+      "group2": 41,
+      "amn": 69.26,
+      "anm": 615.8
+    },
+    "4__44": {
+      "group1": 4,
+      "group2": 44,
+      "amn": 46.38,
+      "anm": 6.214
+    },
+    "4__47": {
+      "group1": 4,
+      "group2": 47,
+      "amn": 421.9,
+      "anm": -19.45
+    },
+    "4__49": {
+      "group1": 4,
+      "group2": 49,
+      "amn": -203.6,
+      "anm": 274.1
+    },
+    "4__50": {
+      "group1": 4,
+      "group2": 50,
+      "amn": 184.9,
+      "anm": 2.845
+    },
+    "4__55": {
+      "group1": 4,
+      "group2": 55,
+      "amn": 233.51,
+      "anm": 347.13
+    },
+    "5__6": {
+      "group1": 5,
+      "group2": 6,
+      "amn": -137.1,
+      "anm": 249.1
+    },
+    "5__7": {
+      "group1": 5,
+      "group2": 7,
+      "amn": 353.5,
+      "anm": -229.1
+    },
+    "5__8": {
+      "group1": 5,
+      "group2": 8,
+      "amn": -259.7,
+      "anm": -451.6
+    },
+    "5__9": {
+      "group1": 5,
+      "group2": 9,
+      "amn": 84.0,
+      "anm": 164.5
+    },
+    "5__10": {
+      "group1": 5,
+      "group2": 10,
+      "amn": -203.6,
+      "anm": 529.0
+    },
+    "5__11": {
+      "group1": 5,
+      "group2": 11,
+      "amn": 101.1,
+      "anm": 245.4
+    },
+    "5__12": {
+      "group1": 5,
+      "group2": 12,
+      "amn": 267.8,
+      "anm": 139.4
+    },
+    "5__13": {
+      "group1": 5,
+      "group2": 13,
+      "amn": 28.06,
+      "anm": 237.7
+    },
+    "5__14": {
+      "group1": 5,
+      "group2": 14,
+      "amn": 8.642,
+      "anm": -242.8
+    },
+    "5__15": {
+      "group1": 5,
+      "group2": 15,
+      "amn": 42.7,
+      "anm": -150.0
+    },
+    "5__16": {
+      "group1": 5,
+      "group2": 16,
+      "amn": -323.0,
+      "anm": 28.6
+    },
+    "5__17": {
+      "group1": 5,
+      "group2": 17,
+      "amn": -52.39,
+      "anm": -17.4
+    },
+    "5__18": {
+      "group1": 5,
+      "group2": 18,
+      "amn": 170.029,
+      "anm": -132.3
+    },
+    "5__19": {
+      "group1": 5,
+      "group2": 19,
+      "amn": 6.712,
+      "anm": 185.4
+    },
+    "5__20": {
+      "group1": 5,
+      "group2": 20,
+      "amn": 199.0,
+      "anm": -151.0
+    },
+    "5__21": {
+      "group1": 5,
+      "group2": 21,
+      "amn": 75.62,
+      "anm": 562.2
+    },
+    "5__22": {
+      "group1": 5,
+      "group2": 22,
+      "amn": 65.28,
+      "anm": 527.6
+    },
+    "5__23": {
+      "group1": 5,
+      "group2": 23,
+      "amn": -98.12,
+      "anm": 742.1
+    },
+    "5__24": {
+      "group1": 5,
+      "group2": 24,
+      "amn": 143.1,
+      "anm": 856.3
+    },
+    "5__25": {
+      "group1": 5,
+      "group2": 25,
+      "amn": 123.5,
+      "anm": 325.7
+    },
+    "5__26": {
+      "group1": 5,
+      "group2": 26,
+      "amn": 256.5,
+      "anm": 261.6
+    },
+    "5__27": {
+      "group1": 5,
+      "group2": 27,
+      "amn": 157.1,
+      "anm": 561.6
+    },
+    "5__28": {
+      "group1": 5,
+      "group2": 28,
+      "amn": 488.9,
+      "anm": 609.8
+    },
+    "5__29": {
+      "group1": 5,
+      "group2": 29,
+      "amn": 147.5,
+      "anm": 461.6
+    },
+    "5__30": {
+      "group1": 5,
+      "group2": 30,
+      "amn": -120.46,
+      "anm": 521.63
+    },
+    "5__31": {
+      "group1": 5,
+      "group2": 31,
+      "amn": -318.93,
+      "anm": 267.6
+    },
+    "5__32": {
+      "group1": 5,
+      "group2": 32,
+      "amn": 313.5,
+      "anm": 501.3
+    },
+    "5__33": {
+      "group1": 5,
+      "group2": 33,
+      "amn": 202.1,
+      "anm": 524.9
+    },
+    "5__34": {
+      "group1": 5,
+      "group2": 34,
+      "amn": 727.8,
+      "anm": 68.95
+    },
+    "5__35": {
+      "group1": 5,
+      "group2": 35,
+      "amn": -202.1,
+      "anm": -25.87
+    },
+    "5__36": {
+      "group1": 5,
+      "group2": 36,
+      "amn": 74.27,
+      "anm": 389.3
+    },
+    "5__37": {
+      "group1": 5,
+      "group2": 37,
+      "amn": 225.8,
+      "anm": 738.9
+    },
+    "5__38": {
+      "group1": 5,
+      "group2": 38,
+      "amn": 44.78,
+      "anm": 649.7
+    },
+    "5__39": {
+      "group1": 5,
+      "group2": 39,
+      "amn": -143.9,
+      "anm": 64.16
+    },
+    "5__41": {
+      "group1": 5,
+      "group2": 41,
+      "amn": 190.3,
+      "anm": 88.63
+    },
+    "5__42": {
+      "group1": 5,
+      "group2": 42,
+      "amn": -817.7,
+      "anm": 1913.0
+    },
+    "5__43": {
+      "group1": 5,
+      "group2": 43,
+      "amn": -1712.8,
+      "anm": 430.06
+    },
+    "5__44": {
+      "group1": 5,
+      "group2": 44,
+      "amn": -504.2,
+      "anm": 796.9
+    },
+    "5__45": {
+      "group1": 5,
+      "group2": 45,
+      "amn": 72.96,
+      "anm": 794.4
+    },
+    "5__46": {
+      "group1": 5,
+      "group2": 46,
+      "amn": -382.7,
+      "anm": 394.8
+    },
+    "5__47": {
+      "group1": 5,
+      "group2": 47,
+      "amn": -248.3,
+      "anm": 517.5
+    },
+    "5__49": {
+      "group1": 5,
+      "group2": 49,
+      "amn": 104.7,
+      "anm": -61.2
+    },
+    "5__50": {
+      "group1": 5,
+      "group2": 50,
+      "amn": 57.65,
+      "anm": 682.5
+    },
+    "5__55": {
+      "group1": 5,
+      "group2": 55,
+      "amn": 215.81,
+      "anm": 72.19
+    },
+    "5__84": {
+      "group1": 5,
+      "group2": 84,
+      "amn": -1840.8,
+      "anm": 111.65
+    },
+    "5__85": {
+      "group1": 5,
+      "group2": 85,
+      "amn": 56.298,
+      "anm": 122.19
+    },
+    "6__7": {
+      "group1": 6,
+      "group2": 7,
+      "amn": -180.95,
+      "anm": 289.6
+    },
+    "6__8": {
+      "group1": 6,
+      "group2": 8,
+      "amn": -101.7,
+      "anm": -265.2
+    },
+    "6__9": {
+      "group1": 6,
+      "group2": 9,
+      "amn": 23.39,
+      "anm": 108.65
+    },
+    "6__10": {
+      "group1": 6,
+      "group2": 10,
+      "amn": 306.42,
+      "anm": -340.18
+    },
+    "6__11": {
+      "group1": 6,
+      "group2": 11,
+      "amn": -10.72,
+      "anm": 249.63
+    },
+    "6__12": {
+      "group1": 6,
+      "group2": 12,
+      "amn": 179.7,
+      "anm": 227.8
+    },
+    "6__13": {
+      "group1": 6,
+      "group2": 13,
+      "amn": -128.6,
+      "anm": 238.4
+    },
+    "6__14": {
+      "group1": 6,
+      "group2": 14,
+      "amn": 359.3,
+      "anm": -481.65
+    },
+    "6__15": {
+      "group1": 6,
+      "group2": 15,
+      "amn": -20.98,
+      "anm": -370.3
+    },
+    "6__16": {
+      "group1": 6,
+      "group2": 16,
+      "amn": 53.9,
+      "anm": -406.8
+    },
+    "6__17": {
+      "group1": 6,
+      "group2": 17,
+      "amn": 489.7,
+      "anm": -118.1
+    },
+    "6__18": {
+      "group1": 6,
+      "group2": 18,
+      "amn": 580.48,
+      "anm": -378.24
+    },
+    "6__19": {
+      "group1": 6,
+      "group2": 19,
+      "amn": 53.28,
+      "anm": 162.6
+    },
+    "6__20": {
+      "group1": 6,
+      "group2": 20,
+      "amn": -202.0,
+      "anm": 339.8
+    },
+    "6__21": {
+      "group1": 6,
+      "group2": 21,
+      "amn": -38.32,
+      "anm": 529.0
+    },
+    "6__22": {
+      "group1": 6,
+      "group2": 22,
+      "amn": -102.54,
+      "anm": 669.9
+    },
+    "6__23": {
+      "group1": 6,
+      "group2": 23,
+      "amn": -139.35,
+      "anm": 649.1
+    },
+    "6__24": {
+      "group1": 6,
+      "group2": 24,
+      "amn": -44.76,
+      "anm": 709.6
+    },
+    "6__25": {
+      "group1": 6,
+      "group2": 25,
+      "amn": -28.25,
+      "anm": 612.8
+    },
+    "6__26": {
+      "group1": 6,
+      "group2": 26,
+      "amn": 75.14,
+      "anm": 252.56
+    },
+    "6__27": {
+      "group1": 6,
+      "group2": 27,
+      "amn": 457.88,
+      "anm": 511.29
+    },
+    "6__28": {
+      "group1": 6,
+      "group2": 28,
+      "amn": -31.09,
+      "anm": 914.2
+    },
+    "6__29": {
+      "group1": 6,
+      "group2": 29,
+      "amn": 17.5,
+      "anm": 448.6
+    },
+    "6__30": {
+      "group1": 6,
+      "group2": 30,
+      "amn": -61.76,
+      "anm": 287.0
+    },
+    "6__31": {
+      "group1": 6,
+      "group2": 31,
+      "amn": -119.2,
+      "anm": 240.8
+    },
+    "6__32": {
+      "group1": 6,
+      "group2": 32,
+      "amn": 212.1,
+      "anm": 431.3
+    },
+    "6__33": {
+      "group1": 6,
+      "group2": 33,
+      "amn": 106.3,
+      "anm": 494.7
+    },
+    "6__34": {
+      "group1": 6,
+      "group2": 34,
+      "amn": -119.1,
+      "anm": 967.71
+    },
+    "6__35": {
+      "group1": 6,
+      "group2": 35,
+      "amn": -399.3,
+      "anm": 695.0
+    },
+    "6__36": {
+      "group1": 6,
+      "group2": 36,
+      "amn": -5.224,
+      "anm": 218.8
+    },
+    "6__37": {
+      "group1": 6,
+      "group2": 37,
+      "amn": 33.47,
+      "anm": 528.0
+    },
+    "6__38": {
+      "group1": 6,
+      "group2": 38,
+      "amn": -48.25,
+      "anm": 645.9
+    },
+    "6__39": {
+      "group1": 6,
+      "group2": 39,
+      "amn": -172.4,
+      "anm": 172.2
+    },
+    "6__41": {
+      "group1": 6,
+      "group2": 41,
+      "amn": 165.7,
+      "anm": 171.0
+    },
+    "6__45": {
+      "group1": 6,
+      "group2": 45,
+      "amn": -52.1,
+      "anm": 762.7
+    },
+    "6__48": {
+      "group1": 6,
+      "group2": 48,
+      "amn": 37.63,
+      "anm": 420.0
+    },
+    "6__49": {
+      "group1": 6,
+      "group2": 49,
+      "amn": -59.4,
+      "anm": -89.24
+    },
+    "6__50": {
+      "group1": 6,
+      "group2": 50,
+      "amn": -46.01,
+      "anm": 597.8
+    },
+    "6__55": {
+      "group1": 6,
+      "group2": 55,
+      "amn": 150.02,
+      "anm": 265.75
+    },
+    "7__8": {
+      "group1": 7,
+      "group2": 8,
+      "amn": 324.5,
+      "anm": -601.8
+    },
+    "7__9": {
+      "group1": 7,
+      "group2": 9,
+      "amn": -195.4,
+      "anm": 472.5
+    },
+    "7__10": {
+      "group1": 7,
+      "group2": 10,
+      "amn": -116.0,
+      "anm": 480.8
+    },
+    "7__11": {
+      "group1": 7,
+      "group2": 11,
+      "amn": 72.87,
+      "anm": 200.8
+    },
+    "7__12": {
+      "group1": 7,
+      "group2": 12,
+      "amn": 233.87,
+      "anm": 124.63
+    },
+    "7__13": {
+      "group1": 7,
+      "group2": 13,
+      "amn": 540.5,
+      "anm": -314.7
+    },
+    "7__14": {
+      "group1": 7,
+      "group2": 14,
+      "amn": 48.89,
+      "anm": -330.4
+    },
+    "7__15": {
+      "group1": 7,
+      "group2": 15,
+      "amn": 168.0,
+      "anm": -448.2
+    },
+    "7__16": {
+      "group1": 7,
+      "group2": 16,
+      "amn": 304.0,
+      "anm": -598.8
+    },
+    "7__17": {
+      "group1": 7,
+      "group2": 17,
+      "amn": 243.2,
+      "anm": -341.6
+    },
+    "7__18": {
+      "group1": 7,
+      "group2": 18,
+      "amn": 459.0,
+      "anm": -332.9
+    },
+    "7__19": {
+      "group1": 7,
+      "group2": 19,
+      "amn": 112.6,
+      "anm": 242.8
+    },
+    "7__20": {
+      "group1": 7,
+      "group2": 20,
+      "amn": -14.09,
+      "anm": -66.17
+    },
+    "7__21": {
+      "group1": 7,
+      "group2": 21,
+      "amn": 325.44,
+      "anm": 698.24
+    },
+    "7__22": {
+      "group1": 7,
+      "group2": 22,
+      "amn": 370.4,
+      "anm": 708.69
+    },
+    "7__23": {
+      "group1": 7,
+      "group2": 23,
+      "amn": 353.68,
+      "anm": 826.76
+    },
+    "7__24": {
+      "group1": 7,
+      "group2": 24,
+      "amn": 497.54,
+      "anm": 1201.0
+    },
+    "7__25": {
+      "group1": 7,
+      "group2": 25,
+      "amn": 133.9,
+      "anm": -274.5
+    },
+    "7__26": {
+      "group1": 7,
+      "group2": 26,
+      "amn": 220.6,
+      "anm": 417.9
+    },
+    "7__27": {
+      "group1": 7,
+      "group2": 27,
+      "amn": 399.5,
+      "anm": 360.7
+    },
+    "7__28": {
+      "group1": 7,
+      "group2": 28,
+      "amn": 887.1,
+      "anm": 1081.0
+    },
+    "7__30": {
+      "group1": 7,
+      "group2": 30,
+      "amn": 188.026,
+      "anm": 23.484
+    },
+    "7__31": {
+      "group1": 7,
+      "group2": 31,
+      "amn": 12.72,
+      "anm": -137.4
+    },
+    "7__33": {
+      "group1": 7,
+      "group2": 33,
+      "amn": 777.1,
+      "anm": 79.18
+    },
+    "7__35": {
+      "group1": 7,
+      "group2": 35,
+      "amn": -139.0,
+      "anm": -240.0
+    },
+    "7__36": {
+      "group1": 7,
+      "group2": 36,
+      "amn": 160.8,
+      "anm": 386.6
+    },
+    "7__39": {
+      "group1": 7,
+      "group2": 39,
+      "amn": 319.0,
+      "anm": -287.1
+    },
+    "7__41": {
+      "group1": 7,
+      "group2": 41,
+      "amn": -197.5,
+      "anm": 284.4
+    },
+    "7__42": {
+      "group1": 7,
+      "group2": 42,
+      "amn": -363.8,
+      "anm": 180.2
+    },
+    "7__44": {
+      "group1": 7,
+      "group2": 44,
+      "amn": -452.2,
+      "anm": 832.2
+    },
+    "7__46": {
+      "group1": 7,
+      "group2": 46,
+      "amn": 835.6,
+      "anm": -509.3
+    },
+    "7__47": {
+      "group1": 7,
+      "group2": 47,
+      "amn": 139.6,
+      "anm": -205.7
+    },
+    "7__49": {
+      "group1": 7,
+      "group2": 49,
+      "amn": 407.9,
+      "anm": -384.3
+    },
+    "7__55": {
+      "group1": 7,
+      "group2": 55,
+      "amn": -255.63,
+      "anm": 627.39
+    },
+    "8__9": {
+      "group1": 8,
+      "group2": 9,
+      "amn": -356.1,
+      "anm": -133.1
+    },
+    "8__10": {
+      "group1": 8,
+      "group2": 10,
+      "amn": -271.1,
+      "anm": -155.6
+    },
+    "8__11": {
+      "group1": 8,
+      "group2": 11,
+      "amn": -449.4,
+      "anm": -36.72
+    },
+    "8__12": {
+      "group1": 8,
+      "group2": 12,
+      "amn": -32.52,
+      "anm": -234.25
+    },
+    "8__13": {
+      "group1": 8,
+      "group2": 13,
+      "amn": -162.8742,
+      "anm": -178.5461
+    },
+    "8__14": {
+      "group1": 8,
+      "group2": 14,
+      "amn": -832.97,
+      "anm": -870.8
+    },
+    "8__17": {
+      "group1": 8,
+      "group2": 17,
+      "amn": 119.9,
+      "anm": -253.1
+    },
+    "8__18": {
+      "group1": 8,
+      "group2": 18,
+      "amn": -305.5,
+      "anm": -341.6
+    },
+    "8__20": {
+      "group1": 8,
+      "group2": 20,
+      "amn": 408.9,
+      "anm": -11.0
+    },
+    "8__22": {
+      "group1": 8,
+      "group2": 22,
+      "amn": 517.27,
+      "anm": 1633.5
+    },
+    "8__24": {
+      "group1": 8,
+      "group2": 24,
+      "amn": 1827.0,
+      "anm": 10000.0
+    },
+    "8__25": {
+      "group1": 8,
+      "group2": 25,
+      "amn": 6915.0,
+      "anm": 622.3
+    },
+    "8__27": {
+      "group1": 8,
+      "group2": 27,
+      "amn": -413.48,
+      "anm": 815.12
+    },
+    "8__28": {
+      "group1": 8,
+      "group2": 28,
+      "amn": 8483.5,
+      "anm": 1421.3
+    },
+    "8__31": {
+      "group1": 8,
+      "group2": 31,
+      "amn": -687.1,
+      "anm": 838.4
+    },
+    "8__41": {
+      "group1": 8,
+      "group2": 41,
+      "amn": -494.2,
+      "anm": -167.3
+    },
+    "8__44": {
+      "group1": 8,
+      "group2": 44,
+      "amn": -659.0,
+      "anm": -234.7
+    },
+    "8__50": {
+      "group1": 8,
+      "group2": 50,
+      "amn": 1005.0,
+      "anm": 810.5
+    },
+    "9__10": {
+      "group1": 9,
+      "group2": 10,
+      "amn": -37.36,
+      "anm": 128.0
+    },
+    "9__11": {
+      "group1": 9,
+      "group2": 11,
+      "amn": -213.7,
+      "anm": 372.2
+    },
+    "9__12": {
+      "group1": 9,
+      "group2": 12,
+      "amn": -190.4,
+      "anm": 385.4
+    },
+    "9__13": {
+      "group1": 9,
+      "group2": 13,
+      "amn": -103.6,
+      "anm": 191.1
+    },
+    "9__15": {
+      "group1": 9,
+      "group2": 15,
+      "amn": -174.2,
+      "anm": 394.6
+    },
+    "9__16": {
+      "group1": 9,
+      "group2": 16,
+      "amn": -169.0,
+      "anm": 225.3
+    },
+    "9__17": {
+      "group1": 9,
+      "group2": 17,
+      "amn": 6201.0,
+      "anm": -450.3
+    },
+    "9__18": {
+      "group1": 9,
+      "group2": 18,
+      "amn": 7.341,
+      "anm": 29.1
+    },
+    "9__19": {
+      "group1": 9,
+      "group2": 19,
+      "amn": 481.7,
+      "anm": -287.5
+    },
+    "9__20": {
+      "group1": 9,
+      "group2": 20,
+      "amn": 669.4,
+      "anm": -297.8
+    },
+    "9__21": {
+      "group1": 9,
+      "group2": 21,
+      "amn": -191.69,
+      "anm": 286.28
+    },
+    "9__22": {
+      "group1": 9,
+      "group2": 22,
+      "amn": -130.3,
+      "anm": 82.86
+    },
+    "9__23": {
+      "group1": 9,
+      "group2": 23,
+      "amn": -354.55,
+      "anm": 552.1
+    },
+    "9__24": {
+      "group1": 9,
+      "group2": 24,
+      "amn": -39.2,
+      "anm": 372.0
+    },
+    "9__25": {
+      "group1": 9,
+      "group2": 25,
+      "amn": -119.8,
+      "anm": 518.4
+    },
+    "9__26": {
+      "group1": 9,
+      "group2": 26,
+      "amn": 137.5,
+      "anm": -142.61
+    },
+    "9__27": {
+      "group1": 9,
+      "group2": 27,
+      "amn": 548.5,
+      "anm": -101.5
+    },
+    "9__28": {
+      "group1": 9,
+      "group2": 28,
+      "amn": 216.138,
+      "anm": 303.657
+    },
+    "9__29": {
+      "group1": 9,
+      "group2": 29,
+      "amn": -46.28,
+      "anm": 160.6
+    },
+    "9__30": {
+      "group1": 9,
+      "group2": 30,
+      "amn": -163.7,
+      "anm": 317.5
+    },
+    "9__31": {
+      "group1": 9,
+      "group2": 31,
+      "amn": 71.46,
+      "anm": 135.4
+    },
+    "9__32": {
+      "group1": 9,
+      "group2": 32,
+      "amn": 53.59,
+      "anm": 138.0
+    },
+    "9__33": {
+      "group1": 9,
+      "group2": 33,
+      "amn": 245.2,
+      "anm": -142.6
+    },
+    "9__34": {
+      "group1": 9,
+      "group2": 34,
+      "amn": -246.6,
+      "anm": 443.615
+    },
+    "9__35": {
+      "group1": 9,
+      "group2": 35,
+      "amn": -44.58,
+      "anm": 110.4
+    },
+    "9__36": {
+      "group1": 9,
+      "group2": 36,
+      "amn": -63.5,
+      "anm": 114.55
+    },
+    "9__37": {
+      "group1": 9,
+      "group2": 37,
+      "amn": -34.57,
+      "anm": -40.9
+    },
+    "9__39": {
+      "group1": 9,
+      "group2": 39,
+      "amn": -61.7,
+      "anm": 97.04
+    },
+    "9__41": {
+      "group1": 9,
+      "group2": 41,
+      "amn": -18.8,
+      "anm": 123.4
+    },
+    "9__42": {
+      "group1": 9,
+      "group2": 42,
+      "amn": -588.9,
+      "anm": 992.4
+    },
+    "9__47": {
+      "group1": 9,
+      "group2": 47,
+      "amn": 37.54,
+      "anm": 156.4
+    },
+    "9__50": {
+      "group1": 9,
+      "group2": 50,
+      "amn": -162.6,
+      "anm": 278.8
+    },
+    "10__11": {
+      "group1": 10,
+      "group2": 11,
+      "amn": -110.3,
+      "anm": 185.1
+    },
+    "10__12": {
+      "group1": 10,
+      "group2": 12,
+      "amn": 766.0,
+      "anm": -236.5
+    },
+    "10__13": {
+      "group1": 10,
+      "group2": 13,
+      "amn": 304.1,
+      "anm": -7.838
+    },
+    "10__19": {
+      "group1": 10,
+      "group2": 19,
+      "amn": -106.4,
+      "anm": 224.66
+    },
+    "10__20": {
+      "group1": 10,
+      "group2": 20,
+      "amn": 497.5,
+      "anm": -165.5
+    },
+    "10__21": {
+      "group1": 10,
+      "group2": 21,
+      "amn": 751.9,
+      "anm": -47.51
+    },
+    "10__22": {
+      "group1": 10,
+      "group2": 22,
+      "amn": 67.52,
+      "anm": 190.6
+    },
+    "10__23": {
+      "group1": 10,
+      "group2": 23,
+      "amn": -483.7,
+      "anm": 242.8
+    },
+    "10__32": {
+      "group1": 10,
+      "group2": 32,
+      "amn": 117.0,
+      "anm": 245.9
+    },
+    "10__34": {
+      "group1": 10,
+      "group2": 34,
+      "amn": 2.21,
+      "anm": -55.87
+    },
+    "10__36": {
+      "group1": 10,
+      "group2": 36,
+      "amn": -339.2,
+      "anm": 354.0
+    },
+    "10__37": {
+      "group1": 10,
+      "group2": 37,
+      "amn": 172.4,
+      "anm": 183.8
+    },
+    "10__39": {
+      "group1": 10,
+      "group2": 39,
+      "amn": -268.8,
+      "anm": 13.89
+    },
+    "10__41": {
+      "group1": 10,
+      "group2": 41,
+      "amn": -275.5,
+      "anm": 577.5
+    },
+    "11__12": {
+      "group1": 11,
+      "group2": 12,
+      "amn": -241.8,
+      "anm": 1167.0
+    },
+    "11__13": {
+      "group1": 11,
+      "group2": 13,
+      "amn": -235.7,
+      "anm": 461.3
+    },
+    "11__15": {
+      "group1": 11,
+      "group2": 15,
+      "amn": -73.5,
+      "anm": 136.0
+    },
+    "11__16": {
+      "group1": 11,
+      "group2": 16,
+      "amn": -196.7,
+      "anm": 2888.6001
+    },
+    "11__17": {
+      "group1": 11,
+      "group2": 17,
+      "amn": 475.5,
+      "anm": -294.8
+    },
+    "11__18": {
+      "group1": 11,
+      "group2": 18,
+      "amn": -0.13,
+      "anm": 8.87
+    },
+    "11__19": {
+      "group1": 11,
+      "group2": 19,
+      "amn": 494.6,
+      "anm": -266.6
+    },
+    "11__20": {
+      "group1": 11,
+      "group2": 20,
+      "amn": 660.2,
+      "anm": -256.3
+    },
+    "11__21": {
+      "group1": 11,
+      "group2": 21,
+      "amn": -34.74,
+      "anm": 35.38
+    },
+    "11__22": {
+      "group1": 11,
+      "group2": 22,
+      "amn": 108.85,
+      "anm": -132.95
+    },
+    "11__23": {
+      "group1": 11,
+      "group2": 23,
+      "amn": -209.66,
+      "anm": 176.45
+    },
+    "11__24": {
+      "group1": 11,
+      "group2": 24,
+      "amn": 54.57,
+      "anm": 129.49
+    },
+    "11__25": {
+      "group1": 11,
+      "group2": 25,
+      "amn": 442.4,
+      "anm": -171.1
+    },
+    "11__26": {
+      "group1": 11,
+      "group2": 26,
+      "amn": -81.13,
+      "anm": 129.3
+    },
+    "11__28": {
+      "group1": 11,
+      "group2": 28,
+      "amn": 183.046,
+      "anm": 243.775
+    },
+    "11__30": {
+      "group1": 11,
+      "group2": 30,
+      "amn": 202.25,
+      "anm": -146.31
+    },
+    "11__31": {
+      "group1": 11,
+      "group2": 31,
+      "amn": -101.7,
+      "anm": 152.0
+    },
+    "11__32": {
+      "group1": 11,
+      "group2": 32,
+      "amn": 148.3,
+      "anm": 21.92
+    },
+    "11__33": {
+      "group1": 11,
+      "group2": 33,
+      "amn": 18.88,
+      "anm": 24.37
+    },
+    "11__34": {
+      "group1": 11,
+      "group2": 34,
+      "amn": 71.48,
+      "anm": -111.45
+    },
+    "11__35": {
+      "group1": 11,
+      "group2": 35,
+      "amn": 52.08,
+      "anm": 41.57
+    },
+    "11__36": {
+      "group1": 11,
+      "group2": 36,
+      "amn": -28.61,
+      "anm": 175.53
+    },
+    "11__37": {
+      "group1": 11,
+      "group2": 37,
+      "amn": -275.2,
+      "anm": 611.3
+    },
+    "11__39": {
+      "group1": 11,
+      "group2": 39,
+      "amn": 85.33,
+      "anm": -82.12
+    },
+    "11__41": {
+      "group1": 11,
+      "group2": 41,
+      "amn": 560.2,
+      "anm": -234.9
+    },
+    "11__47": {
+      "group1": 11,
+      "group2": 47,
+      "amn": 151.8,
+      "anm": -3.444
+    },
+    "12__13": {
+      "group1": 12,
+      "group2": 13,
+      "amn": -234.0,
+      "anm": 457.3
+    },
+    "12__18": {
+      "group1": 12,
+      "group2": 18,
+      "amn": -233.4,
+      "anm": 554.4
+    },
+    "12__19": {
+      "group1": 12,
+      "group2": 19,
+      "amn": -47.25,
+      "anm": 99.37
+    },
+    "12__20": {
+      "group1": 12,
+      "group2": 20,
+      "amn": -268.1,
+      "anm": 193.9
+    },
+    "12__22": {
+      "group1": 12,
+      "group2": 22,
+      "amn": 31.0,
+      "anm": 80.99
+    },
+    "12__23": {
+      "group1": 12,
+      "group2": 23,
+      "amn": -126.2,
+      "anm": 235.6
+    },
+    "12__24": {
+      "group1": 12,
+      "group2": 24,
+      "amn": 179.7,
+      "anm": 351.9
+    },
+    "12__25": {
+      "group1": 12,
+      "group2": 25,
+      "amn": 24.28,
+      "anm": 383.3
+    },
+    "12__29": {
+      "group1": 12,
+      "group2": 29,
+      "amn": 103.9,
+      "anm": 201.5
+    },
+    "12__33": {
+      "group1": 12,
+      "group2": 33,
+      "amn": 298.13,
+      "anm": -92.26
+    },
+    "12__37": {
+      "group1": 12,
+      "group2": 37,
+      "amn": -11.4,
+      "anm": 134.5
+    },
+    "12__39": {
+      "group1": 12,
+      "group2": 39,
+      "amn": 308.9,
+      "anm": -116.7
+    },
+    "12__41": {
+      "group1": 12,
+      "group2": 41,
+      "amn": -122.3,
+      "anm": 145.4
+    },
+    "13__14": {
+      "group1": 13,
+      "group2": 14,
+      "amn": -78.36,
+      "anm": 222.1
+    },
+    "13__15": {
+      "group1": 13,
+      "group2": 15,
+      "amn": 251.5,
+      "anm": -56.08
+    },
+    "13__16": {
+      "group1": 13,
+      "group2": 16,
+      "amn": 5422.2998,
+      "anm": -194.1
+    },
+    "13__17": {
+      "group1": 13,
+      "group2": 17,
+      "amn": -46.39,
+      "anm": 285.36
+    },
+    "13__18": {
+      "group1": 13,
+      "group2": 18,
+      "amn": 213.2,
+      "anm": -156.1
+    },
+    "13__19": {
+      "group1": 13,
+      "group2": 19,
+      "amn": -18.51,
+      "anm": 38.81
+    },
+    "13__20": {
+      "group1": 13,
+      "group2": 20,
+      "amn": 664.6,
+      "anm": -338.5
+    },
+    "13__21": {
+      "group1": 13,
+      "group2": 21,
+      "amn": 301.14,
+      "anm": 225.39
+    },
+    "13__22": {
+      "group1": 13,
+      "group2": 22,
+      "amn": 137.77,
+      "anm": -197.71
+    },
+    "13__23": {
+      "group1": 13,
+      "group2": 23,
+      "amn": -154.3,
+      "anm": -20.93
+    },
+    "13__24": {
+      "group1": 13,
+      "group2": 24,
+      "amn": 47.67,
+      "anm": 113.9
+    },
+    "13__25": {
+      "group1": 13,
+      "group2": 25,
+      "amn": 134.8,
+      "anm": -25.15
+    },
+    "13__26": {
+      "group1": 13,
+      "group2": 26,
+      "amn": 95.18,
+      "anm": -94.49
+    },
+    "13__27": {
+      "group1": 13,
+      "group2": 27,
+      "amn": 155.11,
+      "anm": 220.66
+    },
+    "13__28": {
+      "group1": 13,
+      "group2": 28,
+      "amn": 140.896,
+      "anm": 112.382
+    },
+    "13__29": {
+      "group1": 13,
+      "group2": 29,
+      "amn": -8.538,
+      "anm": 63.71
+    },
+    "13__30": {
+      "group1": 13,
+      "group2": 30,
+      "amn": 170.1,
+      "anm": -87.31
+    },
+    "13__31": {
+      "group1": 13,
+      "group2": 31,
+      "amn": -20.11,
+      "anm": 9.207
+    },
+    "13__32": {
+      "group1": 13,
+      "group2": 32,
+      "amn": -149.5,
+      "anm": 476.6
+    },
+    "13__33": {
+      "group1": 13,
+      "group2": 33,
+      "amn": -202.3,
+      "anm": 736.4
+    },
+    "13__34": {
+      "group1": 13,
+      "group2": 34,
+      "amn": -156.57,
+      "anm": 173.77
+    },
+    "13__35": {
+      "group1": 13,
+      "group2": 35,
+      "amn": 128.8,
+      "anm": -93.51
+    },
+    "13__37": {
+      "group1": 13,
+      "group2": 37,
+      "amn": 240.2,
+      "anm": -217.9
+    },
+    "13__38": {
+      "group1": 13,
+      "group2": 38,
+      "amn": -273.95,
+      "anm": 167.3
+    },
+    "13__39": {
+      "group1": 13,
+      "group2": 39,
+      "amn": 254.8,
+      "anm": -158.2
+    },
+    "13__40": {
+      "group1": 13,
+      "group2": 40,
+      "amn": -172.51,
+      "anm": 278.15
+    },
+    "13__41": {
+      "group1": 13,
+      "group2": 41,
+      "amn": 417.0,
+      "anm": -247.8
+    },
+    "13__42": {
+      "group1": 13,
+      "group2": 42,
+      "amn": 1338.0,
+      "anm": 448.5
+    },
+    "14__15": {
+      "group1": 14,
+      "group2": 15,
+      "amn": -107.2,
+      "anm": 127.4
+    },
+    "14__16": {
+      "group1": 14,
+      "group2": 16,
+      "amn": -41.11,
+      "anm": 38.89
+    },
+    "14__17": {
+      "group1": 14,
+      "group2": 17,
+      "amn": -200.7,
+      "anm": -15.07
+    },
+    "14__19": {
+      "group1": 14,
+      "group2": 19,
+      "amn": 358.9,
+      "anm": -157.3
+    },
+    "14__21": {
+      "group1": 14,
+      "group2": 21,
+      "amn": -82.92,
+      "anm": 131.2
+    },
+    "14__24": {
+      "group1": 14,
+      "group2": 24,
+      "amn": -99.81,
+      "anm": 261.1
+    },
+    "14__25": {
+      "group1": 14,
+      "group2": 25,
+      "amn": 30.05,
+      "anm": 108.5
+    },
+    "14__29": {
+      "group1": 14,
+      "group2": 29,
+      "amn": -70.14,
+      "anm": 106.7
+    },
+    "14__35": {
+      "group1": 14,
+      "group2": 35,
+      "amn": 874.19,
+      "anm": -366.51
+    },
+    "14__39": {
+      "group1": 14,
+      "group2": 39,
+      "amn": -164.0,
+      "anm": 49.7
+    },
+    "14__42": {
+      "group1": 14,
+      "group2": 42,
+      "amn": -664.4,
+      "anm": 961.8
+    },
+    "14__43": {
+      "group1": 14,
+      "group2": 43,
+      "amn": 275.9,
+      "anm": -125.2
+    },
+    "15__16": {
+      "group1": 15,
+      "group2": 16,
+      "amn": -189.2,
+      "anm": 865.9
+    },
+    "15__17": {
+      "group1": 15,
+      "group2": 17,
+      "amn": 138.54,
+      "anm": 64.3
+    },
+    "15__18": {
+      "group1": 15,
+      "group2": 18,
+      "amn": 431.49,
+      "anm": -207.66
+    },
+    "15__19": {
+      "group1": 15,
+      "group2": 19,
+      "amn": 147.1,
+      "anm": -108.5
+    },
+    "15__24": {
+      "group1": 15,
+      "group2": 24,
+      "amn": 71.23,
+      "anm": 91.13
+    },
+    "15__25": {
+      "group1": 15,
+      "group2": 25,
+      "amn": -18.93,
+      "anm": 102.2
+    },
+    "15__31": {
+      "group1": 15,
+      "group2": 31,
+      "amn": 939.07,
+      "anm": -213.74
+    },
+    "15__38": {
+      "group1": 15,
+      "group2": 38,
+      "amn": 570.9,
+      "anm": -198.8
+    },
+    "15__39": {
+      "group1": 15,
+      "group2": 39,
+      "amn": -255.22,
+      "anm": 10.03
+    },
+    "15__41": {
+      "group1": 15,
+      "group2": 41,
+      "amn": -38.77,
+      "anm": 284.5
+    },
+    "15__42": {
+      "group1": 15,
+      "group2": 42,
+      "amn": 448.1,
+      "anm": 1464.2
+    },
+    "15__43": {
+      "group1": 15,
+      "group2": 43,
+      "amn": -1327.0,
+      "anm": 1603.8
+    },
+    "16__17": {
+      "group1": 16,
+      "group2": 17,
+      "amn": 287.43,
+      "anm": -24.46
+    },
+    "16__19": {
+      "group1": 16,
+      "group2": 19,
+      "amn": 1255.1,
+      "anm": -446.86
+    },
+    "16__21": {
+      "group1": 16,
+      "group2": 21,
+      "amn": -182.91,
+      "anm": 151.38
+    },
+    "16__22": {
+      "group1": 16,
+      "group2": 22,
+      "amn": -73.85,
+      "anm": -141.4
+    },
+    "16__23": {
+      "group1": 16,
+      "group2": 23,
+      "amn": -352.9,
+      "anm": -293.7
+    },
+    "16__24": {
+      "group1": 16,
+      "group2": 24,
+      "amn": -262.0,
+      "anm": 316.9
+    },
+    "16__25": {
+      "group1": 16,
+      "group2": 25,
+      "amn": -181.9,
+      "anm": 2951.0
+    },
+    "16__35": {
+      "group1": 16,
+      "group2": 35,
+      "amn": 243.1,
+      "anm": -257.2
+    },
+    "16__38": {
+      "group1": 16,
+      "group2": 38,
+      "amn": -196.312,
+      "anm": 116.478
+    },
+    "16__39": {
+      "group1": 16,
+      "group2": 39,
+      "amn": 22.05,
+      "anm": -185.2
+    },
+    "17__18": {
+      "group1": 17,
+      "group2": 18,
+      "amn": 89.7,
+      "anm": 117.4
+    },
+    "17__19": {
+      "group1": 17,
+      "group2": 19,
+      "amn": -281.6,
+      "anm": 777.4
+    },
+    "17__20": {
+      "group1": 17,
+      "group2": 20,
+      "amn": -396.0,
+      "anm": 493.8
+    },
+    "17__21": {
+      "group1": 17,
+      "group2": 21,
+      "amn": 287.0,
+      "anm": 429.7
+    },
+    "17__22": {
+      "group1": 17,
+      "group2": 22,
+      "amn": -111.0,
+      "anm": 140.8
+    },
+    "17__24": {
+      "group1": 17,
+      "group2": 24,
+      "amn": 882.0,
+      "anm": 898.2
+    },
+    "17__25": {
+      "group1": 17,
+      "group2": 25,
+      "amn": 617.5,
+      "anm": 334.9
+    },
+    "17__27": {
+      "group1": 17,
+      "group2": 27,
+      "amn": -139.3,
+      "anm": 134.9
+    },
+    "17__31": {
+      "group1": 17,
+      "group2": 31,
+      "amn": 0.1004,
+      "anm": 192.3
+    },
+    "17__39": {
+      "group1": 17,
+      "group2": 39,
+      "amn": -334.4,
+      "anm": 343.7
+    },
+    "17__41": {
+      "group1": 17,
+      "group2": 41,
+      "amn": -89.42,
+      "anm": -22.1
+    },
+    "18__19": {
+      "group1": 18,
+      "group2": 19,
+      "amn": -169.67,
+      "anm": 134.28
+    },
+    "18__20": {
+      "group1": 18,
+      "group2": 20,
+      "amn": -153.7,
+      "anm": -313.5
+    },
+    "18__22": {
+      "group1": 18,
+      "group2": 22,
+      "amn": -351.6,
+      "anm": 587.3
+    },
+    "18__23": {
+      "group1": 18,
+      "group2": 23,
+      "amn": -114.73,
+      "anm": 18.98
+    },
+    "18__24": {
+      "group1": 18,
+      "group2": 24,
+      "amn": -205.3,
+      "anm": 368.5
+    },
+    "18__25": {
+      "group1": 18,
+      "group2": 25,
+      "amn": -2.17,
+      "anm": 20.18
+    },
+    "18__27": {
+      "group1": 18,
+      "group2": 27,
+      "amn": 2845.0,
+      "anm": 2475.0
+    },
+    "18__33": {
+      "group1": 18,
+      "group2": 33,
+      "amn": -60.78,
+      "anm": -42.71
+    },
+    "18__37": {
+      "group1": 18,
+      "group2": 37,
+      "amn": 160.7,
+      "anm": 281.6
+    },
+    "18__38": {
+      "group1": 18,
+      "group2": 38,
+      "amn": -158.8,
+      "anm": 159.8
+    },
+    "18__50": {
+      "group1": 18,
+      "group2": 50,
+      "amn": -136.6,
+      "anm": 221.4
+    },
+    "19__20": {
+      "group1": 19,
+      "group2": 20,
+      "amn": 205.27,
+      "anm": 92.07
+    },
+    "19__21": {
+      "group1": 19,
+      "group2": 21,
+      "amn": 4.933,
+      "anm": 54.32
+    },
+    "19__22": {
+      "group1": 19,
+      "group2": 22,
+      "amn": -152.7,
+      "anm": 258.6
+    },
+    "19__23": {
+      "group1": 19,
+      "group2": 23,
+      "amn": -15.62,
+      "anm": 74.04
+    },
+    "19__24": {
+      "group1": 19,
+      "group2": 24,
+      "amn": -54.86,
+      "anm": 491.95
+    },
+    "19__25": {
+      "group1": 19,
+      "group2": 25,
+      "amn": -4.624,
+      "anm": 363.5
+    },
+    "19__26": {
+      "group1": 19,
+      "group2": 26,
+      "amn": -0.515,
+      "anm": 0.283
+    },
+    "19__28": {
+      "group1": 19,
+      "group2": 28,
+      "amn": 230.852,
+      "anm": 335.743
+    },
+    "19__29": {
+      "group1": 19,
+      "group2": 29,
+      "amn": 0.4604,
+      "anm": 161.0
+    },
+    "19__31": {
+      "group1": 19,
+      "group2": 31,
+      "amn": 177.5,
+      "anm": 169.6
+    },
+    "19__33": {
+      "group1": 19,
+      "group2": 33,
+      "amn": -62.17,
+      "anm": 136.9
+    },
+    "19__34": {
+      "group1": 19,
+      "group2": 34,
+      "amn": -203.02,
+      "anm": 329.12
+    },
+    "19__36": {
+      "group1": 19,
+      "group2": 36,
+      "amn": 81.57,
+      "anm": -42.31
+    },
+    "19__37": {
+      "group1": 19,
+      "group2": 37,
+      "amn": -55.77,
+      "anm": 335.2
+    },
+    "19__39": {
+      "group1": 19,
+      "group2": 39,
+      "amn": -151.5,
+      "anm": 150.6
+    },
+    "19__41": {
+      "group1": 19,
+      "group2": 41,
+      "amn": 120.3,
+      "anm": -61.6
+    },
+    "19__47": {
+      "group1": 19,
+      "group2": 47,
+      "amn": 16.23,
+      "anm": 119.2
+    },
+    "20__21": {
+      "group1": 20,
+      "group2": 21,
+      "amn": 13.41,
+      "anm": 519.1
+    },
+    "20__22": {
+      "group1": 20,
+      "group2": 22,
+      "amn": -44.7,
+      "anm": 543.3
+    },
+    "20__23": {
+      "group1": 20,
+      "group2": 23,
+      "amn": 39.63,
+      "anm": 504.2
+    },
+    "20__24": {
+      "group1": 20,
+      "group2": 24,
+      "amn": 183.4,
+      "anm": 631.0
+    },
+    "20__25": {
+      "group1": 20,
+      "group2": 25,
+      "amn": -79.08,
+      "anm": 993.4
+    },
+    "20__30": {
+      "group1": 20,
+      "group2": 30,
+      "amn": -208.9,
+      "anm": 570.6
+    },
+    "20__32": {
+      "group1": 20,
+      "group2": 32,
+      "amn": 228.4,
+      "anm": 616.6
+    },
+    "20__33": {
+      "group1": 20,
+      "group2": 33,
+      "amn": -95.0,
+      "anm": 5256.0
+    },
+    "20__35": {
+      "group1": 20,
+      "group2": 35,
+      "amn": -463.6,
+      "anm": -180.2
+    },
+    "20__37": {
+      "group1": 20,
+      "group2": 37,
+      "amn": -11.16,
+      "anm": 898.2
+    },
+    "20__39": {
+      "group1": 20,
+      "group2": 39,
+      "amn": -228.0,
+      "anm": -97.77
+    },
+    "20__41": {
+      "group1": 20,
+      "group2": 41,
+      "amn": -337.0,
+      "anm": 1179.0
+    },
+    "20__46": {
+      "group1": 20,
+      "group2": 46,
+      "amn": -322.3,
+      "anm": -70.25
+    },
+    "21__22": {
+      "group1": 21,
+      "group2": 22,
+      "amn": 108.31,
+      "anm": -84.53
+    },
+    "21__23": {
+      "group1": 21,
+      "group2": 23,
+      "amn": 249.15,
+      "anm": -157.1
+    },
+    "21__24": {
+      "group1": 21,
+      "group2": 24,
+      "amn": 62.42,
+      "anm": 11.8
+    },
+    "21__25": {
+      "group1": 21,
+      "group2": 25,
+      "amn": 153.0,
+      "anm": -129.7
+    },
+    "21__26": {
+      "group1": 21,
+      "group2": 26,
+      "amn": 32.73,
+      "anm": 113.0
+    },
+    "21__27": {
+      "group1": 21,
+      "group2": 27,
+      "amn": 86.2,
+      "anm": 1971.0
+    },
+    "21__28": {
+      "group1": 21,
+      "group2": 28,
+      "amn": 450.088,
+      "anm": -73.092
+    },
+    "21__29": {
+      "group1": 21,
+      "group2": 29,
+      "amn": 59.02,
+      "anm": -27.94
+    },
+    "21__30": {
+      "group1": 21,
+      "group2": 30,
+      "amn": 65.56,
+      "anm": -39.46
+    },
+    "21__32": {
+      "group1": 21,
+      "group2": 32,
+      "amn": 2.22,
+      "anm": 179.25
+    },
+    "21__33": {
+      "group1": 21,
+      "group2": 33,
+      "amn": 344.4,
+      "anm": -262.3
+    },
+    "21__37": {
+      "group1": 21,
+      "group2": 37,
+      "amn": -168.2,
+      "anm": 383.2
+    },
+    "21__39": {
+      "group1": 21,
+      "group2": 39,
+      "amn": 6.57,
+      "anm": -55.21
+    },
+    "21__41": {
+      "group1": 21,
+      "group2": 41,
+      "amn": 63.67,
+      "anm": 182.2
+    },
+    "22__23": {
+      "group1": 22,
+      "group2": 23,
+      "amn": 0.0,
+      "anm": 0.0
+    },
+    "22__24": {
+      "group1": 22,
+      "group2": 24,
+      "amn": 56.33,
+      "anm": 17.97
+    },
+    "22__25": {
+      "group1": 22,
+      "group2": 25,
+      "amn": 223.1,
+      "anm": -8.309
+    },
+    "22__26": {
+      "group1": 22,
+      "group2": 26,
+      "amn": 108.9,
+      "anm": -9.639
+    },
+    "22__30": {
+      "group1": 22,
+      "group2": 30,
+      "amn": 149.56,
+      "anm": -116.21
+    },
+    "22__32": {
+      "group1": 22,
+      "group2": 32,
+      "amn": 177.6,
+      "anm": -40.82
+    },
+    "22__33": {
+      "group1": 22,
+      "group2": 33,
+      "amn": 315.9,
+      "anm": -174.5
+    },
+    "22__35": {
+      "group1": 22,
+      "group2": 35,
+      "amn": 215.0,
+      "anm": -215.0
+    },
+    "22__37": {
+      "group1": 22,
+      "group2": 37,
+      "amn": -91.8,
+      "anm": 301.9
+    },
+    "22__39": {
+      "group1": 22,
+      "group2": 39,
+      "amn": -160.28,
+      "anm": 397.24
+    },
+    "22__41": {
+      "group1": 22,
+      "group2": 41,
+      "amn": -96.87,
+      "anm": 305.4
+    },
+    "22__47": {
+      "group1": 22,
+      "group2": 47,
+      "amn": 361.1,
+      "anm": -194.7
+    },
+    "23__24": {
+      "group1": 23,
+      "group2": 24,
+      "amn": -30.1,
+      "anm": 51.9
+    },
+    "23__25": {
+      "group1": 23,
+      "group2": 25,
+      "amn": 192.1,
+      "anm": -0.2266
+    },
+    "23__28": {
+      "group1": 23,
+      "group2": 28,
+      "amn": 116.612,
+      "anm": -26.058
+    },
+    "23__30": {
+      "group1": 23,
+      "group2": 30,
+      "amn": -64.38,
+      "anm": 48.484
+    },
+    "23__32": {
+      "group1": 23,
+      "group2": 32,
+      "amn": 86.4,
+      "anm": 21.76
+    },
+    "23__33": {
+      "group1": 23,
+      "group2": 33,
+      "amn": 168.8,
+      "anm": -46.8
+    },
+    "23__35": {
+      "group1": 23,
+      "group2": 35,
+      "amn": 363.7,
+      "anm": -343.6
+    },
+    "23__37": {
+      "group1": 23,
+      "group2": 37,
+      "amn": 111.2,
+      "anm": -149.8
+    },
+    "23__41": {
+      "group1": 23,
+      "group2": 41,
+      "amn": 255.8,
+      "anm": -193.0
+    },
+    "23__44": {
+      "group1": 23,
+      "group2": 44,
+      "amn": -35.68,
+      "anm": -196.2
+    },
+    "23__48": {
+      "group1": 23,
+      "group2": 48,
+      "amn": 565.9,
+      "anm": -363.1
+    },
+    "24__25": {
+      "group1": 24,
+      "group2": 25,
+      "amn": -75.97,
+      "anm": 248.4
+    },
+    "24__26": {
+      "group1": 24,
+      "group2": 26,
+      "amn": 490.88,
+      "anm": -34.68
+    },
+    "24__27": {
+      "group1": 24,
+      "group2": 27,
+      "amn": 534.7,
+      "anm": 514.6
+    },
+    "24__28": {
+      "group1": 24,
+      "group2": 28,
+      "amn": 132.2,
+      "anm": -60.71
+    },
+    "24__30": {
+      "group1": 24,
+      "group2": 30,
+      "amn": 546.68,
+      "anm": -133.16
+    },
+    "24__32": {
+      "group1": 24,
+      "group2": 32,
+      "amn": 247.8,
+      "anm": 48.49
+    },
+    "24__33": {
+      "group1": 24,
+      "group2": 33,
+      "amn": 146.6,
+      "anm": 77.55
+    },
+    "24__35": {
+      "group1": 24,
+      "group2": 35,
+      "amn": 337.7,
+      "anm": -58.43
+    },
+    "24__36": {
+      "group1": 24,
+      "group2": 36,
+      "amn": 369.49,
+      "anm": -85.148
+    },
+    "24__37": {
+      "group1": 24,
+      "group2": 37,
+      "amn": 187.1,
+      "anm": -134.2
+    },
+    "24__38": {
+      "group1": 24,
+      "group2": 38,
+      "amn": 215.2,
+      "anm": -124.6
+    },
+    "24__39": {
+      "group1": 24,
+      "group2": 39,
+      "amn": 498.6,
+      "anm": -186.7
+    },
+    "24__41": {
+      "group1": 24,
+      "group2": 41,
+      "amn": 256.5,
+      "anm": 335.7
+    },
+    "24__43": {
+      "group1": 24,
+      "group2": 43,
+      "amn": 233.1,
+      "anm": 70.81
+    },
+    "24__47": {
+      "group1": 24,
+      "group2": 47,
+      "amn": 423.1,
+      "anm": 3.163
+    },
+    "24__48": {
+      "group1": 24,
+      "group2": 48,
+      "amn": 63.95,
+      "anm": -11.3
+    },
+    "24__50": {
+      "group1": 24,
+      "group2": 50,
+      "amn": 108.5,
+      "anm": -79.34
+    },
+    "24__55": {
+      "group1": 24,
+      "group2": 55,
+      "amn": 585.19,
+      "anm": 75.04
+    },
+    "25__26": {
+      "group1": 25,
+      "group2": 26,
+      "amn": 132.7,
+      "anm": 132.9
+    },
+    "25__27": {
+      "group1": 25,
+      "group2": 27,
+      "amn": 2213.0,
+      "anm": -123.1
+    },
+    "25__33": {
+      "group1": 25,
+      "group2": 33,
+      "amn": 593.4,
+      "anm": -185.3
+    },
+    "25__35": {
+      "group1": 25,
+      "group2": 35,
+      "amn": 1337.37,
+      "anm": -334.12
+    },
+    "25__39": {
+      "group1": 25,
+      "group2": 39,
+      "amn": 5143.1401,
+      "anm": -374.16
+    },
+    "25__40": {
+      "group1": 25,
+      "group2": 40,
+      "amn": 309.58,
+      "anm": 33.95
+    },
+    "25__41": {
+      "group1": 25,
+      "group2": 41,
+      "amn": -71.18,
+      "anm": 956.1
+    },
+    "25__44": {
+      "group1": 25,
+      "group2": 44,
+      "amn": -209.7,
+      "anm": 161.5
+    },
+    "25__47": {
+      "group1": 25,
+      "group2": 47,
+      "amn": 434.1,
+      "anm": 7.082
+    },
+    "26__27": {
+      "group1": 26,
+      "group2": 27,
+      "amn": 533.2,
+      "anm": -85.12
+    },
+    "26__28": {
+      "group1": 26,
+      "group2": 28,
+      "amn": 320.2,
+      "anm": 277.8
+    },
+    "26__31": {
+      "group1": 26,
+      "group2": 31,
+      "amn": 139.822,
+      "anm": 481.348
+    },
+    "26__32": {
+      "group1": 26,
+      "group2": 32,
+      "amn": 304.3,
+      "anm": 64.28
+    },
+    "26__33": {
+      "group1": 26,
+      "group2": 33,
+      "amn": 10.17,
+      "anm": 125.3
+    },
+    "26__34": {
+      "group1": 26,
+      "group2": 34,
+      "amn": -27.701,
+      "anm": 174.433
+    },
+    "26__37": {
+      "group1": 26,
+      "group2": 37,
+      "amn": 10.76,
+      "anm": 379.4
+    },
+    "26__39": {
+      "group1": 26,
+      "group2": 39,
+      "amn": -223.1,
+      "anm": 223.6
+    },
+    "26__41": {
+      "group1": 26,
+      "group2": 41,
+      "amn": 248.4,
+      "anm": -124.7
+    },
+    "26__45": {
+      "group1": 26,
+      "group2": 45,
+      "amn": -218.9,
+      "anm": 844.0
+    },
+    "26__50": {
+      "group1": 26,
+      "group2": 50,
+      "amn": -4.565,
+      "anm": 176.3
+    },
+    "27__32": {
+      "group1": 27,
+      "group2": 32,
+      "amn": 2990.0,
+      "anm": 2448.0
+    },
+    "27__33": {
+      "group1": 27,
+      "group2": 33,
+      "amn": -124.0,
+      "anm": 4288.0
+    },
+    "28__32": {
+      "group1": 28,
+      "group2": 32,
+      "amn": 292.7,
+      "anm": -27.45
+    },
+    "28__37": {
+      "group1": 28,
+      "group2": 37,
+      "amn": -47.37,
+      "anm": 167.9
+    },
+    "28__41": {
+      "group1": 28,
+      "group2": 41,
+      "amn": 469.8,
+      "anm": 885.5
+    },
+    "29__35": {
+      "group1": 29,
+      "group2": 35,
+      "amn": 31.66,
+      "anm": 85.7
+    },
+    "29__39": {
+      "group1": 29,
+      "group2": 39,
+      "amn": 78.92,
+      "anm": -71.0
+    },
+    "29__44": {
+      "group1": 29,
+      "group2": 44,
+      "amn": 1004.2,
+      "anm": -274.1
+    },
+    "29__48": {
+      "group1": 29,
+      "group2": 48,
+      "amn": -18.27,
+      "anm": 6.971
+    },
+    "30__41": {
+      "group1": 30,
+      "group2": 41,
+      "amn": 43.37,
+      "anm": -64.28
+    },
+    "31__35": {
+      "group1": 31,
+      "group2": 35,
+      "amn": -417.2,
+      "anm": 535.8
+    },
+    "31__39": {
+      "group1": 31,
+      "group2": 39,
+      "amn": 302.2,
+      "anm": -191.7
+    },
+    "31__41": {
+      "group1": 31,
+      "group2": 41,
+      "amn": 347.8,
+      "anm": -264.3
+    },
+    "31__44": {
+      "group1": 31,
+      "group2": 44,
+      "amn": -262.0,
+      "anm": 262.0
+    },
+    "31__47": {
+      "group1": 31,
+      "group2": 47,
+      "amn": -353.5,
+      "anm": 515.8
+    },
+    "32__33": {
+      "group1": 32,
+      "group2": 33,
+      "amn": 6.37,
+      "anm": 37.1
+    },
+    "32__41": {
+      "group1": 32,
+      "group2": 41,
+      "amn": 68.55,
+      "anm": 288.1
+    },
+    "33__35": {
+      "group1": 33,
+      "group2": 35,
+      "amn": 32.9,
+      "anm": -111.2
+    },
+    "33__37": {
+      "group1": 33,
+      "group2": 37,
+      "amn": -48.33,
+      "anm": 322.42
+    },
+    "33__39": {
+      "group1": 33,
+      "group2": 39,
+      "amn": 336.25,
+      "anm": -176.26
+    },
+    "33__41": {
+      "group1": 33,
+      "group2": 41,
+      "amn": -195.1,
+      "anm": 627.7
+    },
+    "34__37": {
+      "group1": 34,
+      "group2": 37,
+      "amn": 2073.2,
+      "anm": 631.5
+    },
+    "34__39": {
+      "group1": 34,
+      "group2": 39,
+      "amn": -119.8,
+      "anm": 6.699
+    },
+    "35__39": {
+      "group1": 35,
+      "group2": 39,
+      "amn": -97.71,
+      "anm": 136.6
+    },
+    "35__41": {
+      "group1": 35,
+      "group2": 41,
+      "amn": 153.7,
+      "anm": -29.34
+    },
+    "36__37": {
+      "group1": 36,
+      "group2": 37,
+      "amn": -208.8,
+      "anm": 837.2
+    },
+    "36__39": {
+      "group1": 36,
+      "group2": 39,
+      "amn": -8.804,
+      "anm": 5.15
+    },
+    "36__41": {
+      "group1": 36,
+      "group2": 41,
+      "amn": 423.4,
+      "anm": -53.91
+    },
+    "37__39": {
+      "group1": 37,
+      "group2": 39,
+      "amn": 255.0,
+      "anm": -137.7
+    },
+    "37__41": {
+      "group1": 37,
+      "group2": 41,
+      "amn": 730.8,
+      "anm": -198.0
+    },
+    "37__44": {
+      "group1": 37,
+      "group2": 44,
+      "amn": 26.35,
+      "anm": -66.31
+    },
+    "37__48": {
+      "group1": 37,
+      "group2": 48,
+      "amn": 2429.0,
+      "anm": 148.9
+    },
+    "38__39": {
+      "group1": 38,
+      "group2": 39,
+      "amn": -110.65,
+      "anm": 50.06
+    },
+    "38__40": {
+      "group1": 38,
+      "group2": 40,
+      "amn": -117.17,
+      "anm": 185.6
+    },
+    "39__40": {
+      "group1": 39,
+      "group2": 40,
+      "amn": -5.579,
+      "anm": 55.8
+    },
+    "39__41": {
+      "group1": 39,
+      "group2": 41,
+      "amn": 72.31,
+      "anm": -28.65
+    },
+    "40__45": {
+      "group1": 40,
+      "group2": 45,
+      "amn": 111.8,
+      "anm": -32.17
+    },
+    "41__47": {
+      "group1": 41,
+      "group2": 47,
+      "amn": 122.4,
+      "anm": 101.2
+    },
+    "42__43": {
+      "group1": 42,
+      "group2": 43,
+      "amn": -2166.0,
+      "anm": 745.3
+    },
+    "84__85": {
+      "group1": 84,
+      "group2": 85,
+      "amn": 1517.5,
+      "anm": -1869.9
+    }
+  }
+}

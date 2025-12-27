@@ -1,0 +1,1652 @@
+﻿{% extends "base.html" %}
+
+{% block title %}ESL · Equilíbrio Sólido‑Líquido{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ========================================================================== */
+/* ESTILOS DO MÓDULO ESL - Equilíbrio Sólido-Líquido                        */
+/* ========================================================================== */
+
+/* Botões de ação do diagrama */
+.diagram-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.diagram-actions .btn-diagram {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1px solid rgba(148,163,184,0.3);
+    background: rgba(30,41,59,0.5);
+    color: #e5e7eb;
+    cursor: pointer;
+}
+
+.diagram-actions .btn-diagram:hover {
+    background: rgba(56,189,248,0.2);
+    border-color: #38bdf8;
+    transform: translateY(-1px);
+}
+
+.diagram-actions .btn-diagram i {
+    margin-right: 6px;
+}
+
+/* Modal de comparação */
+.compare-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.compare-modal-content {
+    background: #1e293b;
+    border-radius: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid rgba(148,163,184,0.2);
+}
+
+.model-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.model-checkbox-card {
+    background: rgba(30,41,59,0.5);
+    border: 2px solid rgba(148,163,184,0.3);
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.model-checkbox-card:hover {
+    border-color: #38bdf8;
+    background: rgba(56,189,248,0.1);
+}
+
+.model-checkbox-card input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.model-checkbox-card label {
+    cursor: pointer;
+    font-weight: 500;
+    color: #e5e7eb;
+}
+
+/* Spinner */
+.spinner-border-custom {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+    border: 0.25em solid rgba(56,189,248,0.3);
+    border-right-color: #38bdf8;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
+
+/* Botões de exportação */
+.export-buttons-container {
+    display: none;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(148,163,184,0.2);
+}
+
+.btn-export {
+    background: rgba(34,197,94,0.2);
+    border: 1px solid #22c55e;
+    color: #22c55e;
+}
+
+.btn-export:hover {
+    background: rgba(34,197,94,0.3);
+    transform: translateY(-2px);
+}
+
+.btn-compare {
+    background: rgba(249,115,22,0.2);
+    border: 1px solid #f97316;
+    color: #f97316;
+}
+
+.btn-compare:hover {
+    background: rgba(249,115,22,0.3);
+    transform: translateY(-2px);
+}
+
+/* Resultados */
+.results-card {
+    background: rgba(15,23,42,0.9);
+    border-radius: 16px;
+    border: 1px solid rgba(148,163,184,0.4);
+    padding: 20px 24px;
+}
+
+.section-title-sm {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9ca3af;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(148,163,184,0.2);
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 8px;
+    background: rgba(30,41,59,0.4);
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.result-item:hover {
+    background: rgba(56,189,248,0.1);
+}
+
+.result-item .label {
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.result-item .value {
+    color: #38bdf8;
+    font-weight: 600;
+    font-family: "Courier New", monospace;
+}
+
+/* Tags de componentes com propriedades */
+.component-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(56,189,248,0.15);
+    border: 1px solid #38bdf8;
+    border-radius: 8px;
+    margin: 4px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.component-tag:hover {
+    background: rgba(56,189,248,0.25);
+    transform: translateY(-1px);
+}
+
+.component-tag .name {
+    font-weight: 600;
+    color: #38bdf8;
+}
+
+.component-tag .formula {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.component-tag .tm-badge {
+    background: rgba(249,115,22,0.2);
+    color: #f97316;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.component-tag .remove-btn {
+    background: rgba(239,68,68,0.2);
+    border: none;
+    color: #ef4444;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.component-tag .remove-btn:hover {
+    background: rgba(239,68,68,0.4);
+}
+
+/* Avisos termodinâmicos (warnings do Prausnitz) */
+.thermodynamic-warnings {
+    background: rgba(251,191,36,0.1);
+    border: 1px solid #fbbf24;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 0.85rem;
+}
+
+.thermodynamic-warnings .warning-title {
+    color: #fbbf24;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.thermodynamic-warnings ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #e5e7eb;
+}
+
+.thermodynamic-warnings li {
+    margin-bottom: 5px;
+}
+
+/* Card de propriedades do componente */
+.component-properties-card {
+    background: rgba(30,41,59,0.6);
+    border: 1px solid rgba(148,163,184,0.3);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 0.82rem;
+}
+
+.component-properties-card .prop-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(148,163,184,0.15);
+}
+
+.component-properties-card .prop-row:last-child {
+    border-bottom: none;
+}
+
+.component-properties-card .prop-label {
+    color: #94a3b8;
+}
+
+.component-properties-card .prop-value {
+    color: #e5e7eb;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* Toggle para equação completa vs simplificada */
+.equation-toggle {
+    background: rgba(30,41,59,0.5);
+    border: 1px solid rgba(148,163,184,0.3);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.equation-toggle label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: #e5e7eb;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+.equation-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.equation-toggle .help-text {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+/* Ícones informativos com tooltip */
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(56,189,248,0.2);
+    color: #38bdf8;
+    font-size: 0.7rem;
+    cursor: help;
+    margin-left: 5px;
+}
+
+/* Lista de componentes no modal */
+.component-list-item {
+    padding: 12px;
+    border-bottom: 1px solid rgba(148,163,184,0.15);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.component-list-item:not(.opacity-50):hover {
+    background: rgba(56,189,248,0.1);
+}
+
+.component-list-item .comp-name {
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+.component-list-item .comp-formula {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-left: 10px;
+}
+
+.component-list-item .comp-props {
+    display: flex;
+    gap: 10px;
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.component-list-item .comp-props .badge {
+    background: rgba(56,189,248,0.2);
+    color: #38bdf8;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* Estado desabilitado para componentes já selecionados */
+.opacity-50 {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+/* ==================== MODAL DE EXEMPLOS DO PRAUSNITZ (ESL) ==================== */
+
+/* Backdrop genérico (já usado pelo modal de componentes / info) */
+.modal-backdrop-custom {
+    display: none;              /* começa escondido */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    padding: 20px;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Quando algum script coloca style="display: block" */
+.modal-backdrop-custom[style*="display: block"] {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Caixa do conteúdo (reaproveitada para componentes, info e exemplos) */
+.modal-content-custom {
+    background: #1e293b;
+    border-radius: 16px;
+    max-width: 750px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px 28px;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Scroll personalizado para lista de exemplos */
+.modal-content-custom::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content-custom::-webkit-scrollbar-track {
+    background: rgba(30, 41, 59, 0.4);
+    border-radius: 10px;
+}
+
+.modal-content-custom::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.4);
+    border-radius: 10px;
+}
+
+.modal-content-custom::-webkit-scrollbar-thumb:hover {
+    background: rgba(56, 189, 248, 0.6);
+}
+
+/* Firefox scrollbar */
+.modal-content-custom {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(56, 189, 248, 0.4) rgba(30, 41, 59, 0.4);
+}
+
+/* ==================== CARDS DE EXEMPLOS ==================== */
+
+.example-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 2px solid rgba(148, 163, 184, 0.35);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 8px;
+}
+
+.example-card:hover {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.10);
+    transform: translateX(4px) scale(1.01);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+}
+
+.example-card:active {
+    transform: translateX(2px) scale(0.99);
+}
+
+.example-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.example-card-title {
+    font-weight: 600;
+    color: #e5e7eb;
+    font-size: 0.98rem;
+    line-height: 1.3;
+}
+
+/* Ícone de seta com animação no hover */
+.example-card .bi-arrow-right-circle {
+    transition: all 0.2s;
+    color: #38bdf8;
+}
+
+.example-card:hover .bi-arrow-right-circle {
+    color: #22c55e;
+    transform: translateX(3px);
+}
+
+.example-card-details {
+    margin-top: 8px;
+    font-size: 0.84rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.example-card-details i {
+    flex-shrink: 0;
+}
+
+.example-card-reference {
+    margin-top: 6px;
+    font-size: 0.75rem;
+    color: #64748b;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ==================== BADGES PARA NÍVEL DE DIFICULDADE ==================== */
+
+.badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.bg-success {
+    background-color: rgba(34, 197, 94, 0.18);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.bg-warning {
+    background-color: rgba(251, 146, 60, 0.20);
+    color: #fb923c;
+    border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.bg-info {
+    background-color: rgba(56, 189, 248, 0.20);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+/* ==================== BADGES PARA MODELOS TERMODINÂMICOS ==================== */
+
+.badge-ideal {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge-nrtl {
+    background: rgba(249, 115, 22, 0.2);
+    color: #f97316;
+    border: 1px solid rgba(249, 115, 22, 0.4);
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge-uniquac {
+    background: rgba(168, 85, 247, 0.2);
+    color: #a855f7;
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge-unifac {
+    background: rgba(56, 189, 248, 0.2);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* ==================== ALERTA INFORMATIVO DO MODAL ==================== */
+
+.alert-info {
+    background: rgba(56, 189, 248, 0.10);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #e5e7eb;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.alert-info strong {
+    color: #38bdf8;
+}
+
+.alert-info i {
+    margin-right: 6px;
+    color: #38bdf8;
+}
+
+/* Contador de exemplos no footer do modal */
+small.text-muted-soft {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+}
+
+small.text-muted-soft i {
+    color: #22c55e;
+}
+
+/* ==================== RESPONSIVIDADE ==================== */
+
+@media (max-width: 768px) {
+    .diagram-actions {
+        flex-direction: column;
+    }
+    
+    .diagram-actions .btn-diagram {
+        width: 100%;
+    }
+    
+    .model-selection {
+        grid-template-columns: 1fr;
+    }
+    
+    .component-tag {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .modal-content-custom {
+        padding: 18px 16px;
+        max-width: 95vw;
+    }
+
+    .example-card {
+        padding: 12px 12px;
+    }
+
+    .example-card-title {
+        font-size: 0.92rem;
+    }
+
+    .example-card-details {
+        font-size: 0.80rem;
+        flex-wrap: wrap;
+    }
+    
+    .example-card:hover {
+        transform: translateX(2px) scale(1.005);
+    }
+    
+    .badge-ideal,
+    .badge-nrtl,
+    .badge-uniquac,
+    .badge-unifac {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+    }
+}
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ==================== BANNER DE CASO DE ESTUDO ==================== -->
+{% if preset %}
+<div id="case-study-banner" class="alert alert-dismissible fade show" 
+     style="background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(168,85,247,0.10));
+            border: 2px solid rgba(168,85,247,0.4);
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 16px rgba(139,92,246,0.2);
+            animation: slideInDown 0.4s ease;">
+    <div class="d-flex align-items-start justify-content-between">
+        <div class="d-flex align-items-start gap-3" style="flex: 1;">
+            <div style="font-size: 2rem; color: #c4b5fd;">
+                <i class="bi bi-book-half"></i>
+            </div>
+            <div style="flex: 1;">
+                <h5 style="color: #e5e7eb; margin: 0 0 0.5rem 0; font-weight: 700; font-size: 1.1rem;">
+                    📚 Caso de Estudo: {{ preset.title }}
+                </h5>
+                <p style="color: #cbd5e1; margin: 0 0 0.8rem 0; font-size: 0.9rem; line-height: 1.5;">
+                    Sistema pré-configurado para fins educacionais. 
+                    Adicione os componentes sugeridos: <strong style="color: #c4b5fd;">{{ preset.components | join(' + ') }}</strong>
+                </p>
+                <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-sm" onclick="viewPresetDetails()"
+                            style="background: rgba(168,85,247,0.2); 
+                                   border: 1px solid #a855f7; 
+                                   color: #c4b5fd; 
+                                   font-size: 0.85rem;
+                                   font-weight: 600;
+                                   padding: 0.4rem 1rem;
+                                   border-radius: 8px;
+                                   transition: all 0.2s;">
+                        <i class="bi bi-info-circle"></i> Ver Detalhes
+                    </button>
+                    <button type="button" class="btn btn-sm" onclick="clearPreset()"
+                            style="background: rgba(148,163,184,0.2); 
+                                   border: 1px solid rgba(148,163,184,0.4); 
+                                   color: #cbd5e1; 
+                                   font-size: 0.85rem;
+                                   font-weight: 600;
+                                   padding: 0.4rem 1rem;
+                                   border-radius: 8px;
+                                   transition: all 0.2s;">
+                        <i class="bi bi-x-circle"></i> Limpar Preset
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn-close" onclick="clearPreset()" 
+                style="filter: brightness(1.5); opacity: 0.8;"
+                aria-label="Close"></button>
+    </div>
+</div>
+
+<style>
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+{% endif %}
+<!-- ==================== FIM DO BANNER ==================== -->
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title">
+            <i class="bi bi-snow2"></i>
+            Módulo ESL · Sólido‑Líquido
+        </div>
+        <div class="page-subtitle">
+            Cálculos rigorosos baseados em <strong>Prausnitz et al.</strong> para solubilidade, cristalização e diagramas T‑x com modelos γ‑φ.
+            <a href="javascript:void(0);" onclick="showThermodynamicInfo()" style="color: #38bdf8; margin-left: 10px;">
+                <i class="bi bi-info-circle"></i> Fundamentos teóricos
+            </a>
+        </div>
+    </div>
+    <div>
+        <span class="page-badge">
+            <i class="bi bi-cpu"></i> Termodinâmica γ‑φ (ESL)
+        </span>
+    </div>
+</div>
+
+<div class="row g-3">
+    <!-- Painel de configuração -->
+    <div class="col-lg-5">
+        <div class="calc-panel">
+            <div class="panel-header">
+                <div class="panel-title">Configuração do cálculo</div>
+            </div>
+
+            <!-- Componentes selecionados -->
+            <div class="mb-3">
+                <label class="form-label">
+                    Componentes selecionados
+                    <span class="info-icon" 
+                          data-bs-toggle="tooltip" 
+                          data-bs-placement="top" 
+                          title="Base de dados: NIST WebBook + Prausnitz + Literatura">
+                        <i class="bi bi-question-circle"></i>
+                    </span>
+                </label>
+                <div id="selectedComponentsTags">
+                    <button class="add-component-btn" type="button" onclick="showComponentModal()">
+                        <i class="bi bi-plus-circle"></i> Adicionar componente
+                    </button>
+                </div>
+                <div class="text-muted-soft mt-1">
+                    <span id="componentCount">0</span> componente(s) · 
+                    <span id="componentHint">Adicione componentes para começar</span>
+                </div>
+                
+                <!-- Propriedades dos componentes selecionados -->
+                <div id="componentPropertiesPreview"></div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Tipo de cálculo</label>
+                    <select class="form-select" id="calcType" onchange="updateFields()">
+                        <option value="solubility">Solubilidade (T fixa)</option>
+                        <option value="crystallization">Cristalização (x fixa)</option>
+                        <option value="tx">Diagrama T‑x (binário)</option>
+                        <option value="ternary">Diagrama ternário (T fixa)</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label class="form-label">
+                        Modelo termodinâmico
+                        <span class="info-icon" 
+                              data-bs-toggle="tooltip" 
+                              data-bs-placement="top" 
+                              title="Parâmetros ajustados para ELV podem não ser ótimos para ESL">
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </span>
+                    </label>
+                    <select class="form-select" id="model" onchange="validateComponentsForModel()">
+                        <option value="Ideal">Ideal (Schröder‑van Laar)</option>
+                        <option value="NRTL">NRTL (γ-φ)</option>
+                        <option value="UNIQUAC">UNIQUAC (γ-φ)</option>
+                        <option value="UNIFAC">UNIFAC (preditivo)</option>
+                    </select>
+                    <div class="text-muted-soft mt-1" style="font-size: 0.78rem;">
+                        <i class="bi bi-lightbulb"></i> UNIFAC não requer parâmetros binários
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Toggle para equação completa vs simplificada -->
+            <div class="equation-toggle">
+                <label>
+                    <input type="checkbox" id="useCompleteEquation" value="1">
+                    <span>
+                        Usar equação completa 
+                        <span class="info-icon" 
+                              data-bs-toggle="tooltip" 
+                              data-bs-placement="top" 
+                              title="Inclui termo de ΔCp. Eq. simplificada (11-15) assume ΔCp≈0">
+                            <i class="bi bi-question-circle"></i>
+                        </span>
+                    </span>
+                </label>
+                <div class="help-text">
+                    <strong>Eq. Simplificada (padrão):</strong> ln(x₂) = -(ΔHfus/R)(Tm/T - 1)<br>
+                    <strong>Eq. Completa:</strong> Inclui termos de capacidade calorífica (ΔCp)
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Campos dinâmicos: T, composição -->
+            <div id="dynamicFields">
+                <!-- preenchido via esl.js -->
+            </div>
+
+            <!-- Validação em tempo real -->
+            <div id="validationMessages" style="margin-top: 10px;"></div>
+
+            <div class="d-flex gap-2 mt-2">
+                <button type="button" class="btn-sim btn-sim-primary" onclick="calculate()" id="calculateBtn">
+                    <i class="bi bi-play-fill"></i> Calcular
+                </button>
+                <button type="button" class="btn-sim btn-sim-ghost" onclick="clearForm()">
+                    <i class="bi bi-arrow-clockwise"></i> Limpar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Painel de resultados / gráficos -->
+    <div class="col-lg-7">
+        <div id="results">
+            <div class="panel h-100 d-flex flex-column justify-content-center align-items-center">
+                <div class="text-muted-soft mb-2">
+                    <i class="bi bi-graph-up"></i> Nenhum resultado ainda.
+                </div>
+                <div class="text-muted-soft" style="font-size: 0.85rem;">
+                    Configure o cálculo à esquerda e clique em <strong>Calcular</strong> para visualizar resultados numéricos ou diagramas de solubilidade.
+                </div>
+            </div>
+        </div>
+
+        <!-- AVISOS TERMODINÂMICOS (Prausnitz) -->
+        <div id="thermodynamicWarnings"></div>
+
+        <!-- BLOCO DE RECOMENDAÇÕES DA IA -->
+        <div id="ai-recommendation" class="mt-3"></div>
+
+        <!-- Botões de exportação / download / comparação para DIAGRAMAS -->
+        <div class="export-buttons-container" id="export-buttons">
+            <div class="diagram-actions">
+                <button type="button" class="btn-diagram btn-export" id="export-csv-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar dados numéricos em CSV">
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Exportar CSV
+                </button>
+
+                <button type="button" class="btn-diagram btn-export" id="export-pdf-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar relatório em PDF">
+                    <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
+                </button>
+
+                <button type="button" class="btn-diagram" id="download-img-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Baixar a imagem do diagrama (PNG)">
+                    <i class="bi bi-image"></i> Baixar imagem
+                </button>
+
+                <button type="button" class="btn-diagram btn-compare" onclick="showCompareModal()"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Comparar múltiplos modelos no mesmo gráfico">
+                    <i class="bi bi-bar-chart-line"></i> Comparar Modelos
+                </button>
+            </div>
+        </div>
+
+        <!-- Botões de exportação / comparação para RESULTADOS PONTUAIS -->
+        <div class="export-buttons-container" id="export-buttons-points">
+            <div class="diagram-actions">
+                <button type="button" class="btn-diagram btn-export" id="export-csv-points-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar resultados em CSV">
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Exportar CSV
+                </button>
+
+                <button type="button" class="btn-diagram btn-export" id="export-pdf-points-btn"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar resultados em PDF">
+                    <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
+                </button>
+
+                <button type="button" class="btn-diagram btn-compare" onclick="showComparePointModal()"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Comparar com outros modelos">
+                    <i class="bi bi-bar-chart-line"></i> Comparar Modelos
+                </button>
+            </div>
+        </div>
+
+        <!-- Container do diagrama de comparação -->
+        <div class="comparison-chart-container" id="comparison-diagram-container" style="display:none;">
+            <div class="comparison-chart-wrapper">
+                <h5 class="mb-3">
+                    <i class="bi bi-bar-chart-line"></i> Comparação de Modelos Termodinâmicos (ESL)
+                </h5>
+
+                <div class="spinner-border-custom" id="comparison-spinner"></div>
+
+                <div style="position:relative; height:500px; width:100%;">
+                    <canvas id="comparison-diagram"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de comparação de modelos -->
+<div id="compareModal" class="compare-modal" onclick="closeCompareModal()">
+    <div class="compare-modal-content" onclick="event.stopPropagation()">
+        <div class="panel-header mb-3">
+            <div class="panel-title">
+                <i class="bi bi-bar-chart-line"></i> Comparar Modelos Termodinâmicos (ESL)
+            </div>
+        </div>
+
+        <p class="text-muted-soft mb-3">
+            Selecione os modelos que deseja comparar. Os cálculos serão executados em paralelo.
+        </p>
+
+        <div class="model-selection">
+            <div class="model-checkbox-card">
+                <input type="checkbox" class="model-compare-checkbox" value="Ideal" id="model-ideal" checked>
+                <label for="model-ideal">Ideal (Schröder‑van Laar)</label>
+            </div>
+
+            <div class="model-checkbox-card">
+                <input type="checkbox" class="model-compare-checkbox" value="NRTL" id="model-nrtl">
+                <label for="model-nrtl">NRTL</label>
+            </div>
+
+            <div class="model-checkbox-card">
+                <input type="checkbox" class="model-compare-checkbox" value="UNIQUAC" id="model-uniquac">
+                <label for="model-uniquac">UNIQUAC</label>
+            </div>
+
+            <div class="model-checkbox-card">
+                <input type="checkbox" class="model-compare-checkbox" value="UNIFAC" id="model-unifac">
+                <label for="model-unifac">UNIFAC</label>
+            </div>
+        </div>
+
+        <div class="alert alert-info mt-3"
+             style="background: rgba(56,189,248,0.1); border: 1px solid #38bdf8; color: #e5e7eb;">
+            <i class="bi bi-info-circle"></i>
+            <strong>Dica:</strong> selecione pelo menos 2 modelos. Modelos sem parâmetros para o sistema serão ignorados.
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+            <button type="button" class="btn-sim btn-sim-ghost" onclick="closeCompareModal()">
+                Cancelar
+            </button>
+            <button type="button" class="btn-sim btn-sim-primary" id="compare-models-btn">
+                <i class="bi bi-play-fill"></i> Comparar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de seleção de componentes -->
+<div id="componentModal" class="modal-backdrop-custom" onclick="closeComponentModal()">
+    <div class="modal-content-custom" onclick="event.stopPropagation()">
+        <div class="panel-header mb-3">
+            <div class="panel-title">
+                Selecionar componente
+                <span class="badge" style="background: rgba(56,189,248,0.2); color: #38bdf8; font-size: 0.75rem; margin-left: 10px;">
+                    <span id="componentDatabaseCount">0</span> disponíveis
+                </span>
+            </div>
+        </div>
+
+        <input type="text"
+               class="form-control mb-3"
+               id="componentSearch"
+               placeholder="Buscar por nome, fórmula ou CAS..."
+               autocomplete="off"
+               oninput="renderComponentList(this.value)">
+
+        <div class="mb-3">
+            <button type="button" class="btn btn-sm" onclick="filterEutecticSystems()" 
+                    style="background: rgba(249,115,22,0.2); border: 1px solid #f97316; color: #f97316; font-size: 0.8rem;">
+                <i class="bi bi-star"></i> Sistemas eutéticos conhecidos
+            </button>
+        </div>
+
+        <div id="componentList"
+             style="max-height: 420px; overflow-y: auto; border-radius: 12px; border: 1px solid rgba(148,163,184,0.4);">
+            <!-- preenchido via JavaScript -->
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+            <button type="button" class="btn-sim btn-sim-ghost" onclick="closeComponentModal()">
+                Fechar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de informações termodinâmicas -->
+<div id="infoModal" class="modal-backdrop-custom" onclick="closeInfoModal()" style="display: none;">
+    <div class="modal-content-custom" onclick="event.stopPropagation()" style="max-width: 800px;">
+        <div class="panel-header mb-3">
+            <div class="panel-title">
+                <i class="bi bi-book"></i> Fundamentos Termodinâmicos 
+            </div>
+        </div>
+
+        <div style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
+            <h6 style="color: #38bdf8; margin-top: 15px;">1. Equação Fundamental de ESL</h6>
+            <p style="color: #cbd5e1; font-size: 0.9rem;">
+                A equação de equilíbrio sólido-líquido:
+            </p>
+            <div style="background: rgba(30,41,59,0.6); padding: 15px; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #e5e7eb;">
+                x₂ × γ₂ × f₂^L = f₂^S
+            </div>
+
+            <h6 style="color: #38bdf8; margin-top: 20px;">2. Razão de Fugacidades</h6>
+            <p style="color: #cbd5e1; font-size: 0.9rem;">
+                <strong>Equação Completa:</strong><br>
+                ln(f₂^L/f₂^S) = (ΔHfus/RTt)(Tt/T - 1) - (ΔCp/R)(Tt/T - 1) + (ΔCp/R)ln(Tt/T)
+            </p>
+            <p style="color: #cbd5e1; font-size: 0.9rem;">
+                <strong>Equação Simplificada:</strong><br>
+                ln(x₂^ideal) = -(ΔHfus/R)(Tm/T - 1)
+            </p>
+            <p style="color: #94a3b8; font-size: 0.85rem;">
+                Simplificação: ΔCp ≈ 0 e Tt ≈ Tm (válida para a maioria dos casos)
+            </p>
+
+            <h6 style="color: #38bdf8; margin-top: 20px;">3. Solubilidade Real (Não-Ideal)</h6>
+            <div style="background: rgba(30,41,59,0.6); padding: 15px; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #e5e7eb;">
+                x₂ = (1/γ₂) × exp[-(ΔHfus/R)(Tm/T - 1)]
+            </div>
+
+            <h6 style="color: #fbbf24; margin-top: 20px;"><i class="bi bi-exclamation-triangle"></i> Avisos Importantes</h6>
+            <ul style="color: #cbd5e1; font-size: 0.85rem;">
+                <li>Parâmetros de bancos de dados são ajustados para <strong>ELV</strong>, não ESL</li>
+                <li>Normalização <strong>simétrica</strong> (Raoult) usada. Para soluções diluídas, considere assimétrica (Henry)</li>
+                <li>Assumido: <strong>sólido puro</strong> (não forma soluções sólidas), <strong>P ≈ 1 atm</strong></li>
+                <li>Correção de Poynting desprezada (válida para P < 10 bar)</li>
+            </ul>
+
+            <h6 style="color: #38bdf8; margin-top: 20px;">Referências</h6>
+            <p style="color: #94a3b8; font-size: 0.8rem;">
+                Prausnitz, J.M., Lichtenthaler, R.N., & Azevedo, E.G. (1999). 
+                <em>Molecular Thermodynamics of Fluid-Phase Equilibria</em>, 3rd Edition.<br>
+            </p>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+            <button type="button" class="btn-sim btn-sim-primary" onclick="closeInfoModal()">
+                Entendi
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Chart.js (se não carregado no base.html) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<!-- ✅ ADICIONAR ESTA LINHA AQUI -->
+<script src="{{ url_for('static', filename='js/tutorial-engine.js') }}"></script>
+
+<!-- esl.js - DEVE vir ANTES dos scripts inline -->
+<script src="{{ url_for('static', filename='js/esl.js') }}"></script>
+
+<!-- Scripts inline - DEPOIS do esl.js -->
+<script>
+console.log('[ESL HTML] Scripts inline carregados');
+
+// Verificar se funções do esl.js estão disponíveis
+if (typeof showComponentModal === 'undefined') {
+    console.error('[ESL HTML] ERRO: showComponentModal não definida! esl.js não carregou corretamente.');
+}
+
+// Funções auxiliares que podem ser chamadas inline no HTML
+function showCompareModal() {
+    document.getElementById('compareModal').style.display = 'block';
+}
+
+function closeCompareModal() {
+    document.getElementById('compareModal').style.display = 'none';
+}
+
+function showComparePointModal() {
+    showCompareModal();
+}
+
+function showThermodynamicInfo() {
+    document.getElementById('infoModal').style.display = 'block';
+}
+
+function closeInfoModal() {
+    document.getElementById('infoModal').style.display = 'none';
+}
+
+// Fechar modais com ESC
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closeCompareModal();
+        if (typeof closeComponentModal !== 'undefined') {
+            closeComponentModal();
+        }
+        closeInfoModal();
+    }
+});
+
+// Download da imagem do diagrama
+document.addEventListener('DOMContentLoaded', function() {
+    const downloadBtn = document.getElementById('download-img-btn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', function () {
+            const canvas = document.getElementById('diagramChart');
+            if (!canvas) {
+                alert('Nenhum diagrama para baixar.');
+                return;
+            }
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            const calcType = window.lastDiagramType || document.getElementById('calcType').value || 'diagram';
+            const model = document.getElementById('model').value || 'model';
+            link.download = `ESL_${calcType}_${model}_${Date.now()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        });
+    }
+
+    // Inicialização de tooltips Bootstrap
+    try {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    } catch (e) {
+        console.warn('[ESL HTML] Erro ao inicializar tooltips:', e);
+    }
+});
+</script>
+
+<!-- ==================== CARREGAMENTO DE PRESET DE CASO DE ESTUDO ==================== -->
+<script>
+{% if preset %}
+// Dados do preset passados do backend
+const PRESET_DATA = {
+    id: '{{ preset.get("id", "") }}',
+    title: '{{ preset.title }}',
+    components: {{ preset.components | tojson }},
+    model: '{{ preset.model }}',
+    calcType: '{{ preset.calc_type }}',
+    temperature: {{ preset.temperature }},
+    temperatureUnit: '{{ preset.temperature_unit }}'
+};
+
+console.log('🎯 [PRESET-ESL] Caso de estudo carregado:', PRESET_DATA.title);
+console.log('💡 [PRESET-ESL] Componentes sugeridos:', PRESET_DATA.components.join(', '));
+
+// Aguardar DOM carregar
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        loadPresetConfiguration(PRESET_DATA);
+    }, 500);
+});
+
+/**
+ * Carrega configuração do preset (SEM componentes)
+ */
+function loadPresetConfiguration(preset) {
+    console.log('📥 [PRESET-ESL] Aplicando configuração do caso de estudo...');
+    
+    // 1. Selecionar modelo
+    const modelSelect = document.getElementById('model');
+    if (modelSelect) {
+        modelSelect.value = preset.model;
+        console.log('✅ [PRESET-ESL] Modelo:', preset.model);
+    }
+    
+    // 2. Selecionar tipo de cálculo
+    const calcTypeSelect = document.getElementById('calcType');
+    if (calcTypeSelect) {
+        calcTypeSelect.value = preset.calcType;
+        console.log('✅ [PRESET-ESL] Tipo de cálculo:', preset.calcType);
+        
+        // Trigger change event
+        const event = new Event('change', { bubbles: true });
+        calcTypeSelect.dispatchEvent(event);
+    }
+    
+    // 3. Preencher temperatura
+    setTimeout(function() {
+        const temperatureInput = document.getElementById('temperature');
+        if (temperatureInput && preset.temperature) {
+            temperatureInput.value = preset.temperature;
+            console.log('✅ [PRESET-ESL] Temperatura:', preset.temperature, '°C');
+        }
+        
+        const temperatureUnitSelect = document.getElementById('tempUnit');
+        if (temperatureUnitSelect && preset.temperatureUnit) {
+            temperatureUnitSelect.value = preset.temperatureUnit;
+        }
+        
+        console.log('🎉 [PRESET-ESL] Configuração aplicada com sucesso!');
+        console.log('💡 [PRESET-ESL] Agora adicione os 2 componentes:', preset.components.join(', '));
+        
+        // Mostrar notificação
+        showPresetNotification(preset);
+        
+        // Scroll suave
+        const configPanel = document.querySelector('.calc-panel');
+        if (configPanel) {
+            configPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 300);
+}
+
+/**
+ * Mostra notificação informativa sobre o preset
+ */
+function showPresetNotification(preset) {
+    const notification = document.createElement('div');
+    notification.className = 'alert alert-info alert-dismissible fade show position-fixed';
+    notification.style.cssText = `
+        top: 80px;
+        right: 20px;
+        z-index: 9999;
+        max-width: 400px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        animation: slideInRight 0.3s ease;
+    `;
+    
+    notification.innerHTML = `
+        <div class="d-flex align-items-start">
+            <i class="bi bi-lightbulb text-warning me-2" style="font-size: 1.2rem;"></i>
+            <div>
+                <strong>💡 Sugestão do Caso de Estudo</strong><br>
+                <small>Adicione os 2 componentes: <strong>${preset.components.join(' + ')}</strong></small>
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 8000);
+}
+
+/**
+ * Limpa o preset e recarrega a página
+ */
+function clearPreset() {
+    console.log('🗑️ [PRESET-ESL] Limpando preset...');
+    
+    const banner = document.getElementById('case-study-banner');
+    if (banner) {
+        banner.style.animation = 'slideOutUp 0.3s ease';
+        setTimeout(() => {
+            banner.remove();
+        }, 300);
+    }
+    
+    setTimeout(() => {
+        window.location.href = '/esl/';
+    }, 400);
+}
+
+/**
+ * Mostra detalhes do preset em modal (EXATAMENTE IGUAL AO EDUCATIONAL.JS)
+ */
+function viewPresetDetails() {
+    const preset = PRESET_DATA;
+    
+    // Definir detalhes específicos de cada caso
+    const caseDetails = {
+        'naphthalene-benzene': {
+            description: 'Sistema ideal sólido-líquido com ponto eutético simples.',
+            objectives: [
+                'Identificar ponto eutético',
+                'Aplicar equação de solubilidade ideal',
+                'Calcular curvas de liquidus'
+            ],
+            theory: 'Compostos aromáticos similares formam solução sólida ideal. Ponto eutético ocorre onde ambos os sólidos cristalizam simultaneamente.',
+            applications: [
+                'Purificação por cristalização',
+                'Separação de aromáticos',
+                'Produção de naftaleno puro'
+            ],
+            references: [
+                'Findlay - Phase Rule',
+                'CRC Handbook of Chemistry and Physics'
+            ]
+        },
+        'water-nacl': {
+            description: 'Solubilidade de sal em água. Importante para cristalização e evaporação.',
+            objectives: [
+                'Calcular solubilidade em função da temperatura',
+                'Aplicar equação de van\'t Hoff',
+                'Desenhar curva de solubilidade'
+            ],
+            theory: 'Solubilidade de NaCl varia pouco com temperatura. Cristaliza como NaCl·2H₂O a baixas temperaturas.',
+            applications: [
+                'Produção de sal por evaporação',
+                'Salmouras industriais',
+                'Processos de dessalinização'
+            ],
+            references: [
+                'Mullin - Crystallization',
+                'Solubility Data Series - IUPAC'
+            ]
+        },
+        'phenol-water': {
+            description: 'Sistema com miscibilidade parcial no estado líquido e sólido-líquido.',
+            objectives: [
+                'Analisar solubilidade mútua',
+                'Identificar temperatura crítica de solução',
+                'Aplicar NRTL para fase sólida'
+            ],
+            theory: 'Fenol e água formam sistema com UCST (Upper Critical Solution Temperature) ≈ 66°C. Abaixo disso, há imiscibilidade parcial.',
+            applications: [
+                'Purificação de fenol',
+                'Processos de extração',
+                'Recuperação de fenol de efluentes'
+            ],
+            references: [
+                'Walas - Phase Equilibria in Chemical Engineering',
+                'Industrial & Engineering Chemistry'
+            ]
+        }
+    };
+    
+    const details = caseDetails[preset.id] || {
+        description: 'Sistema binário sólido-líquido.',
+        objectives: ['Estudar equilíbrio de fases'],
+        theory: 'Modelo termodinâmico para sistemas com fase sólida.',
+        applications: ['Cristalização'],
+        references: ['Literatura técnica']
+    };
+    
+    // Construir caseData no formato do educational.js
+    const caseData = {
+        id: preset.id,
+        title: preset.title,
+        module: 'ESL',
+        difficulty: preset.id === 'naphthalene-benzene' ? 'BÁSICO' : preset.id === 'water-nacl' ? 'INTERMEDIÁRIO' : 'AVANÇADO',
+        components: preset.components,
+        description: details.description,
+        objectives: details.objectives,
+        conditions: {
+            'temperature': `${preset.temperature}°C`,
+            'composition': preset.id === 'water-nacl' ? '23.3% massa (saturação)' : 'x_naftaleno ≈ 0.3 (eutético)',
+            'pressure': 'Atmosférica'
+        },
+        model: preset.model,
+        parameters: preset.id === 'phenol-water' ? {'τ₁₂': '3.4567', 'τ₂₁': '1.2345', 'α': '0.3'} : null,
+        theory: details.theory,
+        applications: details.applications,
+        references: details.references
+    };
+    
+    console.log('📖 Exibindo detalhes do caso:', caseData.title);
+    
+    // HTML do modal (EXATAMENTE IGUAL AO EDUCATIONAL.JS)
+    const modalHTML = `
+        <div class="case-detail-modal-backdrop" id="caseDetailBackdrop" onclick="closePresetDetailsModal()" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 2rem; opacity: 0; transition: opacity 0.3s ease;">
+            <div class="case-detail-modal" onclick="event.stopPropagation()" style="background: #1e293b; border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 16px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); animation: modalSlideIn 0.3s ease;">
+                <!-- Cabeçalho -->
+                <div class="case-modal-header" style="display: flex; justify-content: space-between; align-items: flex-start; padding: 1.5rem; border-bottom: 1px solid rgba(148, 163, 184, 0.2); background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(56, 189, 248, 0.05));">
+                    <div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: #e5e7eb; margin: 0 0 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="bi bi-book-half"></i>
+                            ${caseData.title}
+                        </h3>
+                        <div class="case-modal-badges" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                            <span class="badge" style="display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; background: rgba(37, 99, 235, 0.2); color: #60a5fa;">${caseData.module}</span>
+                            <span class="badge" style="display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; background: rgba(245, 158, 11, 0.2); color: #fcd34d;">${caseData.difficulty}</span>
+                        </div>
+                    </div>
+                    <button class="btn-close-modal" onclick="closePresetDetailsModal()" style="background: transparent; border: none; color: #94a3b8; font-size: 1.5rem; cursor: pointer; padding: 0.5rem; transition: color 0.2s ease; line-height: 1;">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                
+                <!-- Corpo -->
+                <div class="case-modal-body" style="padding: 1.5rem;">
+                    <!-- Descrição -->
+                    <div class="case-section" style="margin-bottom: 1.5rem;">
+                        <h5 style="font-size: 1.1rem; font-weight: 700; color: #e5e7eb; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;"><i class="bi bi-info-circle"></i> Descrição</h5>
+                        <p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 0.5rem;">${caseData.description}</p>
+                    </div>
+                    
+                    <!-- Objetivos -->
+                    <div class="case-section" style="margin-bottom: 1.5rem;">
+                        <h5 style="font-size: 1.1rem; font-weight: 700; color: #e5e7eb; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;"><i class="bi bi-bullseye"></i> Objetivos de Aprendizagem</h5>
+                        <ul class="objectives-list" style="list-style: none; padding: 0; margin: 0;">
+                            ${caseData.objectives.map(obj => `<li style="padding: 0.5rem 0 0.5rem 1.5rem; color: #cbd5e1; position: relative; border-bottom: 1px solid rgba(148, 163, 184, 0.1);"><span style="position: absolute; left: 0; color: #22c55e; font-weight: bold;">✓</span>${obj}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <!-- Condições -->
+                    <div class="case-section" style="margin-bottom: 1.5rem;">
+                        <h5 style="font-size: 1.1rem; font-weight: 700; color: #e5e7eb; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;"><i class="bi bi-thermometer-half"></i> Condições Operacionais</h5>
+                        <div class="conditions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0.8rem;">
+                            ${Object.entries(caseData.conditions).map(([key, value]) => `
+                                <div class="condition-item" style="background: rgba(15, 23, 42, 0.5); padding: 0.8rem; border-radius: 8px; border-left: 3px solid #38bdf8;">
+                                    <span class="condition-label" style="display: block; font-size: 0.8rem; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem;">${key.replace(/([A-Z])/g, ' $1').trim()}:</span>
+                                    <span class="condition-value" style="display: block; font-size: 1rem; color: #e5e7eb; font-weight: 500;">${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <!-- Modelo e Parâmetros -->
+                    <div class="case-section" style="margin-bottom: 1.5rem;">
+                        <h5 style="font-size: 1.1rem; font-weight: 700; color: #e5e7eb; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;"><i class="bi bi-gear-fill"></i> Modelo Termodinâmico</h5>
+                        <p style="color: #cbd5e1;"><strong>Modelo:</strong> ${caseData.model}</p>
+                        ${caseData.parameters ? `
+                            <div class="parameters-box" style="background: rgba(15, 23, 42, 0.5); border-radius: 8px; padding: 1rem; border: 1px solid rgba(148, 163, 184, 0.2);">
+                                <strong style="color: #e5e7eb;">Parâmetros:</strong>
+                                <ul class="parameters-list" style="list-style: none; padding: 0; margin: 0.5rem 0 0 0;">
+                                    ${Object.entries(caseData.parameters).map(([key, value]) => `
+                                        <li style="padding: 0.4rem 0; color: #cbd5e1; font-size: 0.9rem;"><code style="background: rgba(56, 189, 248, 0.15); color: #7dd3fc; padding: 0.2rem 0.5rem; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.85rem;">${key}</code> = ${value}</li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        ` : '<p style="color: #94a3b8;"><em>Modelo não requer parâmetros binários</em></p>'}
+                    </div>
+                    
+                    <!-- Teoria -->
+                    <div class="case-section" style="margin-bottom: 1.5rem;">
+                        <h5 style="font-size: 1.1rem; font-weight: 700; color: #e5e7eb; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;"><i class="bi bi-lightbulb"></i> Fundamentação Teórica</h5>
+                        <p style="color: #cbd5e1; line-height: 1.6;">${caseData.theory}</p>
+                    </div>
+                    
+                    <!-- Aplicações -->
+                    <div class="case-section" style="margin-bottom: 1.5rem;">
+                        <h5 style="font-size: 1.1rem; font-weight: 700; color: #e5e7eb; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;"><i class="bi bi-briefcase-fill"></i> Aplicações Industriais</h5>
+                        <ul class="applications-list" style="list-style: none; padding: 0; margin: 0;">
+                            ${caseData.applications.map(app => `<li style="padding: 0.5rem 0 0.5rem 1.5rem; color: #cbd5e1; position: relative; border-bottom: 1px solid rgba(148, 163, 184, 0.1);"><span style="position: absolute; left: 0; color: #38bdf8;">→</span>${app}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <!-- Referências -->
+                    <div class="case-section">
+                        <h5 style="font-size: 1.1rem; font-weight: 700; color: #e5e7eb; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;"><i class="bi bi-journal-text"></i> Referências</h5>
+                        <ul class="references-list" style="list-style: none; padding: 0; margin: 0;">
+                            ${caseData.references.map(ref => `<li style="padding: 0.5rem 0 0.5rem 1.5rem; color: #cbd5e1; position: relative; border-bottom: 1px solid rgba(148, 163, 184, 0.1);"><span style="position: absolute; left: 0;">📚</span>${ref}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Rodapé com ações -->
+                <div class="case-modal-footer" style="padding: 1.2rem 1.5rem; border-top: 1px solid rgba(148, 163, 184, 0.2); display: flex; justify-content: flex-end; gap: 0.8rem; background: rgba(15, 23, 42, 0.3);">
+                    <button class="btn-modal btn-secondary" onclick="closePresetDetailsModal()" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.5rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; border: none; background: rgba(148, 163, 184, 0.2); color: #cbd5e1;">
+                        <i class="bi bi-x-circle"></i> Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+            @keyframes modalSlideIn {
+                from {
+                    transform: translateY(-30px) scale(0.95);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                }
+            }
+            
+            .case-detail-modal::-webkit-scrollbar {
+                width: 8px;
+            }
+            
+            .case-detail-modal::-webkit-scrollbar-track {
+                background: rgba(15, 23, 42, 0.5);
+                border-radius: 10px;
+            }
+            
+            .case-detail-modal::-webkit-scrollbar-thumb {
+                background: rgba(56, 189, 248, 0.5);
+                border-radius: 10px;
+            }
+            
+            .case-detail-modal::-webkit-scrollbar-thumb:hover {
+                background: rgba(56, 189, 248, 0.7);
+            }
+            
+            .btn-modal:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            }
+        </style>
+    `;
+    
+    // Inserir modal DIRETAMENTE NO BODY
+    const existingModal = document.getElementById('caseDetailBackdrop');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Animação de entrada
+    setTimeout(() => {
+        const backdrop = document.getElementById('caseDetailBackdrop');
+        if (backdrop) {
+            backdrop.style.opacity = '1';
+        }
+    }, 10);
+}
+
+/**
+ * Fecha modal de detalhes do preset
+ */
+function closePresetDetailsModal() {
+    const backdrop = document.getElementById('caseDetailBackdrop');
+    if (backdrop) {
+        backdrop.style.opacity = '0';
+        setTimeout(() => backdrop.remove(), 300);
+    }
+}
+
+// Animações CSS
+const styleEl = document.createElement('style');
+styleEl.textContent = `
+    @keyframes slideOutUp {
+        from { transform: translateY(0); opacity: 1; }
+        to { transform: translateY(-20px); opacity: 0; }
+    }
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+`;
+document.head.appendChild(styleEl);
+
+{% else %}
+console.log('ℹ️ [PRESET-ESL] Nenhum preset carregado');
+{% endif %}
+</script>
+
+<script>
+// ========================================================================
+// INICIALIZAÇÃO AUTOMÁTICA DO SISTEMA DE TUTORIAIS
+// ========================================================================
+window.addEventListener('DOMContentLoaded', function() {
+    console.log('🎓 [TUTORIAL-ESL] Verificando parâmetros de tutorial...');
+    
+    // ✅ Verificar se veio de um link de tutorial
+    const urlParams = new URLSearchParams(window.location.search);
+    const tutorialId = urlParams.get('tutorial');
+    
+    if (tutorialId && typeof startTutorial === 'function') {
+        console.log('✅ [TUTORIAL-ESL] Iniciando tutorial automaticamente:', tutorialId);
+        
+        // Aguardar DOM estar pronto
+        setTimeout(function() {
+            startTutorial(tutorialId)
+                .catch(err => {
+                    console.error('[TUTORIAL-ESL] Erro ao iniciar tutorial:', err);
+                    alert('❌ Erro ao carregar tutorial. Tente novamente.');
+                });
+        }, 1000);
+    } else if (tutorialId) {
+        console.warn('⚠️ [TUTORIAL-ESL] tutorial-engine.js não encontrado');
+    }
+});
+</script>
+{% endblock %}
+
+
+
+
+

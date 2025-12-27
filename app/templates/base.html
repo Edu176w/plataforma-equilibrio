@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PhaseFlow · Plataforma de Equilíbrio de Fases{% endblock %}</title>
+
+    <!-- Favicon PhaseFlow -->
+    <link rel="icon" id="favicon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%233b82f6;stop-opacity:1'/%3E%3Cstop offset='100%25' style='stop-color:%2310b981;stop-opacity:1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='30' cy='50' r='15' fill='%233b82f6' opacity='0.7'/%3E%3Ccircle cx='70' cy='50' r='15' fill='%2310b981' opacity='0.7'/%3E%3Cpath d='M30,35 Q50,20 70,35' stroke='%236366f1' stroke-width='2' fill='none'/%3E%3Cpath d='M30,65 Q50,80 70,65' stroke='%236366f1' stroke-width='2' fill='none'/%3E%3Ctext x='50' y='55' font-family='Arial' font-size='20' font-weight='bold' fill='white' text-anchor='middle'%3EPF%3C/text%3E%3C/svg%3E">
+
+    <!-- ✅ SCRIPT PARA FORÇAR RELOAD DO FAVICON (contra cache do Edge) -->
+    <script>
+        (function() {
+            var link = document.getElementById('favicon');
+            if (link) {
+                var href = link.getAttribute('href');
+                link.setAttribute('href', href + '?v=' + Date.now());
+            }
+        })();
+    </script>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Tema da plataforma -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- NAVBAR principal -->
+    <nav class="navbar navbar-expand-lg navbar-sim">
+        <div class="container-fluid">
+            <a href="{{ url_for('main.index') }}" class="navbar-brand">
+                <div class="navbar-brand-icon">
+                    <i class="bi bi-droplet-half"></i>
+                </div>
+                <div>
+                    <div>PhaseFlow</div>
+                    <div class="navbar-brand-sub">Plataforma de Equilíbrio de Fases</div>
+                </div>
+            </a>
+
+            <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"><i class="bi bi-list"></i></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <div class="nav-links ms-auto">
+                    <a class="nav-link-sim {% if request.endpoint == 'main.index' %}active{% endif %}"
+                       href="{{ url_for('main.index') }}">
+                        <i class="bi bi-house-door-fill"></i> Início
+                    </a>
+
+                    <span class="nav-separator d-none d-md-inline-block"></span>
+
+                    <a class="nav-link-sim {% if request.blueprint == 'elv' %}active{% endif %}"
+                       href="{{ url_for('elv.calculator') }}">
+                        <i class="bi bi-droplet-fill"></i> ELV
+                    </a>
+
+                    <a class="nav-link-sim {% if request.blueprint == 'ell' %}active{% endif %}"
+                       href="{{ url_for('ell.ell_calculator') }}">
+                        <i class="bi bi-water"></i> ELL
+                    </a>
+
+                    <a class="nav-link-sim {% if request.blueprint == 'esl' %}active{% endif %}"
+                       href="{{ url_for('esl.calculator') }}">
+                        <i class="bi bi-snow2"></i> ESL
+                    </a>
+
+                    <span class="nav-separator d-none d-md-inline-block"></span>
+
+                    <a class="nav-link-sim {% if request.blueprint == 'dashboard' %}active{% endif %}"
+                       href="{{ url_for('dashboard.index') }}">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </a>
+
+                    <a class="nav-link-sim {% if request.blueprint == 'educational' %}active{% endif %}"
+                       href="{{ url_for('educational.index') }}">
+                        <i class="bi bi-book"></i> Aprender
+                    </a>
+
+                    <span class="nav-separator d-none d-md-inline-block"></span>
+
+                    {% if current_user.is_authenticated %}
+                        <a class="nav-link-sim {% if request.blueprint == 'auth' and request.endpoint == 'auth.profile' %}active{% endif %}"
+                           href="{{ url_for('auth.profile') }}"
+                           title="Perfil">
+                            <i class="bi bi-person-circle"></i> {{ current_user.username }}
+                        </a>
+                        <a class="nav-link-sim text-danger" 
+                           href="{{ url_for('auth.logout') }}"
+                           title="Sair">
+                            <i class="bi bi-box-arrow-right"></i> Sair
+                        </a>
+                    {% else %}
+                        <a class="nav-link-sim {% if request.endpoint == 'auth.login' %}active{% endif %}"
+                           href="{{ url_for('auth.login') }}">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                        <a class="nav-link-sim nav-link-register {% if request.endpoint == 'auth.register' %}active{% endif %}"
+                           href="{{ url_for('auth.register') }}">
+                            <i class="bi bi-person-plus"></i> Registrar
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="app-shell">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container mt-3">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer-sim">
+        &copy; 2025 · PhaseFlow · Plataforma de Equilíbrio de Fases · TCC Engenharia Química
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

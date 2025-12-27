@@ -1,0 +1,31 @@
+{
+  "groups": [
+    {
+      "id": 1,
+      "name": "CH3",
+      "description": "Metil",
+      "R": 0.9011,
+      "Q": 0.848
+    },
+    {
+      "id": 2,
+      "name": "CH2",
+      "description": "Metileno",
+      "R": 0.6744,
+      "Q": 0.540
+    }
+  ],
+  "molecule_definitions": {
+    "Água": {
+      "9": 1
+    },
+    "Etanol": {
+      "1": 1,
+      "2": 1,
+      "8": 1
+    }
+  },
+  "interaction_parameters": {
+    "1_9": {"a_mn": 300.0, "a_nm": 1318.0}
+  }
+}

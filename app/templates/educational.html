@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+{% block title %}Aprender · Fundamentos e Tutoriais{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div class="page-header-left">
+        <div class="page-title">
+            <i class="bi bi-book"></i>
+            Aprender
+        </div>
+        <div class="page-subtitle">
+            Material educacional sobre equilíbrio de fases e modelos termodinâmicos
+        </div>
+    </div>
+    <div>
+        <span class="page-badge">
+            <i class="bi bi-mortarboard"></i> Seção Educacional
+        </span>
+    </div>
+</div>
+
+<!-- Recursos Educacionais -->
+<div class="row g-3">
+    <!-- Fundamentos -->
+    <div class="col-lg-6">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">
+                        <i class="bi bi-lightbulb"></i> Fundamentos
+                    </div>
+                    <div class="panel-subtitle">Conceitos essenciais de equilíbrio</div>
+                </div>
+            </div>
+            <p class="text-muted-soft mb-3">
+                Aprenda os princípios básicos de equilíbrio de fases: ELV, ELL e ESL. 
+                Entenda fugacidade, atividade e potencial químico com explicações visuais.
+            </p>
+            <ul class="educational-topics mb-3">
+                <li><i class="bi bi-check-circle-fill"></i> Condição de equilíbrio termodinâmico</li>
+                <li><i class="bi bi-check-circle-fill"></i> Lei de Raoult e desvios da idealidade</li>
+                <li><i class="bi bi-check-circle-fill"></i> Coeficientes de atividade e fugacidade</li>
+            </ul>
+            <button type="button"
+                    class="btn-sim btn-sim-educational"
+                    onclick="window.location.href='{{ url_for('educational.fundamentals') }}'">
+                <i class="bi bi-arrow-right-circle"></i> Explorar fundamentos
+            </button>
+        </div>
+    </div>
+
+    <!-- Casos de Estudo Validados ✅ MELHORADO -->
+    <div class="col-lg-6">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">
+                        <i class="bi bi-bar-chart-line"></i> Casos de Estudo
+                    </div>
+                    <div class="panel-subtitle">Sistemas validados com dados experimentais</div>
+                </div>
+            </div>
+            <p class="text-muted-soft mb-3">
+                Explore sistemas clássicos da literatura com dados experimentais validados. 
+                Compare predições dos modelos com valores reais.
+            </p>
+            <ul class="educational-topics mb-3">
+                <li><i class="bi bi-check-circle-fill"></i> ELV: Etanol-água, benzeno-tolueno</li>
+                <li><i class="bi bi-check-circle-fill"></i> ELL: Água-butanol-acetona, ternários</li>
+                <li><i class="bi bi-check-circle-fill"></i> ESL: Naftaleno-benzeno, fenol-água</li>
+            </ul>
+            <button type="button"
+                    class="btn-sim btn-sim-educational"
+                    onclick="window.location.href='{{ url_for('educational.cases') }}'">
+                <i class="bi bi-arrow-right-circle"></i> Ver casos de estudo
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="section-divider"></div>
+
+<div class="row g-3">
+    <!-- Tutoriais Práticos ✅ MELHORADO -->
+    <div class="col-lg-6">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">
+                        <i class="bi bi-play-circle"></i> Tutoriais Guiados
+                    </div>
+                    <div class="panel-subtitle">8 tutoriais passo a passo</div>
+                </div>
+            </div>
+            <p class="text-muted-soft mb-3">
+                Siga roteiros interativos para resolver problemas clássicos de separação: 
+                flash, diagramas de equilíbrio, extração e cristalização.
+            </p>
+            <ul class="educational-topics mb-3">
+                <li><i class="bi bi-check-circle-fill"></i> ELV: Flash, diagramas P-x-y, azeotropia</li>
+                <li><i class="bi bi-check-circle-fill"></i> ELL: Extração e diagramas ternários</li>
+                <li><i class="bi bi-check-circle-fill"></i> ESL: Cristalização e ponto eutético</li>
+            </ul>
+            <button type="button"
+                    class="btn-sim btn-sim-educational"
+                    onclick="window.location.href='{{ url_for('educational.tutorials') }}'">
+                <i class="bi bi-arrow-right-circle"></i> Ver tutoriais
+            </button>
+        </div>
+    </div>
+
+    <!-- Glossário -->
+    <div class="col-lg-6">
+        <div class="panel h-100">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">
+                        <i class="bi bi-journal-text"></i> Glossário Técnico
+                    </div>
+                    <div class="panel-subtitle">Termos e definições</div>
+                </div>
+            </div>
+            <p class="text-muted-soft mb-3">
+                Consulte definições detalhadas de termos termodinâmicos com exemplos práticos 
+                e ilustrações.
+            </p>
+            <ul class="educational-topics mb-3">
+                <li><i class="bi bi-check-circle-fill"></i> Atividade, fugacidade, azeotropia</li>
+                <li><i class="bi bi-check-circle-fill"></i> Binodal, tie-line, plait point</li>
+                <li><i class="bi bi-check-circle-fill"></i> Eutético, solubilidade, cristalização</li>
+            </ul>
+            <button type="button"
+                    class="btn-sim btn-sim-educational"
+                    onclick="window.location.href='{{ url_for('educational.glossary') }}'">
+                <i class="bi bi-arrow-right-circle"></i> Abrir glossário
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- Seção de destaque: Por onde começar? ✅ MELHORADO -->
+<div class="hero-section">
+    <h3 class="hero-title">
+        <i class="bi bi-compass"></i> Por onde começar?
+    </h3>
+    <p class="hero-subtitle mb-4">
+        Se você é novo em equilíbrio de fases, recomendamos seguir esta sequência de aprendizado:
+    </p>
+    
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="learning-step">
+                <div class="step-number">1</div>
+                <div class="step-title">Fundamentos</div>
+                <div class="step-desc">Conceitos básicos de termodinâmica</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="learning-step">
+                <div class="step-number">2</div>
+                <div class="step-title">Glossário</div>
+                <div class="step-desc">Termos técnicos e definições</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="learning-step">
+                <div class="step-number">3</div>
+                <div class="step-title">Tutoriais</div>
+                <div class="step-desc">Pratique com casos guiados</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="learning-step">
+                <div class="step-number">4</div>
+                <div class="step-title">Simule</div>
+                <div class="step-desc">Use os módulos ELV/ELL/ESL</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="educational-callout">
+        <i class="bi bi-info-circle"></i>
+        <div>
+            <strong>Dica:</strong> Esta plataforma foi desenvolvida como ferramenta educacional 
+            para o TCC de Engenharia Química da UFAL. Todo o conteúdo é baseado em referências 
+            consolidadas da literatura (Smith et al., Prausnitz et al., e outros).
+        </div>
+    </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- Recursos Adicionais -->
+<div class="row g-3">
+    <div class="col-12">
+        <div class="panel">
+            <div class="panel-header">
+                <div>
+                    <div class="panel-title">
+                        <i class="bi bi-bookmark-star"></i> Recursos Adicionais
+                    </div>
+                    <div class="panel-subtitle">Materiais complementares para aprofundamento</div>
+                </div>
+            </div>
+            
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="resource-card" onclick="window.location.href='{{ url_for('educational.references') }}'">
+                        <i class="bi bi-file-earmark-pdf resource-icon"></i>
+                        <h5>Referências Bibliográficas</h5>
+                        <p class="text-muted-soft">
+                            Lista completa das referências utilizadas na plataforma
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card" onclick="window.location.href='{{ url_for('educational.cases') }}'">
+                        <i class="bi bi-collection resource-icon"></i>
+                        <h5>Casos de Validação</h5>
+                        <p class="text-muted-soft">
+                            Sistemas validados com dados experimentais da literatura
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card" onclick="window.location.href='{{ url_for('educational.equations') }}'">
+                        <i class="bi bi-code-square resource-icon"></i>
+                        <h5>Equações Implementadas</h5>
+                        <p class="text-muted-soft">
+                            Formulação matemática completa dos modelos termodinâmicos
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Estilos específicos da página educacional */
+.educational-topics {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.educational-topics li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.3rem 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.educational-topics i {
+    color: #22c55e;
+    font-size: 0.9rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+}
+
+.learning-step {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.learning-step:hover {
+    border-color: rgba(56, 189, 248, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(56, 189, 248, 0.2);
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 0.8rem;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+}
+
+.step-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-strong);
+    margin-bottom: 0.3rem;
+}
+
+.step-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.educational-callout {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: rgba(56, 189, 248, 0.08);
+    border-left: 3px solid #38bdf8;
+    border-radius: 8px;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+.educational-callout i {
+    color: #38bdf8;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.resource-card {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    border-radius: 10px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.resource-card:hover {
+    border-color: rgba(245, 158, 11, 0.5);
+    background: rgba(15, 23, 42, 0.6);
+}
+
+.resource-icon {
+    font-size: 2rem;
+    color: #f59e0b;
+    margin-bottom: 0.8rem;
+}
+
+.resource-card h5 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-strong);
+    margin-bottom: 0.5rem;
+}
+
+.resource-card p {
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+</style>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/educational.js') }}"></script>
+{% endblock %}
