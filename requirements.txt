@@ -28,6 +28,9 @@ SQLAlchemy>=2.0.35
 Werkzeug==3.0.1
 requests>=2.32.0
 
+# PDF Generation
+reportlab==4.0.7
+
 # Deploy em Produção
 psycopg2-binary==2.9.9
 gunicorn==21.2.0
