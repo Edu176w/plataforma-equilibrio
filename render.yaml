@@ -2,17 +2,17 @@ services:
   - type: web
     name: plataforma-equilibrio
     runtime: python
+    plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn run:app --bind 0.0.0.0:$PORT
+    startCommand: gunicorn run:app --bind 0.0.0.0:$PORT --timeout 120
     envVars:
       - key: PYTHON_VERSION
         value: 3.13.0
       - key: FLASK_DEBUG
         value: false
-      - key: PORT
-        sync: false
 
 databases:
   - name: plataforma-db
     databaseName: plataforma_equilibrio
     user: plataforma_user
+    plan: free
