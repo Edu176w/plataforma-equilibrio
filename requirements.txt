@@ -32,5 +32,6 @@ requests>=2.32.0
 reportlab==4.0.7
 
 # Deploy em Produção
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.10
 gunicorn==21.2.0
+
