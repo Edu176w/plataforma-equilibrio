@@ -111,24 +111,37 @@ def get_components_by_model(model):
         
         elif model == 'UNIQUAC':
             # Importar parâmetros UNIQUAC
-            from uniquac_params import UNIQUAC_PARAMS, UNIQUAC_R_Q
+            from uniquac_params import UNIQUAC_R_Q
             
-            # Extrair componentes únicos
+            # Mapear aliases (nomes no UNIQUAC -> nomes no thermo/banco)
+            NAME_ALIASES = {
+                '2-propanol': 'isopropanol',
+                'n-heptane': 'heptane',
+                'n-hexane': 'hexane',
+                'n-octane': 'octane',
+                'methyl ethyl ketone': '2-butanone',
+                'methyl isobutyl ketone': '4-methyl-2-pentanone',
+            }
+            
+            # Componentes com r e q definidos (exceto placeholder)
             uniquac_components = set()
-            for (comp1, comp2) in UNIQUAC_PARAMS.keys():
-                uniquac_components.add(comp1)
-                uniquac_components.add(comp2)
-            
-            # Adicionar componentes que têm R e Q definidos
-            uniquac_components.update(UNIQUAC_R_Q.keys())
+            for comp in UNIQUAC_R_Q.keys():
+                if comp != 'ethanol/carbon tetrachloride':
+                    comp_lower = comp.lower()
+                    # Usar alias se existir, senão usar o nome original
+                    mapped_name = NAME_ALIASES.get(comp_lower, comp_lower)
+                    uniquac_components.add(mapped_name)
             
             # Buscar dados completos
             all_comps = component_db.list_all_components()
             filtered = []
+            seen_names = set()  # ← ADICIONAR: rastrear componentes já adicionados
             
             for comp in all_comps:
                 name_en = comp.get('name_en', comp['name']).lower()
-                if name_en in uniquac_components:
+                
+                # ← MODIFICAR: só adicionar se ainda não foi adicionado
+                if name_en in uniquac_components and name_en not in seen_names:
                     filtered.append({
                         'name': comp['name'],
                         'name_en': comp.get('name_en', comp['name']),
@@ -145,6 +158,7 @@ def get_components_by_model(model):
                         'UNIFAC_R': comp.get('UNIFAC_R'),
                         'UNIFAC_Q': comp.get('UNIFAC_Q')
                     })
+                    seen_names.add(name_en)  # ← ADICIONAR: marcar como já adicionado
             
             return jsonify({
                 'success': True,
@@ -152,6 +166,8 @@ def get_components_by_model(model):
                 'components': filtered,
                 'count': len(filtered)
             })
+
+
         
         elif model == 'UNIFAC':
             # Importar grupos UNIFAC

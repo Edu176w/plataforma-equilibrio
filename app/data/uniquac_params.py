@@ -33,7 +33,10 @@ UNIQUAC_R_Q = {
     'ethyl acetate': {'r': 3.48, 'q': 3.12},
     'diethylamine': {'r': 3.68, 'q': 3.17},
     'methylcyclopentane': {'r': 3.97, 'q': 3.01},
-    'ethanol/carbon tetrachloride': {'r': 0, 'q': 0},  # placeholder para pares
+    'ethanol/carbon tetrachloride': {'r': 0, 'q': 0},
+    'propionic acid': {'r': 2.27, 'q': 2.14},
+    '2-butanone': {'r': 3.25, 'q': 2.88},
+    '4-methyl-2-pentanone': {'r': 4.60, 'q': 4.03},
 }
 
 # Parâmetros binários de energia (Table 6-10 e literatura)
@@ -52,6 +55,14 @@ UNIQUAC_PARAMS = {
     # Ácidos com água
     ('acetic acid', 'water'): {'a12': -165.76, 'a21': 320.43},
     ('formic acid', 'water'): {'a12': -144.58, 'a21': 241.64},
+    
+    # Ácidos carboxílicos (Figura 6-23b - Prausnitz)
+    ('formic acid', 'acetic acid'): {'a12': -144.58, 'a21': 241.64},
+    
+    # Ácido com cetona (Figura 6-23a - Prausnitz, Conti et al.)
+    ('propionic acid', 'methyl isobutyl ketone'): {'a12': -78.49, 'a21': 136.46},
+    ('propionic acid', '4-methyl-2-pentanone'): {'a12': -78.49, 'a21': 136.46},
+
     
     # Aromáticos com alcanos
     ('hexane', 'benzene'): {'a12': -7.97, 'a21': 6.27},
@@ -101,7 +112,6 @@ UNIQUAC_PARAMS = {
     # Outros binários da Tabela 6-10
     ('methylcyclopentane', 'ethanol'): {'a12': 1383.93, 'a21': -118.27},
     ('methylcyclopentane', 'benzene'): {'a12': 56.47, 'a21': -6.47},
-    ('formic acid','acetic acid'):{'a12':-144.58,'a21':241.64},
 }
 
 COMPONENT_TRANSLATIONS = {
@@ -132,6 +142,9 @@ COMPONENT_TRANSLATIONS = {
     'ethyl acetate': 'Acetato de Etila',
     'diethylamine': 'Dietilamina',
     'methylcyclopentane': 'Metilciclopentano',
+    'propionic acid': 'Ácido Propiônico',
+    '2-butanone': 'Metil Etil Cetona',
+    '4-methyl-2-pentanone': 'Metil Isobutil Cetona',
 }
 
 
@@ -154,16 +167,16 @@ def get_uniquac_r_q(comp):
 
 
 def get_available_components_uniquac():
-    '''Retornar componentes com parâmetros UNIQUAC'''
-    components = set()
-    for (c1, c2) in UNIQUAC_PARAMS.keys():
-        components.add(c1)
-        components.add(c2)
-    
+    '''Retornar componentes com parâmetros UNIQUAC (r e q)'''
     result = []
-    for comp in sorted(components):
+    for comp in sorted(UNIQUAC_R_Q.keys()):  # ← AGORA RETORNA TODOS COM r e q!
+        # Pular placeholders inválidos
+        if comp == 'ethanol/carbon tetrachloride':
+            continue
+        
         result.append({
             'name': COMPONENT_TRANSLATIONS.get(comp, comp.title()),
             'name_en': comp
         })
     return result
+
