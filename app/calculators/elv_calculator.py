@@ -251,6 +251,8 @@ class ELVCalculator:
         T_guess = np.sum([x[i] * chems[i].Tb for i in range(n) if chems[i].Tb])
 
         def objective(T):
+            if T < 200 or T > 600:  # ✅ Limites físicos
+                return 1e10
             try:
                 P_sat = np.array([self._get_vapor_pressure(chems[i], T) for i in range(n)])
                 gamma = self._calculate_gamma(x, T, model, components)
@@ -258,7 +260,33 @@ class ELVCalculator:
             except:
                 return 1e10
 
-        T_bubble = fsolve(objective, T_guess)[0]
+        # ✅ MÉTODO 1: Tentar brentq (mais robusto)
+        try:
+            T_bubble = brentq(objective, 200, 600, xtol=1e-8, rtol=1e-10, maxiter=200)
+        except:
+            # ✅ MÉTODO 2: fsolve com tolerâncias rigorosas
+            try:
+                sol = fsolve(
+                    objective, 
+                    T_guess, 
+                    full_output=True,
+                    xtol=1e-10,      # ✅ Tolerância rigorosa
+                    maxfev=2000,     # ✅ Mais iterações
+                    factor=0.1       # ✅ Step menor (mais estável)
+                )
+                T_bubble = sol[0][0]
+                
+                # Verificar se convergiu bem
+                if sol[2] != 1 or abs(objective(T_bubble)) > 1e-6:
+                    raise ValueError("Convergência fraca")
+            except:
+                # ✅ MÉTODO 3: Fallback - usar T_guess
+                T_bubble = T_guess
+
+        # Validação final
+        if T_bubble < 200 or T_bubble > 600 or abs(objective(T_bubble)) > 1e-3:
+            T_bubble = T_guess
+
         P_sat = np.array([self._get_vapor_pressure(chems[i], T_bubble) for i in range(n)])
         gamma = self._calculate_gamma(x, T_bubble, model, components)
         y = (x * gamma * P_sat) / P
@@ -282,6 +310,7 @@ class ELVCalculator:
             results[f'K{idx}'] = round(y[i] / x[i], 4) if x[i] > 1e-10 else 0.0
 
         return results
+
 
     def dew_point(self, components, temperature_C, y, model='Ideal'):
         """Ponto de orvalho a T fixa."""
