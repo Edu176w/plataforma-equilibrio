@@ -1357,24 +1357,23 @@ class ELLCalculator:
     def generate_binodal_curve(self, n_points: int = 50) -> Tuple[List[np.ndarray], List[np.ndarray]]:
         """
         Gera curva binodal usando método adaptativo (Convex Hull ou Setores Radiais)
-        VERSÃO 9.4 - ULTRA-OTIMIZADO PARA RENDER (512MB RAM LIMIT)
+        VERSÃO 9.5 - OTIMIZAÇÃO MODERADA PARA RENDER
         
-        Otimizações para produção:
-        - n_grid: 20 → 5 no Render (94% menos pontos)
-        - is_stable: 10 → 2 trials no Render (80% mais rápido)
-        - Setores radiais: 30 → 20 no Render
-        - Garbage collection agressivo
+        Otimizações balanceadas:
+        - n_grid: 20 → 7 no Render (88% menos pontos, mas mantém qualidade)
+        - is_stable: 10 → 4 trials no Render (60% mais rápido)
+        - Tie-lines: 5 → 3 no Render
         """
         print("\n🔬 [BINODAL] Iniciando geração da curva binodal...")
         
-        # ⚡ ULTRA-OTIMIZAÇÃO PARA RENDER (512MB RAM)
+        # ⚡ OTIMIZAÇÃO MODERADA PARA RENDER
         import os
         import gc
         
         if os.environ.get('RENDER'):
-            n_grid = 5
-            n_stability_trials = 2
-            print("   🎯 Render detectado: grid=5x5, trials=2 (ultra-otimizado)")
+            n_grid = 7
+            n_stability_trials = 4
+            print("   🎯 Render detectado: grid=7x7, trials=4 (otimizado)")
         else:
             n_grid = 20
             n_stability_trials = 10
@@ -1425,26 +1424,26 @@ class ELLCalculator:
                     except:
                         pass
             
-            # Liberar memória a cada 2 linhas do grid
-            if i % 2 == 0:
+            # Liberar memória a cada 3 linhas
+            if i % 3 == 0:
                 gc.collect()
         
         print(f"   Testados: {tested} pontos")
         print(f"   Instáveis: {unstable} pontos")
         print(f"   Pontos bifásicos: {len(all_L1_points)}")
         
-        if len(all_L1_points) < 6:
+        if len(all_L1_points) < 8:
             print("   ⚠️ Poucos pontos encontrados!")
             return [], []
         
         # ========================================================================
-        # ETAPA 2: UNIR L1 + L2 (Todos os pontos da região bifásica)
+        # ETAPA 2: UNIR L1 + L2
         # ========================================================================
         
         all_points = all_L1_points + all_L2_points
         
         # ========================================================================
-        # ETAPA 3: EXTRAIR BORDA (Convex Hull ou Setores Radiais)
+        # ETAPA 3: EXTRAIR BORDA
         # ========================================================================
         
         print("\n🔧 Extraindo pontos da borda...")
@@ -1471,7 +1470,6 @@ class ELLCalculator:
             hull_indices = hull.vertices
             print(f"   ✅ Convex Hull: {len(hull_indices)} pontos na borda")
             
-            # Teste de convexidade
             hull_area = hull.volume
             x_coords = all_points_2d[:, 0]
             y_coords = all_points_2d[:, 1]
@@ -1483,9 +1481,8 @@ class ELLCalculator:
             if area_ratio < 0.65:
                 print(f"   ⚠️ Curva côncava detectada! Usando método alternativo...")
                 
-                # Método alternativo: Setores radiais
                 centroid = np.mean(all_points_2d, axis=0)
-                n_sectors = 20 if os.environ.get('RENDER') else 30
+                n_sectors = 25 if os.environ.get('RENDER') else 30
                 angle_bins = np.linspace(-np.pi, np.pi, n_sectors + 1)
                 
                 angles = []
@@ -1520,7 +1517,6 @@ class ELLCalculator:
             print(f"   ⚠️ Usando fallback simples...")
             binodal_points_3d = all_points
         
-        # Remover duplicatas
         binodal_unique = self.remove_duplicates(binodal_points_3d, tol=0.01)
         print(f"   ✅ Após remover duplicatas: {len(binodal_unique)} pontos")
         
@@ -1530,14 +1526,13 @@ class ELLCalculator:
             return [], []
         
         # ========================================================================
-        # ETAPA 3.5: ORDENAR PONTOS (Nearest Neighbor)
+        # ETAPA 3.5: ORDENAR PONTOS
         # ========================================================================
         
         print("\n🔧 Ordenando pontos ao longo da curva...")
         
         points_2d_border = to_2d(binodal_unique)
         
-        # Nearest neighbor (TSP greedy)
         ordered_indices = [0]
         remaining = list(range(1, len(binodal_unique)))
         max_iterations = len(binodal_unique)
@@ -1566,7 +1561,7 @@ class ELLCalculator:
         print(f"   ✅ Pontos ordenados: {len(binodal_ordered)} pontos")
         
         # ========================================================================
-        # ETAPA 4: FECHAR CURVA (NÃO DIVIDIR EM L1/L2)
+        # ETAPA 4: FECHAR CURVA
         # ========================================================================
         
         print("\n🔧 [ETAPA 4: FECHAR CURVA]")
@@ -1577,14 +1572,13 @@ class ELLCalculator:
         
         if distance_to_close > 0.05:
             print(f"   ⚠️ Curva aberta (distância: {distance_to_close:.3f})")
-            print(f"   ✅ Fechando curva (adicionando primeiro ponto ao final)")
+            print(f"   ✅ Fechando curva")
             binodal_ordered.append(first_point.copy())
         else:
             print(f"   ✅ Curva já está fechada (distância: {distance_to_close:.3f})")
         
         print(f"   ✅ Curva binodal única: {len(binodal_ordered)} pontos\n")
         
-        # Liberar memória antes de retornar
         del all_L1_points, all_L2_points, all_points, all_points_2d
         gc.collect()
         
@@ -1710,23 +1704,21 @@ class ELLCalculator:
 
     
     def generate_tie_lines(self, n_lines: int = 5) -> List[Dict]:
-        """Gera tie-lines válidas com distância mínima garantida"""
+        """Gera tie-lines válidas"""
         
         import os
         import gc
         
-        # ⚡ ULTRA-OTIMIZAÇÃO PARA RENDER
         if os.environ.get('RENDER'):
-            n_lines = min(n_lines, 2)
-            n_test = 6
-            print(f"\n[DEBUG] 🎯 Render: n_lines={n_lines}, grid={n_test}x{n_test} (36 composições)")
+            n_lines = min(n_lines, 3)
+            n_test = 8
+            print(f"\n[DEBUG] 🎯 Render: n_lines={n_lines}, grid={n_test}x{n_test}")
         else:
             n_test = 15
             print(f"\n[DEBUG] Gerando {n_lines} tie-lines...")
         
         tie_lines = []
         
-        # Grade de teste
         test_compositions = []
         for x1 in np.linspace(0.10, 0.80, n_test):
             for x2 in np.linspace(0.10, 0.80, n_test):
@@ -1755,7 +1747,6 @@ class ELLCalculator:
                 if beta < 0.05 or beta > 0.95:
                     continue
                 
-                # Verificar duplicatas
                 is_duplicate = False
                 for existing in tie_lines:
                     d1 = np.linalg.norm(x_L1 - np.array(existing['x_L1']))
@@ -1786,10 +1777,8 @@ class ELLCalculator:
             print("[WARNING] Nenhuma tie-line válida!")
             return []
         
-        # Ordenar por distância DECRESCENTE
         tie_lines.sort(key=lambda t: t['distance'], reverse=True)
         
-        # Liberar memória
         gc.collect()
         
         return tie_lines[:n_lines]
