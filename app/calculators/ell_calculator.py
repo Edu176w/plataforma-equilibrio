@@ -1357,23 +1357,24 @@ class ELLCalculator:
     def generate_binodal_curve(self, n_points: int = 50) -> Tuple[List[np.ndarray], List[np.ndarray]]:
         """
         Gera curva binodal usando método adaptativo (Convex Hull ou Setores Radiais)
-        VERSÃO 9.3 - OTIMIZAÇÃO AGRESSIVA PARA RENDER (512MB RAM)
+        VERSÃO 9.4 - ULTRA-OTIMIZADO PARA RENDER (512MB RAM LIMIT)
         
         Otimizações para produção:
-        - n_grid: 20 → 8 no Render (84% menos pontos)
-        - is_stable: 10 → 3 trials no Render (70% mais rápido)
-        - Garbage collection explícito
+        - n_grid: 20 → 5 no Render (94% menos pontos)
+        - is_stable: 10 → 2 trials no Render (80% mais rápido)
+        - Setores radiais: 30 → 20 no Render
+        - Garbage collection agressivo
         """
         print("\n🔬 [BINODAL] Iniciando geração da curva binodal...")
         
-        # ⚡ OTIMIZAÇÃO AGRESSIVA PARA RENDER (512MB RAM)
+        # ⚡ ULTRA-OTIMIZAÇÃO PARA RENDER (512MB RAM)
         import os
         import gc
         
         if os.environ.get('RENDER'):
-            n_grid = 8
-            n_stability_trials = 3
-            print("   🎯 Render detectado: grid=8x8, trials=3 (modo agressivo)")
+            n_grid = 5
+            n_stability_trials = 2
+            print("   🎯 Render detectado: grid=5x5, trials=2 (ultra-otimizado)")
         else:
             n_grid = 20
             n_stability_trials = 10
@@ -1424,15 +1425,15 @@ class ELLCalculator:
                     except:
                         pass
             
-            # Liberar memória a cada 3 linhas do grid
-            if i % 3 == 0:
+            # Liberar memória a cada 2 linhas do grid
+            if i % 2 == 0:
                 gc.collect()
         
         print(f"   Testados: {tested} pontos")
         print(f"   Instáveis: {unstable} pontos")
         print(f"   Pontos bifásicos: {len(all_L1_points)}")
         
-        if len(all_L1_points) < 8:
+        if len(all_L1_points) < 6:
             print("   ⚠️ Poucos pontos encontrados!")
             return [], []
         
@@ -1484,7 +1485,7 @@ class ELLCalculator:
                 
                 # Método alternativo: Setores radiais
                 centroid = np.mean(all_points_2d, axis=0)
-                n_sectors = 25 if os.environ.get('RENDER') else 30
+                n_sectors = 20 if os.environ.get('RENDER') else 30
                 angle_bins = np.linspace(-np.pi, np.pi, n_sectors + 1)
                 
                 angles = []
@@ -1588,6 +1589,7 @@ class ELLCalculator:
         gc.collect()
         
         return binodal_ordered, []
+
 
 
 
@@ -1713,11 +1715,11 @@ class ELLCalculator:
         import os
         import gc
         
-        # ⚡ OTIMIZAÇÃO PARA RENDER
+        # ⚡ ULTRA-OTIMIZAÇÃO PARA RENDER
         if os.environ.get('RENDER'):
-            n_lines = min(n_lines, 3)
-            n_test = 10
-            print(f"\n[DEBUG] 🎯 Render: limitando a {n_lines} tie-lines, grid={n_test}x{n_test}")
+            n_lines = min(n_lines, 2)
+            n_test = 6
+            print(f"\n[DEBUG] 🎯 Render: n_lines={n_lines}, grid={n_test}x{n_test} (36 composições)")
         else:
             n_test = 15
             print(f"\n[DEBUG] Gerando {n_lines} tie-lines...")
