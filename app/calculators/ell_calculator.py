@@ -1356,19 +1356,31 @@ class ELLCalculator:
     def generate_binodal_curve(self, n_points: int = 50) -> Tuple[List[np.ndarray], List[np.ndarray]]:
         """
         Gera curva binodal usando método adaptativo (Convex Hull ou Setores Radiais)
-        VERSÃO 9.1 - OTIMIZADA + CURVA ÚNICA FECHADA
+        VERSÃO 9.2 - OTIMIZADA PARA RENDER (512MB RAM)
         
-        Otimizações seguras:
-        - n_grid: 25 → 20 (menos pontos testados)
-        - is_stable: 20 → 10 trials (TPD mais rápido)
-        - flash_ell: MANTIDO 200 maxiter (necessário para convergência)
+        Otimizações para produção:
+        - n_grid: 20 → 10 no Render (75% menos pontos)
+        - is_stable: 10 → 5 trials no Render (50% mais rápido)
+        - Garbage collection explícito
         """
         print("\n🔬 [BINODAL] Iniciando geração da curva binodal...")
+        
+        # ⚡ OTIMIZAÇÃO PARA RENDER (512MB RAM)
+        import os
+        import gc
+        
+        if os.environ.get('RENDER'):
+            n_grid = 10
+            n_stability_trials = 5
+            print("   🎯 Render detectado: grid=10x10, trials=5")
+        else:
+            n_grid = 20
+            n_stability_trials = 10
+            print("   🏠 Ambiente local: grid=20x20, trials=10")
         
         all_L1_points = []
         all_L2_points = []
         
-        n_grid = 20  # ✅ OTIMIZADO: antes 25
         tested = 0
         unstable = 0
         
@@ -1394,7 +1406,7 @@ class ELLCalculator:
                 x = np.array([x1, x2, x3])
                 tested += 1
                 
-                stable = self.is_stable(x, n_trials=10)  # ✅ OTIMIZADO: antes 20
+                stable = self.is_stable(x, n_trials=n_stability_trials)
                 
                 if not stable:
                     unstable += 1
@@ -1410,6 +1422,10 @@ class ELLCalculator:
                                 all_L2_points.append(xL2.copy())
                     except:
                         pass
+            
+            # Liberar memória a cada linha do grid
+            if i % 5 == 0:
+                gc.collect()
         
         print(f"   Testados: {tested} pontos")
         print(f"   Instáveis: {unstable} pontos")
@@ -1508,6 +1524,7 @@ class ELLCalculator:
         
         if len(binodal_unique) < 3:
             print(f"   ❌ Poucos pontos únicos!")
+            gc.collect()
             return [], []
         
         # ========================================================================
@@ -1566,9 +1583,13 @@ class ELLCalculator:
         
         print(f"   ✅ Curva binodal única: {len(binodal_ordered)} pontos\n")
         
+        # Liberar memória antes de retornar
+        del all_L1_points, all_L2_points, all_points, all_points_2d
+        gc.collect()
+        
         # RETORNAR CURVA ÚNICA (toda em L1, L2 vazio)
-        # Frontend concatena L1 + L2, então só L1 é suficiente
         return binodal_ordered, []
+
 
 
     
@@ -1760,10 +1781,6 @@ class ELLCalculator:
         
         # Selecionar as n_lines MAIORES
         return tie_lines[:n_lines]
-
-
-
-
     
     def _remove_duplicate_tielines(self, tie_lines: List[Dict], tol: float = 1e-3) -> List[Dict]:
         """
