@@ -1353,35 +1353,22 @@ class ELLCalculator:
     # DIAGRAMA TERNÁRIO (BINODAL + TIE-LINES)
     # ========================================================================
     
-    
     def generate_binodal_curve(self, n_points: int = 50) -> Tuple[List[np.ndarray], List[np.ndarray]]:
         """
         Gera curva binodal usando método adaptativo (Convex Hull ou Setores Radiais)
-        VERSÃO 9.5 - OTIMIZAÇÃO MODERADA PARA RENDER
+        VERSÃO 9.1 - OTIMIZADA + CURVA ÚNICA FECHADA
         
-        Otimizações balanceadas:
-        - n_grid: 20 → 7 no Render (88% menos pontos, mas mantém qualidade)
-        - is_stable: 10 → 4 trials no Render (60% mais rápido)
-        - Tie-lines: 5 → 3 no Render
+        Otimizações seguras:
+        - n_grid: 25 → 20 (menos pontos testados)
+        - is_stable: 20 → 10 trials (TPD mais rápido)
+        - flash_ell: MANTIDO 200 maxiter (necessário para convergência)
         """
         print("\n🔬 [BINODAL] Iniciando geração da curva binodal...")
-        
-        # ⚡ OTIMIZAÇÃO MODERADA PARA RENDER
-        import os
-        import gc
-        
-        if os.environ.get('RENDER'):
-            n_grid = 7
-            n_stability_trials = 4
-            print("   🎯 Render detectado: grid=7x7, trials=4 (otimizado)")
-        else:
-            n_grid = 20
-            n_stability_trials = 10
-            print("   🏠 Ambiente local: grid=20x20, trials=10")
         
         all_L1_points = []
         all_L2_points = []
         
+        n_grid = 20  # ✅ OTIMIZADO: antes 25
         tested = 0
         unstable = 0
         
@@ -1407,7 +1394,7 @@ class ELLCalculator:
                 x = np.array([x1, x2, x3])
                 tested += 1
                 
-                stable = self.is_stable(x, n_trials=n_stability_trials)
+                stable = self.is_stable(x, n_trials=10)  # ✅ OTIMIZADO: antes 20
                 
                 if not stable:
                     unstable += 1
@@ -1423,27 +1410,23 @@ class ELLCalculator:
                                 all_L2_points.append(xL2.copy())
                     except:
                         pass
-            
-            # Liberar memória a cada 3 linhas
-            if i % 3 == 0:
-                gc.collect()
         
         print(f"   Testados: {tested} pontos")
         print(f"   Instáveis: {unstable} pontos")
         print(f"   Pontos bifásicos: {len(all_L1_points)}")
         
-        if len(all_L1_points) < 8:
+        if len(all_L1_points) < 10:
             print("   ⚠️ Poucos pontos encontrados!")
             return [], []
         
         # ========================================================================
-        # ETAPA 2: UNIR L1 + L2
+        # ETAPA 2: UNIR L1 + L2 (Todos os pontos da região bifásica)
         # ========================================================================
         
         all_points = all_L1_points + all_L2_points
         
         # ========================================================================
-        # ETAPA 3: EXTRAIR BORDA
+        # ETAPA 3: EXTRAIR BORDA (Convex Hull ou Setores Radiais)
         # ========================================================================
         
         print("\n🔧 Extraindo pontos da borda...")
@@ -1470,6 +1453,7 @@ class ELLCalculator:
             hull_indices = hull.vertices
             print(f"   ✅ Convex Hull: {len(hull_indices)} pontos na borda")
             
+            # Teste de convexidade
             hull_area = hull.volume
             x_coords = all_points_2d[:, 0]
             y_coords = all_points_2d[:, 1]
@@ -1481,8 +1465,9 @@ class ELLCalculator:
             if area_ratio < 0.65:
                 print(f"   ⚠️ Curva côncava detectada! Usando método alternativo...")
                 
+                # Método alternativo: Setores radiais
                 centroid = np.mean(all_points_2d, axis=0)
-                n_sectors = 25 if os.environ.get('RENDER') else 30
+                n_sectors = 30
                 angle_bins = np.linspace(-np.pi, np.pi, n_sectors + 1)
                 
                 angles = []
@@ -1517,23 +1502,24 @@ class ELLCalculator:
             print(f"   ⚠️ Usando fallback simples...")
             binodal_points_3d = all_points
         
+        # Remover duplicatas
         binodal_unique = self.remove_duplicates(binodal_points_3d, tol=0.01)
         print(f"   ✅ Após remover duplicatas: {len(binodal_unique)} pontos")
         
         if len(binodal_unique) < 3:
             print(f"   ❌ Poucos pontos únicos!")
-            gc.collect()
             return [], []
         
         # ========================================================================
-        # ETAPA 3.5: ORDENAR PONTOS
+        # ETAPA 3.5: ORDENAR PONTOS (Nearest Neighbor)
         # ========================================================================
         
         print("\n🔧 Ordenando pontos ao longo da curva...")
         
         points_2d_border = to_2d(binodal_unique)
         
-        ordered_indices = [0]
+        # Nearest neighbor (TSP greedy)
+        ordered_indices = [0]  # Começar no primeiro ponto
         remaining = list(range(1, len(binodal_unique)))
         max_iterations = len(binodal_unique)
         iterations = 0
@@ -1561,30 +1547,28 @@ class ELLCalculator:
         print(f"   ✅ Pontos ordenados: {len(binodal_ordered)} pontos")
         
         # ========================================================================
-        # ETAPA 4: FECHAR CURVA
+        # ETAPA 4: FECHAR CURVA (NÃO DIVIDIR EM L1/L2)
         # ========================================================================
         
         print("\n🔧 [ETAPA 4: FECHAR CURVA]")
         
+        # Garantir que a curva está fechada
         first_point = binodal_ordered[0]
         last_point = binodal_ordered[-1]
         distance_to_close = np.linalg.norm(first_point - last_point)
         
         if distance_to_close > 0.05:
             print(f"   ⚠️ Curva aberta (distância: {distance_to_close:.3f})")
-            print(f"   ✅ Fechando curva")
+            print(f"   ✅ Fechando curva (adicionando primeiro ponto ao final)")
             binodal_ordered.append(first_point.copy())
         else:
             print(f"   ✅ Curva já está fechada (distância: {distance_to_close:.3f})")
         
         print(f"   ✅ Curva binodal única: {len(binodal_ordered)} pontos\n")
         
-        del all_L1_points, all_L2_points, all_points, all_points_2d
-        gc.collect()
-        
+        # RETORNAR CURVA ÚNICA (toda em L1, L2 vazio)
+        # Frontend concatena L1 + L2, então só L1 é suficiente
         return binodal_ordered, []
-
-
 
 
     
@@ -1704,24 +1688,15 @@ class ELLCalculator:
 
     
     def generate_tie_lines(self, n_lines: int = 5) -> List[Dict]:
-        """Gera tie-lines válidas"""
+        """Gera tie-lines válidas com distância mínima garantida"""
         
-        import os
-        import gc
-        
-        if os.environ.get('RENDER'):
-            n_lines = min(n_lines, 3)
-            n_test = 8
-            print(f"\n[DEBUG] 🎯 Render: n_lines={n_lines}, grid={n_test}x{n_test}")
-        else:
-            n_test = 15
-            print(f"\n[DEBUG] Gerando {n_lines} tie-lines...")
-        
+        print(f"\n[DEBUG] Gerando {n_lines} tie-lines...")
         tie_lines = []
         
+        # Grade mais densa
         test_compositions = []
-        for x1 in np.linspace(0.10, 0.80, n_test):
-            for x2 in np.linspace(0.10, 0.80, n_test):
+        for x1 in np.linspace(0.10, 0.80, 15):
+            for x2 in np.linspace(0.10, 0.80, 15):
                 x3 = 1 - x1 - x2
                 if 0.05 < x3 < 0.85:
                     test_compositions.append(np.array([x1, x2, x3]))
@@ -1739,14 +1714,17 @@ class ELLCalculator:
                 x_L2 = np.array(flash_result['x_L2'])
                 beta = float(flash_result['beta'])
                 
+                # ⚠️ CORREÇÃO CRÍTICA: Distância mínima AUMENTADA
                 phase_distance = np.linalg.norm(x_L1 - x_L2)
                 
-                if phase_distance < 0.30:
+                if phase_distance < 0.30:  # ← MUDADO de 0.05 para 0.30
                     continue
                 
+                # Beta razoável
                 if beta < 0.05 or beta > 0.95:
                     continue
                 
+                # Verificar duplicatas
                 is_duplicate = False
                 for existing in tie_lines:
                     d1 = np.linalg.norm(x_L1 - np.array(existing['x_L1']))
@@ -1777,15 +1755,23 @@ class ELLCalculator:
             print("[WARNING] Nenhuma tie-line válida!")
             return []
         
+        # Ordenar por distância DECRESCENTE (maiores primeiro)
         tie_lines.sort(key=lambda t: t['distance'], reverse=True)
         
-        gc.collect()
-        
+        # Selecionar as n_lines MAIORES
         return tie_lines[:n_lines]
-
-
+    
     def _remove_duplicate_tielines(self, tie_lines: List[Dict], tol: float = 1e-3) -> List[Dict]:
-        """Remove tie-lines duplicadas"""
+        """
+        Remove tie-lines duplicadas
+        
+        Args:
+            tie_lines: Lista de dicts com x_L1, x_L2
+            tol: Tolerância
+        
+        Returns:
+            Lista sem duplicatas
+        """
         if len(tie_lines) == 0:
             return []
         
@@ -1795,8 +1781,8 @@ class ELLCalculator:
             is_duplicate = False
             
             for u in unique:
-                dist_L1 = np.linalg.norm(np.array(t['x_L1']) - np.array(u['x_L1']))
-                dist_L2 = np.linalg.norm(np.array(t['x_L2']) - np.array(u['x_L2']))
+                dist_L1 = np.linalg.norm(t['x_L1'] - u['x_L1'])
+                dist_L2 = np.linalg.norm(t['x_L2'] - u['x_L2'])
                 
                 if dist_L1 < tol and dist_L2 < tol:
                     is_duplicate = True
