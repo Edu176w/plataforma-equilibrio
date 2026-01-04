@@ -46,19 +46,17 @@ from flask import Blueprint, render_template, request, jsonify, send_file
 from flask_login import current_user, login_required
 import io
 import csv
+from pathlib import Path
 
 # Importar funções de interface do novo calculator
-# ADICIONAR ESSAS LINHAS após: from app.calculators.ell_calculator import ...
 from app.calculators.ell_calculator import (
     calculate_ell_flash,
     generate_ternary_diagram_ell,
     ELLCalculator,
-    # ⭐ ADICIONAR ESTAS 3 NOVAS FUNÇÕES:
     get_available_components_for_ell,
     get_available_models_for_components,
     check_ell_parameters_available
 )
-
 
 # Importar funções de dados
 from app.data.ell_nrtl_params import (
@@ -78,6 +76,76 @@ from app.utils.ai_ell import (
 HAS_AI = True
 
 ell_bp = Blueprint('ell', __name__, url_prefix='/ell')
+
+
+# ============================================================================
+# SISTEMA DE CACHE PARA DIAGRAMAS TERNÁRIOS
+# ============================================================================
+
+# Cache em memória (runtime - super rápido) + disco (pré-calculado - rápido)
+CACHE_DIR = Path("static/cache/diagrams")
+MEMORY_CACHE = {}
+
+def get_cache_key(components, temperature, model):
+    """
+    Gera chave de cache única para diagrama ternário
+    
+    Args:
+        components: Lista com 3 nomes de componentes
+        temperature: Temperatura em °C
+        model: Modelo termodinâmico (NRTL, UNIQUAC, UNIFAC)
+    
+    Returns:
+        String no formato: "Component1-Component2-Component3_25.0_NRTL"
+    
+    Exemplo:
+        >>> get_cache_key(['Water', 'Acetone', 'TCE'], 25.0, 'NRTL')
+        'Acetone-TCE-Water_25.0_NRTL'
+    """
+    comp_sorted = sorted(components)
+    comp_str = "-".join(comp_sorted)
+    return f"{comp_str}_{temperature:.1f}_{model}"
+
+
+def load_from_disk_cache(cache_key):
+    """
+    Carrega diagrama ternário pré-calculado do disco
+    
+    Args:
+        cache_key: Chave gerada por get_cache_key()
+    
+    Returns:
+        dict com resultado completo ou None se não encontrado
+    
+    Performance:
+        - Disco (SSD): ~10-50ms
+        - Memória (após promover): <1ms
+    """
+    filename = CACHE_DIR / f"{cache_key}.json"
+    
+    if not filename.exists():
+        return None
+    
+    try:
+        with open(filename, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        print(f"[CACHE DISK HIT ✓] {cache_key[:50]}...")
+        
+        # Validar estrutura mínima
+        if not data.get('success') or not data.get('results'):
+            print(f"[CACHE DISK ERROR] Estrutura inválida em {filename.name}")
+            return None
+        
+        return data
+    
+    except json.JSONDecodeError as e:
+        print(f"[CACHE DISK ERROR] JSON inválido em {filename.name}: {e}")
+        return None
+    except Exception as e:
+        print(f"[CACHE DISK ERROR] Erro ao ler {filename.name}: {e}")
+        return None
+
 
 # ============================================================================
 # FUNÇÕES AUXILIARES PARA CONVERSÃO DE TIPOS
@@ -108,6 +176,7 @@ def convert_to_python_native(obj):
     else:
         return obj
 
+
 def safe_float(value, default=0.0):
     """Conversão segura para float nativo Python"""
     try:
@@ -117,6 +186,7 @@ def safe_float(value, default=0.0):
     except (ValueError, TypeError):
         return default
 
+
 def safe_bool(value, default=False):
     """Conversão segura para bool nativo Python"""
     try:
@@ -125,6 +195,7 @@ def safe_bool(value, default=False):
         return bool(value)
     except (ValueError, TypeError):
         return default
+
 
 def safe_array_to_list(arr):
     """Converte array NumPy para lista Python nativa"""
@@ -789,13 +860,19 @@ def calculate_extraction_fixed_stages():
         }), 500
 
 # ============================================================================
-# DIAGRAMA: TERNÁRIO COMPLETO (BINODAL + TIE-LINES)
+# DIAGRAMA: TERNÁRIO COMPLETO (BINODAL + TIE-LINES) - COM CACHE
 # ============================================================================
+
 
 @ell_bp.route('/diagram/ternary', methods=['POST'])
 def generate_ternary_diagram():
     """
     Gera diagrama ternário completo com binodal e tie-lines
+    
+    🚀 SISTEMA DE CACHE (3 NÍVEIS):
+        1. Memória RAM: <1ms (cache hit subsequente)
+        2. Disco (pré-calculado): ~10-50ms (primeira vez)
+        3. Cálculo on-demand: 2-10min (timeout 30s no Render)
     
     Request JSON:
         {
@@ -809,6 +886,7 @@ def generate_ternary_diagram():
     Response JSON:
         {
             "success": true,
+            "from_cache": true,  # Indica se veio do cache
             "results": {
                 "T_C": 25.0,
                 "T_K": 298.15,
@@ -819,6 +897,12 @@ def generate_ternary_diagram():
                 "tie_lines": [{"x_L1": [...], "x_L2": [...], "beta": 0.5}, ...],
                 "n_binodal_points": 16,
                 "n_tie_lines": 5
+            },
+            "metadata": {  # Apenas se from_cache=true
+                "generated_at": "2026-01-04T12:00:00",
+                "cache_key": "...",
+                "system_name": "Water + TCE + Acetone (25°C)",
+                "reference": "Prausnitz Table E-5"
             }
         }
     """
@@ -847,14 +931,40 @@ def generate_ternary_diagram():
             }), 400
         
         print(f"\n{'='*70}")
-        print(f"[ELL DIAGRAMA] Gerando diagrama ternário")
-        print(f"  Componentes: {components}")
-        print(f"  Temperatura: {temperature}°C")
-        print(f"  Modelo: {model}")
-        print(f"  n_tie_lines: {n_tie_lines}")
+        print(f"[ELL DIAGRAMA] {components}, {temperature}°C, {model}")
+        
+        # ============================================================
+        # 🚀 SISTEMA DE CACHE HIERÁRQUICO (3 NÍVEIS)
+        # ============================================================
+        
+        cache_key = get_cache_key(components, temperature, model)
+        
+        # 1️⃣ CACHE NÍVEL 1: MEMÓRIA RAM (sub-millisecond)
+        if cache_key in MEMORY_CACHE:
+            elapsed = time.time() - start_time
+            print(f"[CACHE MEMORY HIT ✓] {cache_key[:50]}...")
+            print(f"[ELL DIAGRAMA] ⚡ Servido da MEMÓRIA em {elapsed*1000:.1f}ms")
+            print(f"{'='*70}\n")
+            return jsonify(MEMORY_CACHE[cache_key])
+        
+        # 2️⃣ CACHE NÍVEL 2: DISCO (pré-calculado, ~10-50ms)
+        disk_data = load_from_disk_cache(cache_key)
+        if disk_data:
+            # Promover para cache de memória para próximas requisições
+            MEMORY_CACHE[cache_key] = disk_data
+            
+            elapsed = time.time() - start_time
+            print(f"[ELL DIAGRAMA] 💾 Servido do DISCO em {elapsed*1000:.1f}ms")
+            print(f"{'='*70}\n")
+            
+            return jsonify(disk_data)
+        
+        # 3️⃣ CACHE NÍVEL 3: CÁLCULO ON-DEMAND (2-10min, timeout 30s no Render)
+        print(f"[CACHE MISS ✗] {cache_key[:50]}...")
+        print(f"[ELL DIAGRAMA] ⚠️  Calculando do zero (pode demorar 2-10 minutos)")
         print(f"{'='*70}\n")
         
-        # Executar cálculo usando NOVA função de interface
+        # Executar cálculo usando função de interface
         result = generate_ternary_diagram_ell(
             components=components,
             temperature_C=temperature,
@@ -894,16 +1004,21 @@ def generate_ternary_diagram():
         res = result['results']
         print(f"\n{'='*70}")
         print(f"[ELL DIAGRAMA] ✅ DIAGRAMA GERADO")
-        print(f"  Binodal: {res['n_binodal_points']} pontos")
-        print(f"  Tie-lines: {res['n_tie_lines']} linhas")
+        print(f"  Binodal: {res.get('n_binodal_points', 0)} pontos")
+        print(f"  Tie-lines: {res.get('n_tie_lines', 0)} linhas")
         print(f"{'='*70}\n")
         
         # Converter para tipos Python nativos
         response_data = {
             'success': True,
+            'from_cache': False,  # Não veio do cache
             'results': convert_to_python_native(res),
             'ai_suggestion': convert_to_python_native(result.get('ai_suggestion'))
         }
+        
+        # 💾 SALVAR EM CACHE DE MEMÓRIA para próximas requisições
+        MEMORY_CACHE[cache_key] = response_data
+        print(f"[CACHE] ✅ Salvo em memória: {cache_key[:50]}...")
         
         # ✅ LOG DA SIMULAÇÃO NO BANCO DE DADOS
         if HAS_AI:
@@ -921,8 +1036,8 @@ def generate_ternary_diagram():
                     components=components,
                     conditions=conditions_log,
                     results={
-                        'n_binodal_points': res['n_binodal_points'],
-                        'n_tie_lines': res['n_tie_lines'],
+                        'n_binodal_points': res.get('n_binodal_points', 0),
+                        'n_tie_lines': res.get('n_tie_lines', 0),
                         'binodal_L1': res.get('binodal_L1', []),
                         'binodal_L2': res.get('binodal_L2', []),
                         'tie_lines': res.get('tie_lines', [])
@@ -934,7 +1049,8 @@ def generate_ternary_diagram():
             except Exception as log_err:
                 print(f"[ELL DIAGRAMA] ⚠️ Erro ao fazer log: {log_err}")
         
-        print(f"[ELL DIAGRAMA] ✅ Diagrama gerado em {time.time() - start_time:.2f}s")
+        elapsed = time.time() - start_time
+        print(f"[ELL DIAGRAMA] ✅ Calculado em {elapsed:.2f}s")
         return jsonify(response_data)
         
     except ValueError as e:
@@ -963,6 +1079,7 @@ def generate_ternary_diagram():
             'success': False,
             'error': f'Erro nos dados de entrada: {str(e)}'
         }), 400
+        
     except Exception as e:
         print(f"[ELL DIAGRAMA] ❌ Erro inesperado: {str(e)}")
         import traceback
@@ -991,6 +1108,7 @@ def generate_ternary_diagram():
             'success': False,
             'error': f'Erro ao gerar diagrama: {str(e)}'
         }), 500
+
 
 # ============================================================================
 # COMPARAÇÃO DE MODELOS
