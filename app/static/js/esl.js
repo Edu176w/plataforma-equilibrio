@@ -1140,8 +1140,7 @@ function renderChart(results, type) {
   }
 }
 
-//Gráfico TXY
-
+// Grfico TXY
 function renderTxDiagram(results, container) {
     console.log('[ESL DEBUG] results completo:', JSON.stringify(results, null, 2));
     
@@ -1169,7 +1168,9 @@ function renderTxDiagram(results, container) {
     const Tm1 = (results.Tm1_C !== null && results.Tm1_C !== undefined) ? results.Tm1_C : null;
     const Tm2 = (results.Tm2_C !== null && results.Tm2_C !== undefined) ? results.Tm2_C : null;
     
-    const isVshape = (xeut !== null && xeut >= 0.4 && xeut <= 0.7);
+    // ✅ FORÇAR SEMPRE DUAS LINHAS SEPARADAS (mais correto para ESL)
+    const isVshape = false;
+
     
     console.log(`[ESL] Renderizando: ${comp1} / ${comp2}`);
     console.log(`[ESL] xeut = ${xeut !== null ? xeut.toFixed(3) : 'NULL'}, Tipo: ${isVshape ? 'V-SHAPE' : 'CROSSED-LINES'}`);
@@ -1247,12 +1248,23 @@ function renderTxDiagram(results, container) {
         } else {
             console.log('[ESL] Duas linhas separadas (crossed-lines)');
             
-            // ✅ Dataset AZUL à ESQUERDA - x1_right (comp1 cristalizando)
-            if (x1right.length > 0) {
+            // ✅ CORREÇÃO CRÍTICA: INVERTER x1left ↔ x1right
+            // Backend manda:
+            //   x1_left = Benzeno (valores altos: 0.672 → 0.995)
+            //   x1_right = Fenol (valores baixos: 0.005 → 0.651)
+            // Mas fisicamente:
+            //   Fenol está à ESQUERDA (x < eutético)
+            //   Benzeno está à DIREITA (x > eutético)
+            // Então desenhar: x1right (Fenol) com label comp2 à esquerda
+            //                 x1left (Benzeno) com label comp1 à direita
+            
+            // Dataset LARANJA DIREITA - x1right (Benzeno, 17 pontos curtos)
+            // Dataset AZUL ESQUERDA - x1left com Tleft
+            if (x1left.length > 0 && Tleft.length > 0) {
                 datasets.push({
-                    label: `Liquidus (${comp1} cristalizando)`,
-                    data: x1right.map((x, i) => ({ x: x, y: Tright[i] })),
-                    borderColor: '#38bdf8',  // ✅ AZUL
+                    label: `Liquidus (${comp2} cristalizando)`,  // Fenol
+                    data: x1left.map((x, i) => ({ x: x, y: Tleft[i] })), // ✅ NORMAL
+                    borderColor: '#38bdf8', // AZUL
                     backgroundColor: 'rgba(56,189,248,0.2)',
                     tension: 0,
                     pointRadius: 0,
@@ -1262,13 +1274,13 @@ function renderTxDiagram(results, container) {
                     spanGaps: false
                 });
             }
-            
-            // ✅ Dataset LARANJA à DIREITA - x1_left (comp2 cristalizando)
-            if (x1left.length > 0) {
+
+            // Dataset LARANJA DIREITA - x1right com Tright
+            if (x1right.length > 0 && Tright.length > 0) {
                 datasets.push({
-                    label: `Liquidus (${comp2} cristalizando)`,
-                    data: x1left.map((x, i) => ({ x: x, y: Tleft[i] })),
-                    borderColor: '#fb923c',  // ✅ LARANJA
+                    label: `Liquidus (${comp1} cristalizando)`,  // Benzeno
+                    data: x1right.map((x, i) => ({ x: x, y: Tright[i] })), // ✅ NORMAL
+                    borderColor: '#fb923c', // LARANJA
                     backgroundColor: 'rgba(251,146,60,0.2)',
                     tension: 0,
                     pointRadius: 0,
@@ -1278,9 +1290,10 @@ function renderTxDiagram(results, container) {
                     spanGaps: false
                 });
             }
+
         }
         
-        // Região instável
+        // Região instável (Gap L₁+L₂)
         if (hasGap && unstableRegion.length > 0) {
             console.log(`[ESL] Adicionando ${unstableRegion.length} pontos instáveis (gap L₁+L₂)`);
             
@@ -1311,11 +1324,11 @@ function renderTxDiagram(results, container) {
             });
         }
         
-        // ✅ Tm1 (comp1) à ESQUERDA (x1 = 0)
+        // ✅ Tm1 (comp1 = Benzeno) à ESQUERDA (x=0 após inversão do backend)
         if (Tm1 !== null) {
             datasets.push({
                 label: `Tm (${comp1}) = ${Tm1.toFixed(1)} °C`,
-                data: [{ x: 0.0, y: Tm1 }],
+                data: [{ x: 0.0, y: Tm1 }],  // ✅ x=0 (esquerda)
                 borderColor: '#8b5cf6',
                 backgroundColor: '#8b5cf6',
                 pointRadius: 7,
@@ -1323,12 +1336,12 @@ function renderTxDiagram(results, container) {
                 showLine: false
             });
         }
-        
-        // ✅ Tm2 (comp2) à DIREITA (x1 = 1)
+
+        // ✅ Tm2 (comp2 = Fenol) à DIREITA (x=1 após inversão do backend)
         if (Tm2 !== null) {
             datasets.push({
                 label: `Tm (${comp2}) = ${Tm2.toFixed(1)} °C`,
-                data: [{ x: 1.0, y: Tm2 }],
+                data: [{ x: 1.0, y: Tm2 }],  // ✅ x=1 (direita)
                 borderColor: '#eab308',
                 backgroundColor: '#eab308',
                 pointRadius: 7,
@@ -1336,6 +1349,7 @@ function renderTxDiagram(results, container) {
                 showLine: false
             });
         }
+
         
         console.log(`[ESL] Total de datasets: ${datasets.length}`);
         
@@ -1421,6 +1435,7 @@ function renderTxDiagram(results, container) {
         }
     }, 50);
 }
+
 
 
 

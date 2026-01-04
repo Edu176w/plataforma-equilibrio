@@ -1260,23 +1260,32 @@ class ESLCalculator:
         # ========================================================================
         # PASSO 6: EXTRAIR ARRAYS FINAIS
         # ========================================================================
-        # ✅ CORRIGIDO: Nomenclatura alinhada com frontend
-        # x1_left → curva ESQUERDA (água cristalizando, x <= eutético)
-        # x1_right → curva DIREITA (fenol cristalizando, x > eutético)
-
-        x1_comp2_cryst = [p['x1'] for p in left_points]    # ✅ Água (esquerda)
+        x1_comp2_cryst = [p['x1'] for p in left_points]    # Fenol - esquerda física (x baixo)
         T_comp2_cryst = [p['T_C'] for p in left_points]
 
-        x1_comp1_cryst = [p['x1'] for p in right_points]   # ✅ Fenol (direita)
+        x1_comp1_cryst = [p['x1'] for p in right_points]   # Benzeno - direita física (x alto)
         T_comp1_cryst = [p['T_C'] for p in right_points]
 
+        # ✅ INVERSÃO CRÍTICA: Usuário quer x=0 começar com Benzeno (5.5°C) e x=1 com Fenol (40.9°C)
+        # Mas x1 original = fração de Benzeno, então x1=0 é Fenol e x1=1 é Benzeno (OPOSTO!)
+        # SOLUÇÃO: Inverter TODOS os x → x_plot = 1 - x1
+
+        x1_comp2_cryst_inv = [1.0 - x for x in x1_comp2_cryst]  # Fenol invertido
+        x1_comp1_cryst_inv = [1.0 - x for x in x1_comp1_cryst]  # Benzeno invertido
+        x1_eutectic_inv = 1.0 - x1_eutectic  # Eutético invertido
+
+        print(f"[ESL DEBUG] INVERSÃO APLICADA:")
+        print(f"  x_eut: {x1_eutectic:.4f} → {x1_eutectic_inv:.4f}")
+        print(f"  Benzeno: x1_comp1[0]={x1_comp1_cryst[0]:.3f} → inv={x1_comp1_cryst_inv[0]:.3f}")
+        print(f"  Fenol: x1_comp2[0]={x1_comp2_cryst[0]:.3f} → inv={x1_comp2_cryst_inv[0]:.3f}")
+
         # ========================================================================
-        # PASSO 7: PREPARAR PONTOS INSTÁVEIS
+        # PASSO 7: PREPARAR PONTOS INSTÁVEIS (com inversão também)
         # ========================================================================
         unstable_output = []
         for p in unstable_points:
             unstable_output.append({
-                'x1': float(p['x1']),
+                'x1': float(1.0 - p['x1']),  # ✅ INVERTER TAMBÉM!
                 'T_C': float(p['T_C']),
                 'd2G_dx2': float(p['d2G_dx2']),
                 'warning': "⚠️ Região de imiscibilidade líquida detectada (gap L₁+L₂)"
@@ -1295,44 +1304,37 @@ class ESLCalculator:
                 f"x₁ = {gap_x_min:.3f} e {gap_x_max:.3f}. "
                 f"Diagrama ESL pode não ser completamente aplicável nesta região."
             )
-            
-        # ✅ DEBUG: Verificar arrays antes de retornar
-        print(f"[ESL DEBUG] left_points: {len(left_points)} pontos")
-        print(f"[ESL DEBUG] right_points: {len(right_points)} pontos")
-        print(f"[ESL DEBUG] x1_comp1_cryst[0:3]: {x1_comp1_cryst[:3]}")
-        print(f"[ESL DEBUG] x1_comp2_cryst[0:3]: {x1_comp2_cryst[:3]}")    
 
         # ========================================================================
-        # RETORNO (✅ CORRIGIDO)
+        # RETORNO FINAL (✅ COM INVERSÃO E LEFT↔RIGHT TROCADOS!)
         # ========================================================================
-        # ✅ CORRETO
         return {
-            'component1': components[0],
-            'component2': components[1],
+            'component1': components[0],  # Benzeno
+            'component2': components[1],  # Fenol
             'model': model,
             'equation': 'complete (Eq. 11-13)' if use_complete_equation else 'simplified (Eq. 11-15)',
             
-            # ✅ INVERTIDO!
-            'x1_left': x1_comp2_cryst,      # ✅ Água (esquerda)
-            'T_left_C': T_comp2_cryst,
-            'x1_right': x1_comp1_cryst,     # ✅ Fenol (direita)
-            'T_right_C': T_comp1_cryst,
-
+            # ✅ APÓS INVERSÃO:
+            # x=0 → Benzeno (5.5°C, curva curta, ESQUERDA visual)
+            # x=1 → Fenol (40.9°C, curva longa, DIREITA visual)
             
-            # EUTÉTICO
+            'x1_left': x1_comp1_cryst_inv,      # ✅ Benzeno invertido (esquerda visual)
+            'T_left_C': T_comp1_cryst,          # Temperaturas Benzeno (baixas)
+            'x1_right': x1_comp2_cryst_inv,     # ✅ Fenol invertido (direita visual)
+            'T_right_C': T_comp2_cryst,         # Temperaturas Fenol (altas)
+            
             'T_eutectic_C': round(T_eutectic_C, 2),
-            'x1_eutectic': round(x1_eutectic, 4),
+            'x1_eutectic': round(x1_eutectic_inv, 4),  # ✅ Eutético invertido
             
-            # TEMPERATURAS DE FUSÃO
-            'Tm1_C': round(Tm1 - 273.15, 2),
-            'Tm2_C': round(Tm2 - 273.15, 2),
+            'Tm1_C': round(Tm1 - 273.15, 2),  # Benzeno (agora em x=0)
+            'Tm2_C': round(Tm2 - 273.15, 2),  # Fenol (agora em x=1)
             
-            # GAP L₁+L₂
             'unstable_region': unstable_output,
             'has_liquid_liquid_gap': len(unstable_output) > 0,
-            
             'warnings': warnings_updated
         }
+
+
 
 
     def generate_ternary_diagram(self, components, temperature_C, model='Ideal',
