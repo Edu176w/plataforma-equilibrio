@@ -776,7 +776,68 @@ ESL_DATA = {
         'uncertainty': {'Tm': 1.0, 'Hfus': 500.0},
         'applications': 'Sal de cozinha, solubilidade em água, cristalização',
         'notes': '⚠️ Eletrólito - modelos de γ não são adequados. Use modelo de van\'t Hoff ou Pitzer.'
-    }
+    },
+    
+    'fluorene': {
+        'name': 'Fluoreno',
+        'name_en': 'Fluorene',
+        'formula': 'C₁₃H₁₀',
+        'CAS': '86-73-7',
+        'MW': 166.219,
+        'Tm': 387.90,  # 114.75°C
+        'Tm_C': 114.75,
+        'Tt': 387.9,
+        'Hfus': 19200.0,  # J/mol (Tabela I - Domanska1993)
+        'Hfus_kJ_mol': 19.2,
+        'Sfus': 49.5,  # ΔHfus/Tm
+        'delta_Cp': 1.98,  # J/(mol·K) da Tabela I
+        'Hvap': 55000.0,  # Estimado
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88-94 (Tabela I)',
+        'uncertainty': {'Tm': 0.5, 'Hfus': 400.0},
+        'applications': 'PAH tricíclico, sistema ternário com benzeno e dibenzofuran',
+        'notes': 'Forma solução sólida contínua com dibenzofuran. Sistemas ternários documentados.'
+    },
+
+    'dibenzofuran': {
+        'name': 'Dibenzofurano',
+        'name_en': 'Dibenzofuran',
+        'formula': 'C₁₂H₈O',
+        'CAS': '132-64-9',
+        'MW': 168.193,
+        'Tm': 355.30,  # 82.15°C
+        'Tm_C': 82.15,
+        'Tt': 355.3,
+        'Hfus': 18000.0,  # J/mol (Tabela I - Domanska1993)
+        'Hfus_kJ_mol': 18.0,
+        'Sfus': 50.7,  # ΔHfus/Tm
+        'delta_Cp': 9.66,  # J/(mol·K) da Tabela I
+        'Hvap': 52000.0,  # Estimado
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88-94 (Tabela I)',
+        'uncertainty': {'Tm': 0.5, 'Hfus': 400.0},
+        'applications': 'Aromático heterocíclico com oxigênio, sistema ternário com benzeno',
+        'notes': 'Forma solução sólida com fluoreno. Gap de imiscibilidade com dibenzothiophene.'
+    },
+
+    'dibenzothiophene': {
+        'name': 'Dibenzotiofeno',
+        'name_en': 'Dibenzothiophene',
+        'formula': 'C₁₂H₈S',
+        'CAS': '132-65-0',
+        'MW': 184.259,
+        'Tm': 372.95,  # 98.80°C
+        'Tm_C': 98.80,
+        'Tt': 372.95,
+        'Hfus': 21000.0,  # J/mol (Tabela I - Domanska1993)
+        'Hfus_kJ_mol': 21.0,
+        'Sfus': 56.3,  # ΔHfus/Tm
+        'delta_Cp': 31.40,  # J/(mol·K) da Tabela I
+        'Hvap': 56000.0,  # Estimado
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88-94 (Tabela I)',
+        'uncertainty': {'Tm': 0.5, 'Hfus': 500.0},
+        'applications': 'Aromático heterocíclico com enxofre, sistema ternário com benzeno',
+        'notes': 'Transição de fase α/β. Gap de imiscibilidade no estado sólido com fluoreno e dibenzofuran.'
+    },
+    
 }
 
 # =============================================================================
@@ -973,6 +1034,43 @@ NRTL_PARAMETERS = {
         'source': 'Estimado de sistemas PAH-fenol (Prausnitz Fig. 11-17)',
         'notes': 'PAH aromático + grupo -OH, ligações H moderadas'
     },
+    
+    # Fluoreno + Benzeno (Domanska1993 - Tabela VI)
+    ('Fluoreno', 'Benzeno'): {
+        'tau12': 0.0,  # Calcular: b12/T
+        'tau21': 0.0,
+        'alpha': 0.3,  # Valor típico para aromáticos
+        'a12': -1264.27,  # δλ12 (J/mol) - Wilson parameter
+        'a21': 1462.73,   # δλ21 (J/mol)
+        'b12': 0.0,
+        'b21': 0.0,
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88 (Tabela VI)',
+        'notes': 'Sistema eutético em x1=0.063, T=2.1°C. σT=0.32°C (Wilson)'
+    },
+
+    ('Dibenzofurano', 'Benzeno'): {
+        'tau12': 0.0,
+        'tau21': 0.0,
+        'alpha': 0.3,
+        'a12': -1373.34,
+        'a21': 1640.56,
+        'b12': 0.0,
+        'b21': 0.0,
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88 (Tabela VI)',
+        'notes': 'Sistema eutético em x1=0.112, T=-0.8°C. σT=0.40°C (Wilson)'
+    },
+
+    ('Dibenzotiofeno', 'Benzeno'): {
+        'tau12': 0.0,
+        'tau21': 0.0,
+        'alpha': 0.3,
+        'a12': -1175.65,
+        'a21': 1918.68,
+        'b12': 0.0,
+        'b21': 0.0,
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88 (Tabela VI)',
+        'notes': 'Sistema eutético em x1=0.060, T=2.8°C. σT=1.67°C (Wilson)'
+    },
 
 
 }
@@ -1021,6 +1119,51 @@ UNIQUAC_PARAMETERS = {
         'source': 'Estimado de sistemas aromáticos com -OH',
         'notes': 'Interação aromático-hidroxila'
     },
+    
+    # Sistemas com Benzeno (Tabela VI - liquidus curves)
+    ('Fluoreno', 'Benzeno'): {
+        'u12': 2210.32,  # ΔU12 (J/mol)
+        'u21': -738.38,  # ΔU21 (J/mol)
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88 (Tabela VI)',
+        'notes': 'Binary eutectic system, σT=0.37°C'
+    },
+
+    ('Dibenzofurano', 'Benzeno'): {
+        'u12': 2354.80,
+        'u21': -852.64,
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88 (Tabela VI)',
+        'notes': 'Binary eutectic system, σT=0.41°C'
+    },
+
+    ('Dibenzotiofeno', 'Benzeno'): {
+        'u12': 2828.56,
+        'u21': -830.52,
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88 (Tabela VI)',
+        'notes': 'Binary eutectic system, σT=1.78°C'
+    },
+
+    # Sistemas Sólido-Sólido (Tabela VIII - liquidus curves)
+    ('Fluoreno', 'Dibenzofurano'): {
+        'u12': 3420.17,
+        'u21': 153.70,
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 89 (Tabela VIII)',
+        'notes': 'Solid solution system with continuous miscibility, σT=2.2°C'
+    },
+
+    ('Fluoreno', 'Dibenzotiofeno'): {
+        'u12': 4381.22,
+        'u21': 1796.20,
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 89 (Tabela VIII)',
+        'notes': 'Solid-phase immiscibility gap, σT=3.0°C'
+    },
+
+    ('Dibenzotiofeno', 'Dibenzofurano'): {
+        'u12': 2453.41,
+        'u21': 1827.92,
+        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 89 (Tabela VIII)',
+        'notes': 'Solid-phase immiscibility gap, σT=0.4°C'
+    },
+
 
 }
 
@@ -1068,6 +1211,18 @@ UNIQUAC_PURE_PROPERTIES = {
     # ============================================================================
 
     'β-Naftol': {'r': 5.2089, 'q': 3.904},
+    'Fluoreno': {
+        'r': 6.0872,  # Estimado por contribuição de grupos
+        'q': 4.652
+    },
+    'Dibenzofurano': {
+        'r': 5.4821,  # C12H8O - aromático heterocíclico
+        'q': 4.152
+    },
+    'Dibenzotiofeno': {
+        'r': 5.7193,  # C12H8S - aromático com S (maior que O)
+        'q': 4.280
+    },
 
 
 }
@@ -1187,6 +1342,22 @@ UNIFAC_GROUPS = {
         'CH': 7,
         'C': 4,  # Carbonos quaternários
         'OH': 1
+    },
+    
+    'Fluoreno': {
+        'ACH': 8,   # 8 CH aromáticos
+        'AC': 3,    # 3 C aromáticos
+        'CH2': 1    # 1 ponte metilênica
+    },
+    'Dibenzofurano': {
+        'ACH': 8,   # 8 CH aromáticos
+        'AC': 2,    # 2 C aromáticos
+        'O': 1      # 1 oxigênio heterocíclico
+    },
+    'Dibenzotiofeno': {
+        'ACH': 8,
+        'AC': 2,
+        'S': 1      # 1 enxofre heterocíclico
     },
 
 }
@@ -1408,7 +1579,35 @@ def get_eutectic_systems():
             'T_eutectic': 273.15,
             'source': 'Literatura clássica',
             'notes': 'Sistema aquoso, imiscibilidade parcial'
-        }
+        },
+        
+        {
+            'system': 'Fluoreno + Benzeno',
+            'components': ['Fluoreno', 'Benzeno'],
+            'x_eutectic': 0.063,
+            'T_eutectic_C': 2.1,
+            'T_eutectic': 275.25,
+            'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88',
+            'notes': 'Sistema aromático PAH-solvente, quase ideal'
+        },
+        {
+            'system': 'Dibenzofurano + Benzeno',
+            'components': ['Dibenzofurano', 'Benzeno'],
+            'x_eutectic': 0.112,
+            'T_eutectic_C': -0.8,
+            'T_eutectic': 272.35,
+            'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88',
+            'notes': 'Sistema aromático heterocíclico com O'
+        },
+        {
+            'system': 'Dibenzotiofeno + Benzeno',
+            'components': ['Dibenzotiofeno', 'Benzeno'],
+            'x_eutectic': 0.060,
+            'T_eutectic_C': 2.8,
+            'T_eutectic': 275.95,
+            'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 88',
+            'notes': 'Sistema aromático heterocíclico com S, transição α/β'
+        },
     ]
     
     return eutectic_systems
