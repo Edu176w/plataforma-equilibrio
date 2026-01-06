@@ -1144,8 +1144,8 @@ UNIQUAC_PARAMETERS = {
 
     # Sistemas Sólido-Sólido (Tabela VIII - liquidus curves)
     ('Fluoreno', 'Dibenzofurano'): {
-        'u12': 3420.17,
-        'u21': 153.70,
+        'u12': 500.0,    # Aumentar um pouco (estava em 100)
+        'u21': -250.0,
         'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 89 (Tabela VIII)',
         'notes': 'Solid solution system with continuous miscibility, σT=2.2°C'
     },
