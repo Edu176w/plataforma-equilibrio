@@ -165,18 +165,37 @@ class ESLCalculator:
         """
         Cache de objetos Chemical para otimização de performance.
         
-        Parameters:
-            name (str): Nome do componente
-            
-        Returns:
-            Chemical: Objeto thermo.Chemical
+        ✅ CORRIGIDO: Traduz nome PT → EN antes de chamar Chemical()
         """
-        if name not in self.cache:
+        # Usar nome original como chave do cache
+        cache_key = name
+        
+        if cache_key not in self.cache:
             try:
-                self.cache[name] = Chemical(name)
+                # ✅ Buscar dados do componente
+                data = get_component_data(name)
+                
+                if data and 'name_en' in data:
+                    # Usar nome em INGLÊS para a biblioteca thermo
+                    name_en = data['name_en']  # ← CORRETO: 'name_en' com underscore
+                    print(f"[ESL] Traduzindo: '{name}' → '{name_en}'")
+                else:
+                    # Fallback: tentar usar o nome original
+                    name_en = name
+                    print(f"[ESL] Componente '{name}' não encontrado em esl_data, tentando nome original")
+                
+                # Criar objeto Chemical com nome em inglês
+                self.cache[cache_key] = Chemical(name_en)
+                
             except Exception as e:
-                raise ValueError(f"Componente '{name}' não encontrado na biblioteca thermo: {e}")
-        return self.cache[name]
+                raise ValueError(
+                    f"Componente '{name}' não encontrado na biblioteca thermo: {e}\n"
+                    f"Verifique se o nome está correto ou adicione em esl_data.py"
+                )
+        
+        return self.cache[cache_key]
+
+
     
     def _get_fusion_properties(self, component_name):
         """
