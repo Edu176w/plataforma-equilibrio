@@ -1144,24 +1144,26 @@ UNIQUAC_PARAMETERS = {
 
     # Sistemas Sólido-Sólido (Tabela VIII - liquidus curves)
     ('Fluoreno', 'Dibenzofurano'): {
-        'u12': 500.0,    # Aumentar um pouco (estava em 100)
-        'u21': -250.0,
-        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 89 (Tabela VIII)',
-        'notes': 'Solid solution system with continuous miscibility, σT=2.2°C'
+        'u12': 25.0,    # ← MUITO PRÓXIMO DE IDEAL
+        'u21': -12.0,   # ← Assimetria fraca
+        'source': 'Ajustado para eutético x~0.92, T~82°C (Sediawan Tab I)',
+        'notes': 'Solução sólida contínua, eutético próximo de Tm(dibenzofurano)'
     },
-
+    
+    # 2. Fluoreno/Dibenzotiofeno - Gap no lado DIREITO (rico em dibenzotiofeno)
     ('Fluoreno', 'Dibenzotiofeno'): {
-        'u12': 4381.22,
-        'u21': 1796.20,
-        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 89 (Tabela VIII)',
-        'notes': 'Solid-phase immiscibility gap, σT=3.0°C'
+        'u12': -100.0,  # ← NEGATIVO (inverte comportamento)
+        'u21': 200.0,   # ← POSITIVO (cria assimetria)
+        'source': 'Ajustado para gap x=0.83-0.96 (lado direito), T_eut~97°C',
+        'notes': 'Gap no lado rico em dibenzotiofeno (x>0.8)'
     },
-
+    
+    # 3. Dibenzotiofeno/Dibenzofurano - Gap PEQUENO no lado ESQUERDO
     ('Dibenzotiofeno', 'Dibenzofurano'): {
-        'u12': 2453.41,
-        'u21': 1827.92,
-        'source': 'Domanska et al., J. Chem. Eng. Data 1993, 38(1), 89 (Tabela VIII)',
-        'notes': 'Solid-phase immiscibility gap, σT=0.4°C'
+        'u12': 40.0,    # ← REDUZIR MUITO
+        'u21': -20.0,   # ← Negativo para deslocar eutético
+        'source': 'Ajustado para eutético x~0.10, gap x=0.08-0.13 (Sediawan Tab II)',
+        'notes': 'Gap pequeno no lado rico em dibenzofurano'
     },
 
 
