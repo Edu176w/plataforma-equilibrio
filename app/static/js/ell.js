@@ -145,7 +145,7 @@ function loadComponentsFromURL() {
     const comp = urlParams.get('comp' + i);
     if (comp) {
       const c = allComponents.find(
-        x => x.name_en === comp || x.name === comp
+        x => x.name === comp || x.name === comp
       );
       if (c && selectedComponents.length < 3) {
         selectedComponents.push(c);
@@ -177,7 +177,7 @@ function updateComponentTags() {
     
     selectedComponents.forEach((comp, i) => {
         // ⭐ PRIORIZAR NOME EM PORTUGUÊS
-        const displayName = comp.name_pt || comp.name || comp.name_en;
+        const displayName = comp.name_pt || comp.name || comp.name;
         
         html += `
             <span class="component-tag">
@@ -245,7 +245,7 @@ function renderComponentList(filter = '') {
     if (term) {
         filtered = allComponents.filter(c =>
             (c.name && c.name.toLowerCase().includes(term)) ||
-            (c.name_en && c.name_en.toLowerCase().includes(term)) ||
+            (c.name && c.name.toLowerCase().includes(term)) ||
             (c.name_pt && c.name_pt.toLowerCase().includes(term)) ||
             (c.formula && c.formula.toLowerCase().includes(term)) ||
             (c.cas && c.cas.toLowerCase().includes(term))
@@ -255,11 +255,11 @@ function renderComponentList(filter = '') {
     let html = `<ul class="list-group list-group-flush">`;
     
     filtered.forEach((comp, idx) => {
-        const casNumber = comp.cas || comp.name_en || comp.name;
+        const casNumber = comp.cas || comp.name || comp.name;
         
         // ⭐ PRIORIZAR NOME EM PORTUGUÊS
-        const displayName = comp.name_pt || comp.name || comp.name_en;
-        const secondaryInfo = comp.name_en || comp.name_pt || '';
+        const displayName = comp.name_pt || comp.name || comp.name;
+        const secondaryInfo = comp.name || comp.name_pt || '';
         
         html += `
             <li class="list-group-item" style="cursor:pointer" onclick="selectComponentByCAS('${casNumber}')">
@@ -366,7 +366,7 @@ function selectComponentByCAS(casOrName) {
   
   const comp = allComponents.find(c => 
     c.cas === casOrName || 
-    c.name_en === casOrName || 
+    c.name === casOrName || 
     c.name === casOrName
   );
 
@@ -376,7 +376,7 @@ function selectComponentByCAS(casOrName) {
     return;
   }
 
-  console.log('[ELL] 📦 Componente encontrado:', comp.name, '| CAS:', comp.cas, '| name_en:', comp.name_en);
+  console.log('[ELL] 📦 Componente encontrado:', comp.name, '| CAS:', comp.cas, '| name_en:', comp.name);
 
   if (selectedComponents.length >= 3) {
     alert('ELL requer exatamente 3 componentes. Remova um antes de adicionar outro.');
@@ -387,8 +387,8 @@ function selectComponentByCAS(casOrName) {
     if (c.cas && comp.cas) {
       return c.cas === comp.cas;
     }
-    if (c.name_en && comp.name_en) {
-      return c.name_en === comp.name_en;
+    if (c.name && comp.name) {
+      return c.name === comp.name;
     }
     return c.name === comp.name;
   });
@@ -408,7 +408,7 @@ function selectComponentByCAS(casOrName) {
   
   // ⭐ NOVO: VERIFICAR MODELOS DISPONÍVEIS QUANDO COMPLETAR 3 COMPONENTES
   if (selectedComponents.length === 3) {
-    const componentNames = selectedComponents.map(c => c.name_en || c.name);
+    const componentNames = selectedComponents.map(c => c.name || c.name);
     console.log('[ELL] 🎯 3 componentes completos! Verificando modelos disponíveis...');
     
     // Aguardar 500ms para garantir que UI foi atualizada
@@ -902,7 +902,7 @@ async function calculate() {
  * FLASH L1-L2
  */
 async function calculateFlash(model) {
-    const components = selectedComponents.map(c => c.name_en || c.name);
+    const components = selectedComponents.map(c => c.name || c.name);
     const temperature = parseFloat(document.getElementById('temperature').value);
     const tempUnit = document.getElementById('tempUnit').value;
 
@@ -991,7 +991,7 @@ async function calculateFlash(model) {
  * NOVO: EXTRAÇÃO MULTI-ESTÁGIOS (KREMSER-SOUDERS-BROWN)
  */
 async function calculateExtraction(model) {
-    const components = selectedComponents.map(c => c.name_en || c.name);
+    const components = selectedComponents.map(c => c.name || c.name);
     const temperature = parseFloat(document.getElementById('temperature').value);
     const tempUnit = document.getElementById('tempUnit').value;
 
@@ -1502,7 +1502,7 @@ function displayExtractionResults(results, aiSuggestion = null, mode = 'recovery
  * DIAGRAMA TERNÁRIO
  */
 async function generateTernaryDiagram(model) {
-    const components = selectedComponents.map(c => c.name_en || c.name);
+    const components = selectedComponents.map(c => c.name || c.name);
     const temperature = parseFloat(document.getElementById('temperature').value);
     const tempUnit = document.getElementById('tempUnit').value;
     
@@ -2244,14 +2244,14 @@ async function loadPrausnitzExample(index) {
             
             const comp = allComponents.find(c => {
                 // Busca 1: Nome exato
-                if (c.name === compName || c.name_en === compName) {
+                if (c.name === compName || c.name === compName) {
                     console.log(`[ELL]   ✅ MATCH EXATO: ${c.name}`);
                     return true;
                 }
                 
                 // Busca 2: Nome normalizado
                 if (normalizeComponentName(c.name) === normalizedSearch ||
-                    normalizeComponentName(c.name_en || '') === normalizedSearch) {
+                    normalizeComponentName(c.name || '') === normalizedSearch) {
                     console.log(`[ELL]   ✅ MATCH NORMALIZADO: ${c.name}`);
                     return true;
                 }
@@ -2489,13 +2489,13 @@ async function loadPreset() {
             const normalizedSearch = normalizeComponentName(compName);
             const comp = allComponents.find(c => {
                 // Busca 1: Nome exato
-                if (c.name === compName || c.name_en === compName) {
+                if (c.name === compName || c.name === compName) {
                     console.log('[ELL] ✅ MATCH EXATO:', c.name);
                     return true;
                 }
                 // Busca 2: Nome normalizado
                 if (normalizeComponentName(c.name) === normalizedSearch || 
-                    normalizeComponentName(c.name_en) === normalizedSearch) {
+                    normalizeComponentName(c.name) === normalizedSearch) {
                     console.log('[ELL] ✅ MATCH NORMALIZADO:', c.name);
                     return true;
                 }
@@ -2648,7 +2648,7 @@ function renderAIRecommendation(aiSuggestion) {
   }
 
   const calcType = document.getElementById('calcType').value;
-  const components = selectedComponents.map(c => c.name_en || c.name).join(' · ');
+  const components = selectedComponents.map(c => c.name || c.name).join(' · ');
   const ranges = aiSuggestion.recommended_ranges || {};
   const T = ranges.temperature_C || {};
   const modelsForComps = aiSuggestion.recommended_models_for_components || [];
@@ -2824,7 +2824,7 @@ function closeCompareModal() {
 async function executeComparison() {
   closeCompareModal();
 
-  const components = selectedComponents.map(c => c.name_en || c.name);
+  const components = selectedComponents.map(c => c.name || c.name);
   const temperature = parseFloat(document.getElementById('temperature').value);
   const tempUnit = document.getElementById('tempUnit').value;
   const calcType = document.getElementById('calcType').value;
@@ -2948,7 +2948,7 @@ document.getElementById('export-pdf-points-btn')?.addEventListener('click', func
     return;
   }
 
-  const components = selectedComponents.map(c => c.name_en || c.name);
+  const components = selectedComponents.map(c => c.name || c.name);
   let diagramType = 'flash';
   if (lastDiagramType === 'extraction') {
     diagramType = 'extraction';
@@ -3009,7 +3009,7 @@ document.getElementById('export-pdf-btn')?.addEventListener('click', function() 
     return;
   }
 
-  const components = selectedComponents.map(c => c.name_en || c.name);
+  const components = selectedComponents.map(c => c.name || c.name);
   
   console.log('[ELL] Exportando diagrama ternário para PDF...');
   console.log('[ELL] Componentes:', components);
@@ -3090,7 +3090,7 @@ function exportPointsCSV() {
     return;
   }
 
-  const components = selectedComponents.map(c => c.name_en || c.name);
+  const components = selectedComponents.map(c => c.name || c.name);
   
   // Determinar tipo de diagrama
   let diagramType = 'flash';
@@ -3143,7 +3143,7 @@ function exportDiagramCSV() {
     return;
   }
 
-  const components = selectedComponents.map(c => c.name_en || c.name);
+  const components = selectedComponents.map(c => c.name || c.name);
 
   console.log('[ELL] Exportando diagrama ternário para CSV...');
 
@@ -3279,15 +3279,15 @@ document.getElementById('calcType')?.addEventListener('change', async function (
   await loadAllComponents();
   
   // Remover componentes que não estão mais disponíveis
-  const validNames = new Set(allComponents.map(c => c.name_en || c.name));
+  const validNames = new Set(allComponents.map(c => c.name || c.name));
   const removedComponents = selectedComponents.filter(
-    c => !validNames.has(c.name_en || c.name)
+    c => !validNames.has(c.name || c.name)
   );
   
   if (removedComponents.length > 0) {
     console.log('[ELL] ⚠️ Componentes removidos:', removedComponents.map(c => c.name));
     selectedComponents = selectedComponents.filter(
-      c => validNames.has(c.name_en || c.name)
+      c => validNames.has(c.name || c.name)
     );
     updateComponentTags();
     
@@ -3308,9 +3308,9 @@ document.getElementById('calcType')?.addEventListener('change', async function (
 document.getElementById('model')?.addEventListener('change', async function () {
   await loadAllComponents();  // ✅ Já recarrega
   
-  const validNames = new Set(allComponents.map(c => c.name_en || c.name));
+  const validNames = new Set(allComponents.map(c => c.name || c.name));
   selectedComponents = selectedComponents.filter(
-    c => validNames.has(c.name_en || c.name)
+    c => validNames.has(c.name || c.name)
   );
   updateComponentTags();
   updateModelInfoPanel();

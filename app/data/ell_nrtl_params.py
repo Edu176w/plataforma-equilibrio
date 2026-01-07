@@ -908,12 +908,7 @@ def get_available_components_ell_nrtl():
 def validate_ternary_system_nrtl(component_names):
     """
     Valida se existe um sistema ternário completo para os 3 componentes
-    
-    Args:
-        component_names (list): Lista com 3 nomes de componentes
-    
-    Returns:
-        dict: Resultado da validação
+    ACEITA NOMES EM PT-BR OU EN
     """
     if len(component_names) != 3:
         return {
@@ -928,9 +923,18 @@ def validate_ternary_system_nrtl(component_names):
     
     # Buscar sistema exato
     for system_key, system_data in ELL_NRTL_PARAMS.items():
-        system_components = [system_data['components'][i]['name'] for i in [1, 2, 3]]
+        # Nomes em inglês (chave do dicionário)
+        system_components_en = [system_data['components'][i]['name'] for i in [1, 2, 3]]
         
-        if normalized_names == system_components:
+        # Nomes em português (tradução)
+        system_components_pt = [
+            system_data['components'][i].get('name_pt', system_data['components'][i]['name']) 
+            for i in [1, 2, 3]
+        ]
+        
+        # ⭐ Verificar correspondência exata (inglês OU português)
+        if (normalized_names == system_components_en or 
+            normalized_names == system_components_pt):
             return {
                 'valid': True,
                 'system_key': system_key,
@@ -938,9 +942,9 @@ def validate_ternary_system_nrtl(component_names):
                 'error': None
             }
         
-        # Verificar permutações
-        if set(normalized_names) == set(system_components):
-            correct_order = ' / '.join(system_components)
+        # Verificar permutações (inglês)
+        if set(normalized_names) == set(system_components_en):
+            correct_order = ' / '.join(system_components_en)
             provided_order = ' / '.join(normalized_names)
             
             return {
@@ -950,18 +954,39 @@ def validate_ternary_system_nrtl(component_names):
                 'error': f'Componentes encontrados, mas ordem incorreta. '
                         f'Use: {correct_order} (você forneceu: {provided_order})'
             }
+        
+        # Verificar permutações (português)
+        if set(normalized_names) == set(system_components_pt):
+            correct_order_pt = ' / '.join(system_components_pt)
+            provided_order = ' / '.join(normalized_names)
+            
+            return {
+                'valid': False,
+                'system_key': None,
+                'params': None,
+                'error': f'Componentes encontrados, mas ordem incorreta. '
+                        f'Use: {correct_order_pt} (você forneceu: {provided_order})'
+            }
     
-    # Sistema não encontrado
-    available_systems = '\n'.join([' / '.join(key) for key in ELL_NRTL_PARAMS.keys()])
+    # Sistema não encontrado - mostrar lista em PT-BR
+    available_systems_pt = []
+    for key, data in ELL_NRTL_PARAMS.items():
+        components_pt = [
+            data['components'][i].get('name_pt', data['components'][i]['name']) 
+            for i in [1, 2, 3]
+        ]
+        available_systems_pt.append(' / '.join(components_pt))
+    
+    systems_list = '\n'.join(available_systems_pt)
     
     return {
         'valid': False,
         'system_key': None,
         'params': None,
-        'error': f'Sistema {" / ".join(normalized_names)} não disponível para NRTL.\n'
-                f'Sistemas NRTL disponíveis:\n{available_systems}\n\n'
-                f'💡 DICA: Para mais sistemas ELL, consulte UNIQUAC (Tabela E-6) ou UNIFAC (preditivo)'
+        'error': f'Sistema {" / ".join(normalized_names)} não disponível para NRTL.\n\n'
+                f'Sistemas NRTL disponíveis:\n{systems_list}'
     }
+
 
 
 def get_nrtl_params_ell(component_names, temperature_C=25.0):
