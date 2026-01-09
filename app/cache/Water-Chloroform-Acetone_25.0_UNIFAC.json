@@ -1,0 +1,93 @@
+{
+  "success": true,
+  "results": {
+    "T_C": 25.0,
+    "T_K": 298.15,
+    "model": "UNIFAC",
+    "components": [
+      "Water",
+      "Chloroform",
+      "Acetone"
+    ],
+    "binodal_L1": [],
+    "binodal_L2": [],
+    "tie_lines": [
+      {
+        "x_L1": [
+          0.9902306889405681,
+          0.001,
+          0.008769311059431906
+        ],
+        "x_L2": [
+          0.6630769749915403,
+          0.16895532449914116,
+          0.16796770050931856
+        ],
+        "beta": 0.8871403310674009,
+        "distance": 0.4007276765855984
+      },
+      {
+        "x_L1": [
+          0.928574262307644,
+          0.023113717992773793,
+          0.04831201969958226
+        ],
+        "x_L2": [
+          0.6081947034009012,
+          0.13088142750414258,
+          0.26092386909495624
+        ],
+        "beta": 0.7134464074235511,
+        "distance": 0.3993253554207734
+      },
+      {
+        "x_L1": [
+          0.7083705498728721,
+          0.1388023619910649,
+          0.15282708813606302
+        ],
+        "x_L2": [
+          0.4189648960112555,
+          0.19432274735918678,
+          0.3867123566295578
+        ],
+        "beta": 0.2016924068902181,
+        "distance": 0.37621863922029264
+      },
+      {
+        "x_L1": [
+          0.36811632985142845,
+          0.11429518662319525,
+          0.5175884835253762
+        ],
+        "x_L2": [
+          0.618336194239308,
+          0.0988704137200333,
+          0.28279339204065873
+        ],
+        "beta": 0.9267175681247853,
+        "distance": 0.3434772760150514
+      }
+    ],
+    "n_binodal_points": 0,
+    "n_tie_lines": 4
+  },
+  "from_cache": true,
+  "precomputed": true,
+  "metadata": {
+    "generated_at": "2026-01-08T21:34:20.585614",
+    "cache_key": "Water-Chloroform-Acetone_25.0_UNIFAC",
+    "system_name": "Water + Chloroform + Acetone (25°C) - UNIFAC",
+    "reference": "UNIFAC Preditivo - Sistema água-clorado-cetona",
+    "computation_time_seconds": 898.31,
+    "binodal_points": 0,
+    "tielines_count": 4,
+    "model": "UNIFAC",
+    "temperature_C": 25.0,
+    "components": [
+      "Water",
+      "Chloroform",
+      "Acetone"
+    ]
+  }
+}

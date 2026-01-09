@@ -1,0 +1,65 @@
+{
+  "success": true,
+  "results": {
+    "T_C": 25.0,
+    "T_K": 298.15,
+    "model": "UNIFAC",
+    "components": [
+      "Water",
+      "Chloroform",
+      "Acetic Acid"
+    ],
+    "binodal_L1": [],
+    "binodal_L2": [],
+    "tie_lines": [
+      {
+        "x_L1": [
+          0.7990741493164495,
+          0.11034699444154533,
+          0.09057885624200518
+        ],
+        "x_L2": [
+          0.49998201393646863,
+          0.35201736598932726,
+          0.14800062007420417
+        ],
+        "beta": 0.16407889021676322,
+        "distance": 0.388790345677205
+      },
+      {
+        "x_L1": [
+          0.7023265980584962,
+          0.1195947657241564,
+          0.17807863621734743
+        ],
+        "x_L2": [
+          0.9908624207367654,
+          0.001,
+          0.008137579263234551
+        ],
+        "beta": 0.1652241523071925,
+        "distance": 0.35524301860061125
+      }
+    ],
+    "n_binodal_points": 0,
+    "n_tie_lines": 2
+  },
+  "from_cache": true,
+  "precomputed": true,
+  "metadata": {
+    "generated_at": "2026-01-08T21:38:05.005428",
+    "cache_key": "Water-Chloroform-Acetic Acid_25.0_UNIFAC",
+    "system_name": "Water + Chloroform + Acetic Acid (25°C) - UNIFAC",
+    "reference": "UNIFAC Preditivo - Comparação com NRTL/UNIQUAC",
+    "computation_time_seconds": 224.41,
+    "binodal_points": 0,
+    "tielines_count": 2,
+    "model": "UNIFAC",
+    "temperature_C": 25.0,
+    "components": [
+      "Water",
+      "Chloroform",
+      "Acetic Acid"
+    ]
+  }
+}
