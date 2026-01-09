@@ -33,3 +33,6 @@ instance/
 # OS
 .DS_Store
 Thumbs.db
+
+# Cache de diagramas pre-computados
+app/cache/

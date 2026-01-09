@@ -1194,7 +1194,7 @@ function displayFlashResults(results, aiSuggestion = null) {
         <div class="results-grid">
           <div class="result-item">
             <span class="label">T (°C)</span>
-            <span class="value">${safeFormat(results.TC, 2)}</span>
+            <span class="value">${safeFormat(results.T_C, 2)}</span>
           </div>
           <div class="result-item">
             <span class="label">T (K)</span>
@@ -1367,7 +1367,7 @@ function displayExtractionResults(results, aiSuggestion = null, mode = 'recovery
         <div class="results-grid">
           <div class="result-item">
             <span class="label">Temperatura</span>
-            <span class="value">${safeFormat(results.TC, 1)}°C</span>
+            <span class="value">${safeFormat(results.T_C, 1)}°C</span>
           </div>
           <div class="result-item">
             <span class="label">Modelo</span>
@@ -1591,7 +1591,7 @@ function renderTernaryDiagram(results, aiSuggestion = null) {
     renderAIRecommendation(aiSuggestion);
     
     let html = `<div class="results-card">`;
-    html += `<h4 class="mb-3"><i class="bi bi-diagram-3"></i> Diagrama Ternário - ${results.model} a ${results.TC.toFixed(1)}°C</h4>`;
+    html += `<h4 class="mb-3"><i class="bi bi-diagram-3"></i> Diagrama Ternário - ${results.model} a ${results.T_C.toFixed(1)}°C</h4>`;
     html += `<div id="ternaryDiagram" style="width:100%;height:600px;"></div>`;
     html += `</div>`;
     resultsDiv.innerHTML = html;
@@ -1827,7 +1827,7 @@ function plotTernaryDiagram(results) {
     
     const layout = {
         title: {
-            text: `Diagrama Ternário ELL - ${components.join(' / ')} @ ${results.TC}°C`,
+            text: `Diagrama Ternário ELL - ${components.join(' / ')} @ ${results.T_C}°C`,
             font: { size: 16, color: '#f1f5f9' }
         },
         ternary: {
@@ -2800,7 +2800,6 @@ function applyAIParameters() {
 // COMPARAÇÃO DE MODELOS
 // ============================================================================
 
-
 function showCompareModal() {
   if (selectedComponents.length !== 3) {
     alert('Selecione exatamente 3 componentes antes de comparar modelos.');
@@ -2815,14 +2814,25 @@ function showCompareModal() {
   document.getElementById('compareModal').style.display = 'block';
 }
 
-
 function closeCompareModal() {
   document.getElementById('compareModal').style.display = 'none';
 }
 
-
 async function executeComparison() {
   closeCompareModal();
+
+  // ⭐ CORRIGIR O SELETOR: usar .model-compare-checkbox ao invés de name="model_compare"
+  const selectedModels = [];
+  document.querySelectorAll('.model-compare-checkbox:checked').forEach(checkbox => {
+    selectedModels.push(checkbox.value);
+  });
+
+  console.log('[COMPARAÇÃO] Modelos selecionados:', selectedModels);
+
+  if (selectedModels.length < 2) {
+    alert('Selecione pelo menos 2 modelos para comparar.');
+    return;
+  }
 
   const components = selectedComponents.map(c => c.name || c.name);
   const temperature = parseFloat(document.getElementById('temperature').value);
@@ -2833,7 +2843,8 @@ async function executeComparison() {
     components,
     temperature,
     temperature_unit: tempUnit,
-    calculation_type: 'flash'
+    calculation_type: 'flash',
+    models: selectedModels
   };
 
   if (calcType === 'ell_flash') {
@@ -2865,67 +2876,437 @@ async function executeComparison() {
 }
 
 
+
 function displayComparison(results) {
   const container = document.getElementById('comparison-diagram-container');
   if (!container) return;
 
   let html = '<div class="results-card">';
-  html += '<h4 class="mb-3"><i class="bi bi-bar-chart"></i> Comparação de Modelos</h4>';
+  html += '<h4 class="mb-3"><i class="bi bi-bar-chart"></i> Comparação de Modelos Termodinâmicos</h4>';
+  
+  // Container com grid para cards lado a lado
+  html += '<div class="row g-3">';
 
-  ['NRTL', 'UNIQUAC'].forEach(modelName => {
+  // ⭐ ITERAR APENAS SOBRE MODELOS QUE FORAM CALCULADOS (com sucesso OU erro)
+  const allModels = ['NRTL', 'UNIQUAC', 'UNIFAC'];
+  
+  allModels.forEach(modelName => {
     const res = results[modelName];
+    
+    // ⭐ Se modelo não foi testado/retornado pelo backend, PULAR
+    if (!res) return;
 
+    // ⭐ Se deu erro, mostrar card de erro
     if (res.error) {
       html += `
-        <div class="alert alert-warning mb-3">
-          Modelo <strong>${modelName}</strong>: ${escapeHtml(res.error)}
+        <div class="col-lg-6">
+          <div class="model-comparison-card error-card">
+            <h5 class="model-title">
+              <i class="bi bi-exclamation-triangle"></i> ${modelName}
+            </h5>
+            <div class="alert alert-warning mb-0">
+              ${escapeHtml(res.error)}
+            </div>
+          </div>
         </div>
       `;
       return;
     }
 
+    // ✅ Card com diagrama + tabela
     html += `
-      <div class="mt-3 mb-4 p-3" style="border-radius:8px;border:1px solid rgba(148,163,184,0.4);">
-        <h6 class="mb-2"><i class="bi bi-diagram-3"></i> Modelo <strong>${modelName}</strong></h6>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <h6 class="section-title-sm">Frações de Fase</h6>
-            <div class="results-grid">
-              <div class="result-item">
-                <span class="label">β (Fração L2)</span>
-                <span class="value">${res.beta.toFixed(4)}</span>
-              </div>
-            </div>
+      <div class="col-lg-6">
+        <div class="model-comparison-card">
+          <h5 class="model-title">
+            <i class="bi bi-diagram-3"></i> ${modelName}
+          </h5>
+          
+          <!-- Diagrama Ternário COMPLETO -->
+          <div class="diagram-container mb-3">
+            <canvas id="ternary-${modelName}" width="500" height="500"></canvas>
           </div>
-          <div class="col-md-6">
-            <h6 class="section-title-sm">Composição L1</h6>
-            <div class="results-grid">
+          
+          <!-- Tabela de Dados Numéricos (Collapsible) -->
+          <div class="accordion accordion-flush" id="accordion-${modelName}">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" 
+                        data-bs-toggle="collapse" data-bs-target="#collapse-${modelName}">
+                  <i class="bi bi-table"></i> Ver dados numéricos
+                </button>
+              </h2>
+              <div id="collapse-${modelName}" class="accordion-collapse collapse" 
+                   data-bs-parent="#accordion-${modelName}">
+                <div class="accordion-body p-2">
+                  <table class="table table-sm table-dark table-striped mb-0">
+                    <thead>
+                      <tr>
+                        <th>Propriedade</th>
+                        <th>Valor</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>β (Fração L2)</strong></td>
+                        <td>${res.beta.toFixed(4)}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Sistema</strong></td>
+                        <td>${res.two_phase ? '✅ Bifásico' : '⚠️ Monofásico'}</td>
+                      </tr>
+                      <tr class="table-secondary">
+                        <td colspan="2"><strong>Fase L1 (Aquosa)</strong></td>
+                      </tr>
     `;
 
-    res.x_L1.forEach((x, i) => {
+    // Composições L1
+    selectedComponents.forEach((comp, i) => {
       html += `
-        <div class="result-item">
-          <span class="label">x<sub>L1,${i+1}</sub></span>
-          <span class="value">${x.toFixed(4)}</span>
-        </div>
+                      <tr>
+                        <td>x<sub>L1</sub> (${comp.name_pt || comp.name})</td>
+                        <td>${res.x_L1[i].toFixed(4)}</td>
+                      </tr>
       `;
     });
 
     html += `
+                      <tr class="table-secondary">
+                        <td colspan="2"><strong>Fase L2 (Orgânica)</strong></td>
+                      </tr>
+    `;
+
+    // Composições L2
+    selectedComponents.forEach((comp, i) => {
+      html += `
+                      <tr>
+                        <td>x<sub>L2</sub> (${comp.name_pt || comp.name})</td>
+                        <td>${res.x_L2[i].toFixed(4)}</td>
+                      </tr>
+      `;
+    });
+
+    html += `
+                      <tr class="table-secondary">
+                        <td colspan="2"><strong>Coeficientes K<sub>i</sub></strong></td>
+                      </tr>
+    `;
+
+    // Coeficientes K
+    selectedComponents.forEach((comp, i) => {
+      html += `
+                      <tr>
+                        <td>K<sub>${i+1}</sub> (${comp.name_pt || comp.name})</td>
+                        <td>${res.K[i].toFixed(4)}</td>
+                      </tr>
+      `;
+    });
+
+    html += `
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
+          
         </div>
       </div>
     `;
   });
 
-  html += '</div>';
+  html += '</div>'; // Fecha row
+  html += '</div>'; // Fecha results-card
+  
   const compContent = document.getElementById('comparison-content');
   if (compContent) {
     compContent.innerHTML = html;
   }
   container.style.display = 'block';
+
+  // ⭐ RENDERIZAR DIAGRAMAS TERNÁRIOS COMPLETOS para cada modelo BEM-SUCEDIDO
+  setTimeout(() => {
+    allModels.forEach(modelName => {
+      const res = results[modelName];
+      if (!res || res.error) return;
+      
+      renderTernaryDiagramComparison(modelName, res);
+    });
+  }, 100);
 }
+
+
+// ============================================================================
+// RENDERIZAR DIAGRAMA TERNÁRIO COMPLETO PARA COMPARAÇÃO (COM BINODAL)
+// ============================================================================
+
+async function renderTernaryDiagramComparison(modelName, result) {
+  const canvas = document.getElementById(`ternary-${modelName}`);
+  if (!canvas) {
+    console.error(`Canvas ternary-${modelName} não encontrado`);
+    return;
+  }
+
+  try {
+    // ⭐ BUSCAR DADOS COMPLETOS DO DIAGRAMA DO BACKEND
+    const components = selectedComponents.map(c => c.name);
+    const temperature = parseFloat(document.getElementById('temperature').value);
+    const tempUnit = document.getElementById('tempUnit').value;
+
+    console.log(`[COMPARAÇÃO] Buscando diagrama ${modelName}...`);
+
+    const response = await fetch('/ell/diagram/ternary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        components: components,
+        temperature: temperature,
+        temperature_unit: tempUnit,
+        model: modelName
+      })
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      console.error(`Erro ao buscar diagrama ${modelName}:`, data.error);
+      return;
+    }
+
+    console.log(`[COMPARAÇÃO] Dados recebidos para ${modelName}:`, data);
+
+    // ⭐ ACESSAR DADOS CORRETAMENTE (vem em data.results)
+    const binodal_L1 = data.results?.binodal_L1 || [];
+    const binodal_L2 = data.results?.binodal_L2 || [];
+    const tie_lines = data.results?.tie_lines || [];
+
+    console.log(`[COMPARAÇÃO] ${modelName}:`);
+    console.log(`  - binodal_L1: ${binodal_L1.length} pontos`);
+    console.log(`  - binodal_L2: ${binodal_L2.length} pontos`);
+    console.log(`  - tie_lines: ${tie_lines.length} linhas`);
+
+    // Combinar binodais (L1 já contém toda a curva, L2 está vazio)
+    let binodal_curve = [];
+    if (binodal_L1.length > 0 && binodal_L2.length > 0) {
+      // Se tem duas curvas, juntar
+      binodal_curve = [...binodal_L1, ...binodal_L2.reverse()];
+    } else if (binodal_L1.length > 0) {
+      // Apenas L1 (já é a curva completa fechada)
+      binodal_curve = binodal_L1;
+    } else if (binodal_L2.length > 0) {
+      binodal_curve = binodal_L2;
+    }
+
+    console.log(`[COMPARAÇÃO] ${modelName} - Curva binodal final: ${binodal_curve.length} pontos`);
+
+    if (binodal_curve.length === 0 && tie_lines.length === 0) {
+      console.warn(`[COMPARAÇÃO] ${modelName} - Sem dados para plotar!`);
+      return;
+    }
+
+    // ⭐ RENDERIZAR NO CANVAS
+    renderTernaryDiagramOnCanvas(canvas, {
+      binodal_curve: binodal_curve,
+      tie_lines: tie_lines
+    }, selectedComponents, modelName);
+
+  } catch (error) {
+    console.error(`Erro ao renderizar diagrama ${modelName}:`, error);
+  }
+}
+
+// ============================================================================
+// FUNÇÃO AUXILIAR PARA DESENHAR DIAGRAMA NO CANVAS
+// ============================================================================
+
+function renderTernaryDiagramOnCanvas(canvas, diagramData, components, modelName) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+
+  console.log(`[CANVAS] Renderizando ${modelName}...`);
+  console.log(`  - Binodal: ${diagramData.binodal_curve?.length || 0} pontos`);
+  console.log(`  - Tie-lines: ${diagramData.tie_lines?.length || 0} linhas`);
+
+  // Limpar canvas
+  ctx.clearRect(0, 0, w, h);
+
+  // Configuração do triângulo
+  const margin = 50;
+  const size = Math.min(w, h) - 2 * margin;
+  const h_tri = (Math.sqrt(3) / 2) * size;
+
+  const A = { x: w / 2, y: margin };                    // Topo (Acetic Acid - componente 3)
+  const B = { x: w / 2 - size / 2, y: margin + h_tri }; // Esquerda (Water - componente 1)
+  const C = { x: w / 2 + size / 2, y: margin + h_tri }; // Direita (MIBK - componente 2)
+
+  // ⭐ FUNÇÃO CORRIGIDA: Converter composição ternária [x1, x2, x3] em coordenadas canvas (x, y)
+  function ternaryToXY(x1, x2, x3) {
+    // x1 = Water (esquerda-baixo = B)
+    // x2 = MIBK (direita-baixo = C)
+    // x3 = Acetic Acid (topo = A)
+    const x = B.x + (C.x - B.x) * x2 + (A.x - B.x) * x3;
+    const y = B.y + (A.y - B.y) * x3;
+    return { x, y };
+  }
+
+  // ========== DESENHAR TRIÂNGULO ==========
+  ctx.strokeStyle = '#64748b';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(A.x, A.y);
+  ctx.lineTo(B.x, B.y);
+  ctx.lineTo(C.x, C.y);
+  ctx.closePath();
+  ctx.stroke();
+
+  // ========== LABELS DOS COMPONENTES (⭐ CORRIGIDOS) ==========
+  ctx.fillStyle = '#e2e8f0';
+  ctx.font = 'bold 13px sans-serif';
+  ctx.textAlign = 'center';
+  
+  const comp1 = components[0]?.name_pt || components[0]?.name || 'C1'; // Water
+  const comp2 = components[1]?.name_pt || components[1]?.name || 'C2'; // MIBK
+  const comp3 = components[2]?.name_pt || components[2]?.name || 'C3'; // Acetic Acid
+  
+  ctx.fillText(comp3, A.x, A.y - 15);      // Acetic Acid no topo
+  ctx.fillText(comp1, B.x - 40, B.y + 25); // Water na esquerda
+  ctx.fillText(comp2, C.x + 40, C.y + 25); // MIBK na direita
+
+  // ========== DESENHAR CURVA BINODAL ==========
+  if (diagramData.binodal_curve && diagramData.binodal_curve.length > 0) {
+    console.log(`[CANVAS] Desenhando binodal com ${diagramData.binodal_curve.length} pontos...`);
+    
+    ctx.strokeStyle = '#10b981'; // Verde
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+
+    diagramData.binodal_curve.forEach((point, i) => {
+      // Ponto pode ser array [x1, x2, x3] ou objeto {0: x1, 1: x2, 2: x3}
+      const x1 = point[0]; // Water
+      const x2 = point[1]; // MIBK
+      const x3 = point[2]; // Acetic Acid
+      
+      const pos = ternaryToXY(x1, x2, x3);
+      
+      if (i === 0) {
+        ctx.moveTo(pos.x, pos.y);
+      } else {
+        ctx.lineTo(pos.x, pos.y);
+      }
+    });
+
+    ctx.stroke();
+    console.log(`[CANVAS] ✅ Binodal desenhada`);
+  } else {
+    console.warn(`[CANVAS] ⚠️ Binodal vazia ou não encontrada`);
+  }
+
+  // ========== DESENHAR TIE-LINES (⭐ CORRIGIDAS: L2 → L1) ==========
+  if (diagramData.tie_lines && diagramData.tie_lines.length > 0) {
+    console.log(`[CANVAS] Desenhando ${diagramData.tie_lines.length} tie-lines...`);
+    
+    diagramData.tie_lines.forEach((tieLine, idx) => {
+      // Backend retorna: {x_L1: [x1, x2, x3], x_L2: [x1, x2, x3], beta, distance}
+      const L1_data = tieLine.x_L1; // Fase aquosa (esquerda)
+      const L2_data = tieLine.x_L2; // Fase orgânica (direita)
+
+      if (!L1_data || !L2_data) {
+        console.warn(`[CANVAS] Tie-line ${idx} sem dados L1/L2`);
+        return;
+      }
+
+      const L1 = ternaryToXY(L1_data[0], L1_data[1], L1_data[2]);
+      const L2 = ternaryToXY(L2_data[0], L2_data[1], L2_data[2]);
+
+      // ⭐ Linha tie-line: L2 → L1 (direita para esquerda)
+      ctx.strokeStyle = '#8b5cf6';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(L2.x, L2.y); // ⭐ COMEÇAR EM L2
+      ctx.lineTo(L1.x, L1.y); // ⭐ TERMINAR EM L1
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Pontos nas extremidades
+      // L1 (Aquosa - Azul)
+      ctx.fillStyle = '#3b82f6';
+      ctx.beginPath();
+      ctx.arc(L1.x, L1.y, 5, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // L2 (Orgânica - Laranja)
+      ctx.fillStyle = '#f59e0b';
+      ctx.beginPath();
+      ctx.arc(L2.x, L2.y, 5, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    });
+    
+    console.log(`[CANVAS] ✅ ${diagramData.tie_lines.length} tie-lines desenhadas`);
+  } else {
+    console.warn(`[CANVAS] ⚠️ Nenhuma tie-line encontrada`);
+  }
+
+  // ========== LEGENDA ==========
+  const legendY = h - margin + 15;
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'left';
+  
+  let legendX = margin;
+  
+  // Binodal
+  if (diagramData.binodal_curve && diagramData.binodal_curve.length > 0) {
+    ctx.strokeStyle = '#10b981';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(legendX, legendY);
+    ctx.lineTo(legendX + 25, legendY);
+    ctx.stroke();
+    ctx.fillStyle = '#e2e8f0';
+    ctx.fillText('Binodal', legendX + 30, legendY + 4);
+    legendX += 90;
+  }
+  
+  // Tie-lines
+  if (diagramData.tie_lines && diagramData.tie_lines.length > 0) {
+    ctx.strokeStyle = '#8b5cf6';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(legendX, legendY);
+    ctx.lineTo(legendX + 25, legendY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#e2e8f0';
+    ctx.fillText('Tie-lines', legendX + 30, legendY + 4);
+    legendX += 85;
+  }
+
+  // Fases
+  ctx.fillStyle = '#3b82f6';
+  ctx.fillRect(legendX, legendY - 4, 10, 10);
+  ctx.fillStyle = '#e2e8f0';
+  ctx.fillText('L1', legendX + 15, legendY + 4);
+  legendX += 45;
+  
+  ctx.fillStyle = '#f59e0b';
+  ctx.fillRect(legendX, legendY - 4, 10, 10);
+  ctx.fillStyle = '#e2e8f0';
+  ctx.fillText('L2', legendX + 15, legendY + 4);
+  
+  console.log(`[CANVAS] ✅ Renderização completa de ${modelName}`);
+}
+
+
+
+
+
 
 
 // ============================================================================

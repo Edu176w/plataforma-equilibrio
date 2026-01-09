@@ -83,15 +83,16 @@ ell_bp = Blueprint('ell', __name__, url_prefix='/ell')
 # ============================================================================
 
 # Cache em memória (runtime - super rápido) + disco (pré-calculado - rápido)
-CACHE_DIR = Path("static/cache/diagrams")
+CACHE_DIR = Path("app/cache")
 MEMORY_CACHE = {}
 
 def get_cache_key(components, temperature, model):
     """
     Gera chave de cache única para diagrama ternário
+    MANTÉM A ORDEM ORIGINAL dos componentes (não ordena alfabeticamente)
     
     Args:
-        components: Lista com 3 nomes de componentes
+        components: Lista com 3 nomes de componentes NA ORDEM CORRETA
         temperature: Temperatura em °C
         model: Modelo termodinâmico (NRTL, UNIQUAC, UNIFAC)
     
@@ -99,12 +100,18 @@ def get_cache_key(components, temperature, model):
         String no formato: "Component1-Component2-Component3_25.0_NRTL"
     
     Exemplo:
-        >>> get_cache_key(['Water', 'Acetone', 'TCE'], 25.0, 'NRTL')
-        'Acetone-TCE-Water_25.0_NRTL'
+        >>> get_cache_key(['Water', '1-Butanol', 'Acetone'], 25.0, 'NRTL')
+        'Water-1-Butanol-Acetone_25.0_NRTL'  # ⭐ ORDEM MANTIDA
+    
+    IMPORTANTE: A ordem dos componentes DEVE ser a mesma definida em:
+        - ELL_NRTL_PARAMS (para NRTL)
+        - ELL_UNIQUAC_PARAMS (para UNIQUAC)
+        - Decomposição UNIFAC_MOLECULES (para UNIFAC)
     """
-    comp_sorted = sorted(components)
-    comp_str = "-".join(comp_sorted)
+    # ⭐ NÃO USAR sorted() - manter ordem original dos parâmetros!
+    comp_str = "-".join(components)
     return f"{comp_str}_{temperature:.1f}_{model}"
+
 
 
 def load_from_disk_cache(cache_key):
@@ -1108,6 +1115,58 @@ def generate_ternary_diagram():
             'success': False,
             'error': f'Erro ao gerar diagrama: {str(e)}'
         }), 500
+        
+def get_ell_diagram_cached(components, temperature, model):
+    """
+    Busca diagrama ELL pré-computado do cache (memória ou disco)
+    
+    Args:
+        components: Lista de 3 componentes
+        temperature: Temperatura em °C
+        model: 'NRTL', 'UNIQUAC' ou 'UNIFAC'
+    
+    Returns:
+        dict: {'success': True/False, 'results': {...}, 'from_cache': True}
+    """
+    try:
+        # Gerar chave de cache (mesma função usada em /diagram/ternary)
+        cache_key = get_cache_key(components, temperature, model)
+        
+        # 1️⃣ TENTAR CACHE DE MEMÓRIA
+        if cache_key in MEMORY_CACHE:
+            cached = MEMORY_CACHE[cache_key]
+            return {
+                'success': True,
+                'results': cached.get('results', {}),
+                'from_cache': True,
+                'cache_level': 'memory'
+            }
+        
+        # 2️⃣ TENTAR CACHE DE DISCO
+        disk_data = load_from_disk_cache(cache_key)
+        if disk_data:
+            # Promover para memória
+            MEMORY_CACHE[cache_key] = disk_data
+            
+            return {
+                'success': True,
+                'results': disk_data.get('results', {}),
+                'from_cache': True,
+                'cache_level': 'disk'
+            }
+        
+        # 3️⃣ NÃO ENCONTRADO
+        return {
+            'success': False,
+            'error': f'Diagrama não disponível no cache para {model}'
+        }
+        
+    except Exception as e:
+        return {
+            'success': False,
+            'error': f'Erro ao buscar cache: {str(e)}'
+        }
+
 
 
 # ============================================================================
@@ -1117,15 +1176,28 @@ def generate_ternary_diagram():
 @ell_bp.route('/compare', methods=['POST'])
 def compare_models():
     """
-    Compara resultados entre NRTL e UNIQUAC
+    Compara resultados entre modelos selecionados (NRTL, UNIQUAC e/ou UNIFAC)
+    VERSÃO 2.0 - USA CACHE DE DIAGRAMAS PRÉ-COMPUTADOS
     """
     try:
         data = request.get_json()
         
         components = data.get('components', [])
-        z_feed = data.get('z_feed', [])
+        z_feed_raw = data.get('z_feed', [])
         temperature = float(data.get('temperature', 25.0))
         temp_unit = data.get('temperature_unit', 'C')
+        
+        # ⭐ PEGAR APENAS OS MODELOS SELECIONADOS PELO USUÁRIO
+        selected_models = data.get('models', ['NRTL', 'UNIQUAC', 'UNIFAC'])
+        
+        # ⭐ VALIDAR z_feed
+        if not z_feed_raw or len(z_feed_raw) != 3 or sum(z_feed_raw) == 0:
+            z_feed = [0.333, 0.333, 0.334]
+            print(f"[ELL COMPARAÇÃO] ⚠️ z_feed inválido ({z_feed_raw}), usando equimolar")
+        else:
+            # Normalizar
+            z_sum = sum(z_feed_raw)
+            z_feed = [z/z_sum for z in z_feed_raw]
         
         # Converter temperatura para °C
         if temp_unit == 'K':
@@ -1134,7 +1206,7 @@ def compare_models():
             temperature = (temperature - 32.0) * 5.0 / 9.0
         
         print(f"\n{'='*70}")
-        print(f"[ELL COMPARAÇÃO] Comparando NRTL vs UNIQUAC")
+        print(f"[ELL COMPARAÇÃO] Comparando {' vs '.join(selected_models)}")
         print(f"  Componentes: {components}")
         print(f"  z_feed: {z_feed}")
         print(f"  Temperatura: {temperature}°C")
@@ -1142,60 +1214,126 @@ def compare_models():
         
         results = {}
         
-        # Calcular com NRTL
-        try:
-            print("[ELL COMPARAÇÃO] Calculando com NRTL...")
-            result_nrtl = calculate_ell_flash(components, z_feed, temperature, 'NRTL')
-            if result_nrtl['success']:
-                results['NRTL'] = convert_to_python_native(result_nrtl['results'])
-                print(f"[ELL COMPARAÇÃO] ✅ NRTL: β={results['NRTL']['beta']:.4f}")
-            else:
-                results['NRTL'] = {'error': result_nrtl.get('error')}
-                print(f"[ELL COMPARAÇÃO] ❌ NRTL: {results['NRTL']['error']}")
-        except Exception as e:
-            results['NRTL'] = {'error': str(e)}
-            print(f"[ELL COMPARAÇÃO] ❌ NRTL exception: {str(e)}")
-        
-        # Calcular com UNIQUAC
-        try:
-            print("[ELL COMPARAÇÃO] Calculando com UNIQUAC...")
-            result_uniquac = calculate_ell_flash(components, z_feed, temperature, 'UNIQUAC')
-            if result_uniquac['success']:
-                results['UNIQUAC'] = convert_to_python_native(result_uniquac['results'])
-                print(f"[ELL COMPARAÇÃO] ✅ UNIQUAC: β={results['UNIQUAC']['beta']:.4f}")
-            else:
-                results['UNIQUAC'] = {'error': result_uniquac.get('error')}
-                print(f"[ELL COMPARAÇÃO] ❌ UNIQUAC: {results['UNIQUAC']['error']}")
-        except Exception as e:
-            results['UNIQUAC'] = {'error': str(e)}
-            print(f"[ELL COMPARAÇÃO] ❌ UNIQUAC exception: {str(e)}")
-        
-        # Análise comparativa
-        comparison = {}
-        if ('error' not in results.get('NRTL', {}) and 
-            'error' not in results.get('UNIQUAC', {})):
-            
-            nrtl = results['NRTL']
-            uniquac = results['UNIQUAC']
-            
-            comparison['beta_difference'] = abs(nrtl['beta'] - uniquac['beta'])
-            comparison['both_two_phase'] = (nrtl['two_phase'] and uniquac['two_phase'])
-            
-            if comparison['both_two_phase']:
-                x_L1_nrtl = np.array(nrtl['x_L1'])
-                x_L1_uniquac = np.array(uniquac['x_L1'])
-                x_L2_nrtl = np.array(nrtl['x_L2'])
-                x_L2_uniquac = np.array(uniquac['x_L2'])
+        # ⭐ BUSCAR DADOS DO CACHE PARA CADA MODELO
+        for model in selected_models:
+            try:
+                print(f"[ELL COMPARAÇÃO] Buscando {model} no cache...")
                 
-                comparison['composition_difference_L1'] = float(np.linalg.norm(x_L1_nrtl - x_L1_uniquac))
-                comparison['composition_difference_L2'] = float(np.linalg.norm(x_L2_nrtl - x_L2_uniquac))
+                # Buscar diagrama pré-computado (igual à rota /diagram/ternary)
+                cache_result = get_ell_diagram_cached(components, temperature, model)
+                
+                if not cache_result['success']:
+                    results[model] = {'error': cache_result.get('error', 'Diagrama não disponível no cache')}
+                    print(f"[ELL COMPARAÇÃO] ❌ {model}: {results[model]['error']}")
+                    continue
+                
+                diagram_data = cache_result['results']
+                tie_lines = diagram_data.get('tie_lines', [])
+                
+                if not tie_lines or len(tie_lines) == 0:
+                    results[model] = {'error': 'Nenhuma tie-line disponível'}
+                    print(f"[ELL COMPARAÇÃO] ❌ {model}: sem tie-lines")
+                    continue
+                
+                # ⭐ ENCONTRAR TIE-LINE MAIS PRÓXIMA AO z_feed
+                z_array = np.array(z_feed)
+                best_tie = None
+                min_distance = float('inf')
+                
+                for tie in tie_lines:
+                    # Calcular ponto médio da tie-line (aproximação)
+                    x_L1 = np.array(tie['x_L1'])
+                    x_L2 = np.array(tie['x_L2'])
+                    beta_tie = tie['beta']
+                    
+                    # Composição global que geraria essa tie-line
+                    z_tie = beta_tie * x_L2 + (1 - beta_tie) * x_L1
+                    
+                    # Distância euclidiana
+                    dist = np.linalg.norm(z_array - z_tie)
+                    
+                    if dist < min_distance:
+                        min_distance = dist
+                        best_tie = tie
+                
+                # ⭐ PROCESSAR MELHOR TIE-LINE ENCONTRADA
+                if best_tie:
+                    x_L1 = np.array(best_tie['x_L1'])
+                    x_L2 = np.array(best_tie['x_L2'])
+                    
+                    # Calcular coeficientes de distribuição K = x_L2 / x_L1
+                    K = []
+                    for i in range(3):
+                        if x_L1[i] > 1e-10:
+                            K.append(float(x_L2[i] / x_L1[i]))
+                        else:
+                            K.append(0.0)
+                    
+                    results[model] = {
+                        'components': components,      # ⭐ Para o JavaScript
+                        'beta': best_tie['beta'],
+                        'x_L1': best_tie['x_L1'],
+                        'x_L2': best_tie['x_L2'],
+                        'K': K,                        # ⭐ Coeficientes de distribuição
+                        'distance': best_tie.get('distance', 0.0),
+                        'two_phase': True,
+                        'match_distance': float(min_distance)
+                    }
+                    print(f"[ELL COMPARAÇÃO] ✅ {model}: β={best_tie['beta']:.4f} (dist={min_distance:.4f})")
+                else:
+                    results[model] = {'error': 'Nenhuma tie-line válida encontrada'}
+                    print(f"[ELL COMPARAÇÃO] ❌ {model}: sem tie-line válida")
+                    
+            except Exception as e:
+                results[model] = {'error': str(e)}
+                print(f"[ELL COMPARAÇÃO] ❌ {model} exception: {str(e)}")
         
-        print(f"[ELL COMPARAÇÃO] ✅ Comparação concluída\n")
+        # ⭐ ANÁLISE COMPARATIVA
+        comparison = {}
+        successful_models = [m for m in selected_models if 'error' not in results.get(m, {})]
+        
+        if len(successful_models) >= 2:
+            print(f"[ELL COMPARAÇÃO] 📊 Comparando {len(successful_models)} modelos bem-sucedidos")
+            
+            for i, model1 in enumerate(successful_models):
+                for model2 in successful_models[i+1:]:
+                    pair_key = f"{model1}_vs_{model2}"
+                    
+                    result1 = results[model1]
+                    result2 = results[model2]
+                    
+                    comparison[pair_key] = {
+                        'beta_difference': abs(result1['beta'] - result2['beta']),
+                        'both_two_phase': (result1.get('two_phase', False) and 
+                                         result2.get('two_phase', False))
+                    }
+                    
+                    if comparison[pair_key]['both_two_phase']:
+                        x_L1_1 = np.array(result1['x_L1'])
+                        x_L1_2 = np.array(result2['x_L1'])
+                        x_L2_1 = np.array(result1['x_L2'])
+                        x_L2_2 = np.array(result2['x_L2'])
+                        
+                        comparison[pair_key]['composition_difference_L1'] = float(
+                            np.linalg.norm(x_L1_1 - x_L1_2)
+                        )
+                        comparison[pair_key]['composition_difference_L2'] = float(
+                            np.linalg.norm(x_L2_1 - x_L2_2)
+                        )
+                        
+                        print(f"[ELL COMPARAÇÃO]   {model1} vs {model2}:")
+                        print(f"                  Δβ = {comparison[pair_key]['beta_difference']:.4f}")
+                        print(f"                  ΔxL1 = {comparison[pair_key]['composition_difference_L1']:.4f}")
+                        print(f"                  ΔxL2 = {comparison[pair_key]['composition_difference_L2']:.4f}")
+        
+        print(f"[ELL COMPARAÇÃO] ✅ Comparação concluída (via cache)\n")
         
         return jsonify({
             'success': True,
             'results': results,
-            'comparison': comparison
+            'comparison': comparison,
+            'successful_models': successful_models,
+            'from_cache': True  # ⭐ INDICAR QUE VEIO DO CACHE
         })
         
     except Exception as e:
@@ -1206,6 +1344,10 @@ def compare_models():
             'success': False,
             'error': f'Erro na comparação: {str(e)}'
         }), 500
+
+
+
+
 
 # ============================================================================
 # EXPORTAÇÃO: CSV
